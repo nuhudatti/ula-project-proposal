@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Beginner Cohort 25 Resources</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .file-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .category-tab.active {
+      border-bottom: 3px solid #3b82f6;
+      color: #3b82f6;
+    }
+     .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <i class="fas fa-python text-blue-600 mr-2"></i> Python Beginner Cohort 25
+      </h1>
+      <div class="text-sm text-gray-600 italic font-medium">
+              <p><span id="typed2"></span></p>
+            </div>
+      <p class="text-gray-600">All learning materials and downloadable resources</p>
+
+      <!-- Download All ZIP -->
+      <div class="mt-6">
+        <a href="./resources/resources.zip" download class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg mr-4 transition">
+          16.6 MB <i class="fas fa-download mr-2"></i> Download All Materials (ZIP)
+        </a>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <div class="flex overflow-x-auto mb-6 border-b">
+      <button class="category-tab active px-4 py-2 font-medium whitespace-nowrap" data-category="all">All Resources</button>
+      <button class="category-tab px-4 py-2 font-medium whitespace-nowrap" data-category="project">Projects</button>
+      <button class="category-tab px-4 py-2 font-medium whitespace-nowrap" data-category="materials">Learning Materials</button>
+       <button class="category-tab px-4 py-2 font-medium whitespace-nowrap" data-category="code">Code</button>
+      <button class="category-tab px-4 py-2 font-medium whitespace-nowrap" data-category="Exams">Exams</button>
+    </div>
+
+    <!-- Resource Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resource-container"></div>
+  </div>
+   <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    const resources = [
+      {
+        id: 1,
+        title: "Cohort 25 Project",
+        category: "project",
+        date: "6/1/2025",
+        size: "221 KB",
+        type: "docx",
+        file: "python_beginners_cohort_25_project.docx",
+        img: "../imgs/cohorh_project.png"
+      },
+      {
+        id: 2,
+        title: "Cohort 25 Project e-commerce-app",
+        category: "project",
+        date: "6/1/2025",
+        size: "133 KB",
+        type: "zip",
+        file: "e-commerce-app.zip",
+        img: "../imgs/e-commerce.png"
+      },
+      {
+        id: 3,
+        title: "Marking Guide Template ",
+        category: "project",
+        date: "6/1/2025",
+        size: "21.5 KB",
+        type: "docx",
+        file: "marking_guide_template.docx",
+        img: "../imgs/marking-guide.png"
+      },
+      {
+        id: 4,
+        title: "Assignment Projects",
+        category: "project",
+        date: "6/1/2025",
+        size: "6.7 MB",
+        type: "zip",
+        file: "assignment_projects.zip",
+        img: "../imgs/assignment_project.png"
+      },
+      {
+        id: 5,
+        title: "Q & A",
+        category: "Exams",
+        date: "6/1/2025",
+        size: "90.3 MB",
+        type: "zip",
+        file: "pq_solutions.zip",
+        img: "../imgs/pq_solutions.png"
+      },
+      {
+        id: 6,
+        title: "Codes for 13/05/2025",
+        category: "code",
+        date: "6/1/2025",
+        size: "3.9 MB",
+        type: "zip",
+        file: "5_13_2025.zip",
+        img: "../imgs/code_week1.png"
+      },
+
+       {
+        id: 7,
+        title: "Codes for 14/05/2025",
+        category: "code",
+        date: "6/1/2025",
+        size: "16.1 MB",
+        type: "zip",
+        file: "5_14_2025.zip",
+        img: "../imgs/code2.png"
+      },
+
+      {
+        id: 8,
+        title: "For Loop",
+        category: "materials",
+        date: "6/1/2025",
+        size: "1492 B",
+        type: "zip",
+        file: "for_loops.zip",
+        img: "../imgs/for_loop.png"
+      },
+
+       {
+        id: 9,
+        title: "Loops, Conditions, and Strings",
+        category: "materials",
+        date: "6/1/2025",
+        size: "1004 B",
+        type: "zip",
+        file: "In_class.zip",
+        img: "../imgs/loop_condition.png"
+      },
+         {
+        id: 10,
+        title: "Iterable Data Types",
+        category: "materials",
+        date: "6/1/2025",
+        size: "1898 B",
+        type: "zip",
+        file: "introduction_to_iterables.py.zip",
+        img: "../imgs/iterable.png"
+      },
+      {
+        id: 11,
+        title: "Reeborg’s World",
+        category: "materials",
+        date: "6/1/2025",
+        size: "4.3 MB",
+        type: "zip",
+        file: "Reeborg_Hurdles_Guide.zip",
+        img: "../imgs/reeborgs.png"
+      },
+       {
+        id: 12,
+        title: "Modules & the Random Module",
+        category: "materials",
+        date: "6/1/2025",
+        size: "1504 MB",
+        type: "zip",
+        file: "modules_random.zip",
+        img: "../imgs/module.png"
+      },
+       {
+        id: 13,
+        title: "Project Assignment: Atom Finder",
+        category: "project",
+        date: "6/1/2025",
+        size: "12.4 MB",
+        type: "zip",
+        file: "Atom Finder Project.docx.zip",
+        img: "../imgs/atom_finder.png"
+      },
+       {
+        id: 14,
+        title: "Codes for 26/05/2025",
+        category: "code",
+        date: "6/1/2025",
+        size: "15.9 MB",
+        type: "zip",
+        file: "5_26_2025.zip",
+        img: "../imgs/2025-07-09.png"
+      },
+       {
+        id: 15,
+        title: "Codes for 27/05/2025",
+        category: "code",
+        date: "6/1/2025",
+        size: "16.0 MB",
+        type: "zip",
+        file: "5_27_2025.zip",
+        img: "../imgs/27_5_2025.png"
+      },
+       {
+        id: 16,
+        title: "NAIDT Proposed Python Curriculum",
+        category: "materials",
+        date: "6/1/2025",
+        size: "17.6 MB",
+        type: "docx",
+        file: "NAIDT Proposed Python Curriculum.docx",
+        img: "../imgs/nitda_c.png"
+      },
+       {
+        id: 17,
+        title: "Assignments & Projects",
+        category: "materials",
+        date: "6/1/2025",
+        size: "9.1 MB",
+        type: "docx",
+        file: "Assignment 1.zip",
+        img: "../imgs/assignment.png"
+      },
+       {
+        id: 18,
+        title: "Cohort 25 Assessment 1",
+        category: "Exams",
+        date: "6/1/2025",
+        size: "541 KB",
+        type: "docx",
+        file: "Python Beginners Cohort 25 Assessment 1.pdf",
+        img: "../imgs/pq1.png"
+      },
+       {
+        id: 19,
+        title: "Cohort 25 Assessment 2",
+        category: "Exams",
+        date: "6/1/2025",
+        size: "536 KB",
+        type: "docx",
+        file: "Python Beginners Cohort 25 Assessment 2.pdf",
+        img: "../imgs/pq2.png"
+      },
+      {
+        id: 20,
+        title: "NITDA DRESS CODE",
+        category: "materials",
+        date: "6/1/2025",
+        size: "3.1 MB",
+        type: "docx",
+        file: "NITDA DRESS CODE  (1).pdf",
+        img: "../imgs/dress.png"
+      },
+      // Add more items here...
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderResources('all');
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.addEventListener('click', function () {
+          document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          renderResources(this.dataset.category);
+        });
+      });
+    });
+
+    function renderResources(category) {
+      const container = document.getElementById('resource-container');
+      container.innerHTML = '';
+
+      const filteredResources = category === 'all'
+        ? resources
+        : resources.filter(res => res.category === category);
+
+      filteredResources.forEach(resource => {
+        const card = document.createElement('div');
+        card.className = 'file-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300';
+        card.innerHTML = `
+          <div class="h-48 overflow-hidden">
+            <img src="${resource.img}" alt="${resource.title}" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-1 truncate">${resource.title}</h3>
+            <div class="flex justify-between text-sm text-gray-600 mb-3">
+              <span>${resource.date}</span>
+              <span>${resource.size}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                ${resource.type.toUpperCase()}
+              </span>
+              <a href="resources/${resource.file}" download class="text-blue-600 hover:text-blue-800">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+     const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+      AOS.init();
+  </script>
+</body>
+</html>

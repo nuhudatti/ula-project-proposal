@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA/NCAIR ULA - Receipt Analyzer GUI Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nitdaPrimary: '#003366',
+                        nitdaSecondary: '#0099CC',
+                        nitdaAccent: '#FF6600',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .code-header {
+            background-color: #252526;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .code-content {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .parameter { color: #9cdcfe; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-nitdaPrimary text-white py-6 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold">NITDA/NCAIR University Learning Archive</h1>
+                    <p class="text-nitdaSecondary">Python Receipt Analyzer - GUI Development</p>
+                </div>
+                <img src="https://nitda.gov.ng/wp-content/uploads/2020/12/NITDA-Logo-Full.png" alt="NITDA Logo" class="h-16">
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-3xl font-bold text-nitdaPrimary mb-4">Building a GUI for Your Receipt Analyzer</h2>
+            <p class="text-lg text-gray-700 mb-6">
+                This tutorial will guide you step-by-step in simple, layman-friendly English on how to build a Graphical User Interface (GUI) for your Python project — even if you have zero experience.
+            </p>
+            
+            <div class="bg-nitdaSecondary/10 border-l-4 border-nitdaSecondary p-4 mb-6">
+                <h3 class="text-xl font-semibold text-nitdaPrimary mb-2">What Is a GUI?</h3>
+                <p class="text-gray-700">
+                    A GUI is like a beautiful window or app with buttons, text, and file pickers — instead of using the command line (black screen).
+                </p>
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-800 text-white p-4 rounded-lg">
+                        <h4 class="font-mono text-nitdaAccent mb-2">Command Line Version</h4>
+                        <ol class="list-decimal list-inside font-mono">
+                            <li>Add receipt</li>
+                            <li>Process</li>
+                        </ol>
+                    </div>
+                    <div class="bg-nitdaPrimary/10 border border-nitdaPrimary p-4 rounded-lg">
+                        <h4 class="font-semibold text-nitdaPrimary mb-2">GUI Version</h4>
+                        <div class="flex space-x-2">
+                            <button class="bg-nitdaPrimary text-white px-3 py-1 rounded">🖼 Upload Image</button>
+                            <button class="bg-nitdaPrimary text-white px-3 py-1 rounded">🧠 Analyze</button>
+                            <button class="bg-nitdaPrimary text-white px-3 py-1 rounded">📊 View Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-nitdaPrimary mb-4">What You'll Build</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-nitdaPrimary text-white">
+                            <tr>
+                                <th class="py-2 px-4 text-left">Feature</th>
+                                <th class="py-2 px-4 text-left">GUI Version</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="py-2 px-4 font-medium">Upload Receipt</td>
+                                <td class="py-2 px-4">Button to select a photo from your computer</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-medium">Extract Text</td>
+                                <td class="py-2 px-4">Click a button to run OCR (read the receipt)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-medium">Show Items</td>
+                                <td class="py-2 px-4">Show what was found (items & prices)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-medium">Categorize Items</td>
+                                <td class="py-2 px-4">Button to sort items into categories automatically</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-medium">Save as CSV</td>
+                                <td class="py-2 px-4">Save all results into expenses.csv</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-medium">View Dashboard</td>
+                                <td class="py-2 px-4">Click to open a chart window</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-nitdaPrimary mb-4">Tools You'll Use</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-nitdaPrimary text-white">
+                            <tr>
+                                <th class="py-2 px-4 text-left">Tool</th>
+                                <th class="py-2 px-4 text-left">What it does</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="py-2 px-4 font-mono">Tkinter</td>
+                                <td class="py-2 px-4">Makes the window, buttons, inputs</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-mono">pytesseract</td>
+                                <td class="py-2 px-4">Reads text from image (OCR)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-mono">Pandas</td>
+                                <td class="py-2 px-4">Saves your data</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 font-mono">Matplotlib</td>
+                                <td class="py-2 px-4">Draws your bar chart</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-3xl font-bold text-nitdaPrimary mb-6">Step-by-Step Guide to Build Your GUI</h2>
+            
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-nitdaSecondary mb-4 flex items-center">
+                    <span class="bg-nitdaSecondary text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+                    Create a New File
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    Create a new Python file called <code class="bg-gray-100 px-2 py-1 rounded">receipt_gui.py</code> in your project folder.
+                </p>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-nitdaSecondary mb-4 flex items-center">
+                    <span class="bg-nitdaSecondary text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+                    Starter GUI Template
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    Here is a complete GUI template you can use. This code creates a window with all the buttons you need:
+                </p>
+                
+                <div class="code-block mb-4">
+                    <div class="code-header">
+                        <span class="text-gray-400">receipt_gui.py</span>
+                        <button onclick="copyCode('gui-code')" class="text-nitdaAccent hover:text-nitdaPrimary">
+                            <i class="far fa-copy mr-1"></i>Copy
+                        </button>
+                    </div>
+                    <div class="code-content" id="gui-code">
+<pre><code><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk
+<span class="keyword">from</span> tkinter <span class="keyword">import</span> filedialog, messagebox
+<span class="keyword">import</span> os
+<span class="keyword">import</span> pytesseract
+<span class="keyword">import</span> cv2
+<span class="keyword">import</span> csv
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+<span class="keyword">from</span> dashboard <span class="keyword">import</span> ExpenseDataLoader, ExpenseDashboard  <span class="comment"># From your dashboard.py</span>
+
+<span class="comment"># Set up OCR path</span>
+pytesseract.pytesseract.tesseract_cmd = <span class="string">r'C:\Program Files\Tesseract-OCR\tesseract.exe'</span>
+
+<span class="keyword">class</span> <span class="function">ReceiptApp</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="parameter">self</span>, <span class="parameter">master</span>):
+        <span class="parameter">self</span>.master = master
+        master.title(<span class="string">"🧾 Receipt Analyzer - Group 5"</span>)
+        master.geometry(<span class="string">"400x300"</span>)
+
+        <span class="parameter">self</span>.label = tk.Label(master, text=<span class="string">"Smart Receipt Analyzer"</span>, font=(<span class="string">"Arial"</span>, <span class="number">14</span>))
+        <span class="parameter">self</span>.label.pack(pady=<span class="number">10</span>)
+
+        <span class="parameter">self</span>.upload_button = tk.Button(master, text=<span class="string">"📁 Upload Receipt"</span>, command=<span class="parameter">self</span>.upload_image)
+        <span class="parameter">self</span>.upload_button.pack(pady=<span class="number">5</span>)
+
+        <span class="parameter">self</span>.process_button = tk.Button(master, text=<span class="string">"⚙ Process Receipt"</span>, command=<span class="parameter">self</span>.process_receipt)
+        <span class="parameter">self</span>.process_button.pack(pady=<span class="number">5</span>)
+
+        <span class="parameter">self</span>.dashboard_button = tk.Button(master, text=<span class="string">"📊 Show Dashboard"</span>, command=<span class="parameter">self</span>.show_dashboard)
+        <span class="parameter">self</span>.dashboard_button.pack(pady=<span class="number">5</span>)
+
+        <span class="parameter">self</span>.status_label = tk.Label(master, text=<span class="string">""</span>, fg=<span class="string">"green"</span>)
+        <span class="parameter">self</span>.status_label.pack(pady=<span class="number">10</span>)
+
+        <span class="parameter">self</span>.receipt_file = <span class="string">""</span>
+
+    <span class="keyword">def</span> <span class="function">upload_image</span>(<span class="parameter">self</span>):
+        <span class="parameter">self</span>.receipt_file = filedialog.askopenfilename(filetypes=[(<span class="string">"Image Files"</span>, <span class="string">"*.png;*.jpg;*.jpeg"</span>)])
+        <span class="keyword">if</span> <span class="parameter">self</span>.receipt_file:
+            <span class="parameter">self</span>.status_label.config(text=f<span class="string">"Selected: {os.path.basename(<span class="parameter">self</span>.receipt_file)}"</span>)
+
+    <span class="keyword">def</span> <span class="function">process_receipt</span>(<span class="parameter">self</span>):
+        <span class="keyword">if</span> <span class="keyword">not</span> <span class="parameter">self</span>.receipt_file:
+            messagebox.showwarning(<span class="string">"No File"</span>, <span class="string">"Please upload a receipt image first."</span>)
+            <span class="keyword">return</span>
+
+        img = cv2.imread(<span class="parameter">self</span>.receipt_file)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        text = pytesseract.image_to_string(gray)
+
+        <span class="keyword">with</span> <span class="function">open</span>(<span class="string">"expenses.csv"</span>, <span class="string">'a'</span>, newline=<span class="string">''</span>) <span class="keyword">as</span> file:
+            writer = csv.writer(file)
+            <span class="keyword">if</span> os.stat(<span class="string">"expenses.csv"</span>).st_size == <span class="number">0</span>:
+                writer.writerow([<span class="string">'Receipt'</span>, <span class="string">'Item'</span>, <span class="string">'Price'</span>, <span class="string">'Category'</span>, <span class="string">'Date'</span>])
+
+            lines = [line.strip() <span class="keyword">for</span> line <span class="keyword">in</span> text.split(<span class="string">'\n'</span>) <span class="keyword">if</span> line.strip()]
+            <span class="keyword">for</span> line <span class="keyword">in</span> lines:
+                <span class="keyword">if</span> <span class="function">any</span>(word <span class="keyword">in</span> line.lower() <span class="keyword">for</span> word <span class="keyword">in</span> [<span class="string">'total'</span>, <span class="string">'change'</span>]):
+                    <span class="keyword">continue</span>
+                parts = line.rsplit(<span class="string">' '</span>, <span class="number">1</span>)
+                <span class="keyword">if</span> <span class="function">len</span>(parts) == <span class="number">2</span>:
+                    item, price = parts
+                    <span class="keyword">try</span>:
+                        amount = <span class="function">float</span>(price.replace(<span class="string">"₦"</span>, <span class="string">""</span>).replace(<span class="string">","</span>, <span class="string">""</span>).strip())
+                        category = <span class="string">"Uncategorized"</span>
+                        now = datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M"</span>)
+                        writer.writerow([<span class="parameter">self</span>.receipt_file, item.strip(), amount, category, now])
+                    <span class="keyword">except</span>:
+                        <span class="keyword">continue</span>
+
+        messagebox.showinfo(<span class="string">"Done"</span>, <span class="string">"Receipt processed and saved."</span>)
+        <span class="parameter">self</span>.status_label.config(text=<span class="string">"✅ Receipt saved."</span>)
+
+    <span class="keyword">def</span> <span class="function">show_dashboard</span>(<span class="parameter">self</span>):
+        loader = ExpenseDataLoader()
+        totals = loader.load_data()
+        <span class="keyword">if</span> totals:
+            dashboard = ExpenseDashboard(totals)
+            dashboard.show_bar_chart()
+        <span class="keyword">else</span>:
+            messagebox.showinfo(<span class="string">"No Data"</span>, <span class="string">"No data to display."</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    root = tk.Tk()
+    app = ReceiptApp(root)
+    root.mainloop()</code></pre>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                    <h4 class="font-bold text-blue-800 mb-2">What This Code Does:</h4>
+                    <ul class="list-disc pl-5 text-blue-700">
+                        <li>Creates a window with the title "Receipt Analyzer - Group 5"</li>
+                        <li>Adds three main buttons: Upload Receipt, Process Receipt, and Show Dashboard</li>
+                        <li>Includes a status label to show feedback to the user</li>
+                        <li>Handles file selection and processing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-nitdaSecondary mb-4 flex items-center">
+                    <span class="bg-nitdaSecondary text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
+                    Understanding the Code in Simple Terms
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white border border-nitdaPrimary/20 rounded-lg p-4 shadow-sm">
+                        <div class="text-nitdaAccent text-2xl mb-2">🖼</div>
+                        <h4 class="font-bold text-nitdaPrimary mb-2">Upload Receipt</h4>
+                        <p class="text-gray-600">You select an image from your laptop using a file dialog</p>
+                    </div>
+                    <div class="bg-white border border-nitdaPrimary/20 rounded-lg p-4 shadow-sm">
+                        <div class="text-nitdaAccent text-2xl mb-2">⚙</div>
+                        <h4 class="font-bold text-nitdaPrimary mb-2">Process Receipt</h4>
+                        <p class="text-gray-600">Reads the text using OCR and saves results to expenses.csv</p>
+                    </div>
+                    <div class="bg-white border border-nitdaPrimary/20 rounded-lg p-4 shadow-sm">
+                        <div class="text-nitdaAccent text-2xl mb-2">📊</div>
+                        <h4 class="font-bold text-nitdaPrimary mb-2">Show Dashboard</h4>
+                        <p class="text-gray-600">Opens a chart window showing your spending patterns</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-nitdaSecondary mb-4 flex items-center">
+                    <span class="bg-nitdaSecondary text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">4</span>
+                    Required Project Structure
+                </h3>
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono">
+                    <div class="flex items-center mb-2">
+                        <i class="far fa-folder-open mr-2"></i>
+                        <span>project-folder/</span>
+                    </div>
+                    <div class="ml-6">
+                        <div class="flex items-center">
+                            <i class="far fa-file-code mr-2"></i>
+                            <span>receipt_gui.py</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="far fa-file-alt mr-2"></i>
+                            <span>dashboard.py</span> <span class="text-gray-500 ml-2"># (with classes)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="far fa-file-excel mr-2"></i>
+                            <span>expenses.csv</span> <span class="text-gray-500 ml-2"># (automatically created)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="far fa-image mr-2"></i>
+                            <span>tesseract image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-nitdaPrimary/5 border border-nitdaPrimary rounded-lg p-6 mb-8">
+            <h3 class="text-2xl font-bold text-nitdaPrimary mb-4">Next Steps</h3>
+            <p class="text-gray-700 mb-4">
+                Now that you have your GUI set up, you can:
+            </p>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Run the program with <code class="bg-gray-200 px-2 py-1 rounded">python receipt_gui.py</code></li>
+                <li>Test with different receipt images</li>
+                <li>Customize the interface with more features</li>
+                <li>Improve the OCR accuracy with image preprocessing</li>
+            </ol>
+        </div>
+    </main>
+
+    <footer class="bg-nitdaPrimary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">NITDA/NCAIR University Learning Archive</h3>
+                    <p>Building Digital Skills for Nigeria's Future</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-nitdaSecondary mt-6 pt-6 text-center text-sm">
+                <p>© 2023 National Information Technology Development Agency (NITDA). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('Code copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

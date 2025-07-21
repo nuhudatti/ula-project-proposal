@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMI Calculator – EvoLearn Practice App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col justify-center items-center p-6">
+  <div class="bg-gray-800 rounded-xl shadow-2xl p-8 w-full max-w-md">
+    <h1 class="text-3xl font-bold text-center mb-6 text-indigo-400">⚖️ BMI Calculator</h1>
+    
+    <form id="bmiForm" class="space-y-4">
+      <div>
+        <label for="weight" class="block mb-1">Weight (kg):</label>
+        <input type="number" id="weight" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+      </div>
+      <div>
+        <label for="height" class="block mb-1">Height (cm):</label>
+        <input type="number" id="height" class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400" required>
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 py-2 rounded font-semibold">Calculate BMI</button>
+    </form>
+
+    <div id="result" class="mt-6 text-center text-lg font-medium hidden"></div>
+  </div>
+
+  <section class="mt-20 max-w-4xl w-full bg-gray-800 p-8 rounded-xl shadow-xl">
+  <h2 class="text-2xl font-bold text-indigo-300 mb-4">🧠 How This Project Was Built</h2>
+  
+  <p class="mb-4 text-gray-300">This BMI Calculator was designed as a beginner-friendly yet modern practice app. It’s part of EvoLearn Africa’s mission to turn Python and Web skills into tangible micro-projects you can deploy, demo, and teach from Day 1.</p>
+
+  <h3 class="text-xl font-semibold text-indigo-200 mt-6 mb-2">🌱 Where the Idea Came From</h3>
+  <ul class="list-disc list-inside text-gray-200 space-y-1">
+    <li><strong>Goal:</strong> Make health education digital, visual, and personal.</li>
+    <li><strong>Approach:</strong> Use simple math (BMI formula) to teach forms, logic, inputs, and DOM manipulation.</li>
+    <li><strong>Design:</strong> Make it visually impressive with Tailwind, yet readable on mobile or desktop.</li>
+  </ul>
+
+  <h3 class="text-xl font-semibold text-indigo-200 mt-6 mb-2">🧩 Code Breakdown (In Plain Language)</h3>
+  <div class="space-y-3 text-gray-200">
+    <p><code>&lt;form&gt;</code>: This collects your height and weight. It waits until you hit "Calculate".</p>
+    <p><code>parseFloat()</code>: Converts your input (string) into a number JavaScript can calculate.</p>
+    <p><code>weight / (height * height)</code>: The real math behind BMI – it’s that simple.</p>
+    <p><code>toFixed(2)</code>: Rounds your BMI to just two digits. Clean UI is good UX.</p>
+    <p><code>if...else</code>: This part checks what BMI range you’re in and shows a message.</p>
+    <p><code>textContent</code> + <code>classList.remove('hidden')</code>: Makes the result appear once everything works.</p>
+  </div>
+
+  <h3 class="text-xl font-semibold text-indigo-200 mt-6 mb-2">🚀 You Can Build This Too</h3>
+  <p class="mb-2 text-gray-300">Here’s how to remix this project in your own way:</p>
+  <ul class="list-disc list-inside text-gray-200 space-y-1">
+    <li>Add color indicators (green = healthy, red = overweight)</li>
+    <li>Include age and gender to personalize results</li>
+    <li>Save user entries in localStorage</li>
+    <li>Convert it to a mobile app using React Native</li>
+    <li>Translate it into your local language 🌍</li>
+  </ul>
+
+  <div class="mt-6 text-center">
+    <a href="../docs/ibm_workthrought.html" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-2 rounded-full text-white font-semibold">📘 Full Walkthrough Documentation</a>
+  </div>
+</section>
+
+
+  <a href="../index.html" class="mt-8 text-indigo-300 hover:underline">← Back to Practice Hub</a>
+
+  <script>
+    document.getElementById('bmiForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value) / 100; // convert cm to meters
+
+      if (!weight || !height || height === 0) {
+        alert('Please enter valid numbers');
+        return;
+      }
+
+      const bmi = (weight / (height * height)).toFixed(2);
+      let status = '';
+
+      if (bmi < 18.5) status = 'Underweight';
+      else if (bmi < 24.9) status = 'Normal';
+      else if (bmi < 29.9) status = 'Overweight';
+      else status = 'Obese';
+
+      const result = `Your BMI is ${bmi} (${status})`;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = result;
+      resultDiv.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

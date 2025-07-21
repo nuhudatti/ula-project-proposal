@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ULA Python API Q&A – All Levels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+     .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- Q&A Page Header -->
+  <header class="bg-blue-900 text-white py-12 text-center">
+    <h1 class="text-4xl font-bold">ULA Python API – Questions & Answers</h1>
+    <p class="text-lg mt-2">Top 10 Questions for Each Level (Beginner → Expert)</p>
+  </header>
+
+  <!-- Q&A Section -->
+  <main class="py-12 px-6 sm:px-8 lg:px-24 space-y-16 max-w-6xl mx-auto">
+
+    <!-- Level 1 Q&A -->
+    <section>
+      <h2 class="text-3xl font-bold text-blue-900 mb-6">🔰 Level 1 – Beginner</h2>
+      <ul class="space-y-4">
+        <li><strong>1. What is an API?</strong><br>It's a way for two systems to communicate and share data or actions.</li>
+        <li><strong>2. What does REST stand for?</strong><br>Representational State Transfer — a standard for designing APIs.</li>
+        <li><strong>3. What is a request and response?</strong><br>A request is what you send to an API. A response is what you get back.</li>
+        <li><strong>4. What format do APIs usually respond with?</strong><br>JSON (JavaScript Object Notation).</li>
+        <li><strong>5. What tools can I use to test APIs?</strong><br>Postman, Insomnia, Curl, or browser (for GET).</li>
+        <li><strong>6. Do I need to know coding to understand APIs?</strong><br>No, but knowing Python helps you build and test them.</li>
+        <li><strong>7. Can APIs send images and videos?</strong><br>Yes, APIs can send any file or data type.</li>
+        <li><strong>8. What is a base URL?</strong><br>The main address of an API, like: <code>https://api.example.com</code></li>
+        <li><strong>9. Why are APIs important?</strong><br>They let you access external services, like weather or payments.</li>
+        <li><strong>10. What is an endpoint?</strong><br>A specific path in the API like <code>/users</code> or <code>/weather</code>.</li>
+      </ul>
+    </section>
+
+    <!-- Level 2 Q&A -->
+    <section>
+      <h2 class="text-3xl font-bold text-blue-900 mb-6">📦 Level 2 – Intermediate</h2>
+      <ul class="space-y-4">
+        <li><strong>1. What is a GET request used for?</strong><br>To retrieve data.</li>
+        <li><strong>2. What is a POST request used for?</strong><br>To create new data.</li>
+        <li><strong>3. What is a PUT request?</strong><br>To update existing data.</li>
+        <li><strong>4. What is a DELETE request?</strong><br>To delete data.</li>
+        <li><strong>5. What does status code 200 mean?</strong><br>Success – everything worked!</li>
+        <li><strong>6. What does status code 404 mean?</strong><br>Resource not found.</li>
+        <li><strong>7. What is an API key?</strong><br>A token that identifies and authenticates a user or app.</li>
+        <li><strong>8. What is Postman used for?</strong><br>To test APIs by sending requests and inspecting responses.</li>
+        <li><strong>9. What is the body of a POST request?</strong><br>The data you send (in JSON) to the API server.</li>
+        <li><strong>10. How do I pass headers in an API?</strong><br>In Postman or your code using a headers object.</li>
+      </ul>
+    </section>
+
+    <!-- Level 3 Q&A -->
+    <section>
+      <h2 class="text-3xl font-bold text-blue-900 mb-6">🚀 Level 3 – Advanced</h2>
+      <ul class="space-y-4">
+        <li><strong>1. What is the requests library in Python?</strong><br>A Python tool to send HTTP requests easily.</li>
+        <li><strong>2. How do I handle API errors in Python?</strong><br>Check <code>response.status_code</code> and use try-except blocks.</li>
+        <li><strong>3. How do I convert a JSON response into Python data?</strong><br>Use <code>response.json()</code>.</li>
+        <li><strong>4. What is a response header?</strong><br>Metadata sent back by the server (e.g., content-type, date).</li>
+        <li><strong>5. Can I use Python to send data to APIs?</strong><br>Yes, using <code>requests.post()</code> with a JSON payload.</li>
+        <li><strong>6. How do I pass query parameters?</strong><br>Use the <code>params={}</code> argument in <code>requests.get()</code>.</li>
+        <li><strong>7. Can I automate API calls in Python?</strong><br>Yes! You can use loops or schedulers like <code>schedule</code> or <code>cron</code>.</li>
+        <li><strong>8. What is JSON parsing?</strong><br>Extracting useful values from a JSON object.</li>
+        <li><strong>9. What does RESTful mean?</strong><br>That the API follows REST rules — stateless, resource-based.</li>
+        <li><strong>10. What’s the difference between PUT and PATCH?</strong><br>PUT replaces everything. PATCH updates part of it.</li>
+      </ul>
+    </section>
+
+    <!-- Level 4 Q&A -->
+    <section>
+      <h2 class="text-3xl font-bold text-blue-900 mb-6">🏗️ Level 4 – Expert</h2>
+      <ul class="space-y-4">
+        <li><strong>1. What is FastAPI?</strong><br>A high-performance Python framework for building APIs.</li>
+        <li><strong>2. How do I start a FastAPI server?</strong><br>Use <code>uvicorn main:app --reload</code>.</li>
+        <li><strong>3. What is an API schema?</strong><br>A blueprint describing your API endpoints, inputs, and outputs.</li>
+        <li><strong>4. How do I connect a database to FastAPI?</strong><br>Use ORMs like SQLAlchemy or Tortoise.</li>
+        <li><strong>5. What is JWT?</strong><br>JSON Web Token – a secure way to handle login sessions.</li>
+        <li><strong>6. How do I protect private routes?</strong><br>Require JWT in the headers before allowing access.</li>
+        <li><strong>7. How do I deploy FastAPI to the cloud?</strong><br>Use services like Render, Heroku, or Railway connected to GitHub.</li>
+        <li><strong>8. What is Swagger UI?</strong><br>Auto-generated interactive docs built into FastAPI at <code>/docs</code>.</li>
+        <li><strong>9. How do I use environment variables?</strong><br>Store sensitive values in a <code>.env</code> file and load with <code>python-dotenv</code>.</li>
+        <li><strong>10. What is CORS and why do I need it?</strong><br>Cross-Origin Resource Sharing – allows your API to be used by other domains.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white text-center py-10 mt-20">
+    <p class="text-lg font-semibold">NITDA/NCAIR – ULA Python API Q&A Page</p>
+    <p class="text-sm mt-1">Built to teach. Designed to last. Ready to inspire.</p>
+  </footer>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
+</html>

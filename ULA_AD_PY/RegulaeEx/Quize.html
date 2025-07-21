@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RegexVerse Quiz Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: #0f2027;
+      color: #fff;
+      padding: 0;
+      margin: 0;
+    }
+    /* nav {
+        position: sticky;
+      background-color: #00ffcc;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 10px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }  */
+    h1 {
+      text-align: center;
+      color: #00ffcc;
+      margin-top: 20px;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,255,204,0.2);
+    }
+    .question {
+      margin-bottom: 25px;
+    }
+    .question h3 {
+      color: #00ffcc;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 10px;
+      background: #2e2e2e;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #ffd700;
+      text-align: center;
+    }
+    .explanation {
+      margin-top: 10px;
+      padding: 15px;
+      background: #333;
+      border-radius: 6px;
+      color: #b5cea8;
+      font-size: 0.9rem;
+    }
+     .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+   
+  </style>
+</head>
+<body>
+<header>
+      <!-- <nav>
+    <div><a href="index.html">⬅ Learn</a></div>
+    <div><a href="#">Quiz Arena</a></div>
+  </nav> -->
+</header>
+
+  <h1> RegexVerse Quiz Arena</h1>
+  <div class="quiz-container" id="quiz">
+    <form id="quizForm">
+      <!-- Questions -->
+      <div class="question">
+        <h3>#1 – What does regex stand for?</h3>
+        <div class="options">
+          <label><input type="radio" name="q1" value="0"> Relative Execution</label>
+          <label><input type="radio" name="q1" value="1"> Regular Expression</label>
+          <label><input type="radio" name="q1" value="0"> Regional Export</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#2 – What does <code>\d+</code> match?</h3>
+        <div class="options">
+          <label><input type="radio" name="q2" value="0"> All letters</label>
+          <label><input type="radio" name="q2" value="1"> One or more digits</label>
+          <label><input type="radio" name="q2" value="0"> Empty space</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#3 – Which character class matches a single word character?</h3>
+        <div class="options">
+          <label><input type="radio" name="q3" value="1"> \w</label>
+          <label><input type="radio" name="q3" value="0"> \s</label>
+          <label><input type="radio" name="q3" value="0"> \d</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#4 – What is the purpose of the <code>.</code> (dot) in regex?</h3>
+        <div class="options">
+          <label><input type="radio" name="q4" value="1"> Matches any single character</label>
+          <label><input type="radio" name="q4" value="0"> Matches a comma</label>
+          <label><input type="radio" name="q4" value="0"> Ends the pattern</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#5 – What does the quantifier <code>*</code> mean?</h3>
+        <div class="options">
+          <label><input type="radio" name="q5" value="0"> Exactly once</label>
+          <label><input type="radio" name="q5" value="0"> 1 or more times</label>
+          <label><input type="radio" name="q5" value="1"> 0 or more times</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#6 – What does <code>re.sub()</code> do?</h3>
+        <div class="options">
+          <label><input type="radio" name="q6" value="1"> Replaces pattern in a string</label>
+          <label><input type="radio" name="q6" value="0"> Subtracts numbers</label>
+          <label><input type="radio" name="q6" value="0"> Sums characters</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#7 – What is the purpose of <code>re.compile()</code>?</h3>
+        <div class="options">
+          <label><input type="radio" name="q7" value="0"> To run a script</label>
+          <label><input type="radio" name="q7" value="1"> To reuse a regex pattern</label>
+          <label><input type="radio" name="q7" value="0"> To print result</label>
+        </div>
+      </div>
+      <div class="question">
+        <h3>#8 – What does <code>re.split()</code> do?</h3>
+        <div class="options">
+          <label><input type="radio" name="q8" value="1"> Splits a string by pattern</label>
+          <label><input type="radio" name="q8" value="0"> Splices a string</label>
+          <label><input type="radio" name="q8" value="0"> Writes to a file</label>
+        </div>
+      </div>
+      <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+  <a href="index.html">
+    <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+  </div>
+   </a>
+
+  <script>
+    const explanations = [
+      "#1: 'Regex' stands for Regular Expression — a sequence of characters to define a search pattern.",
+      "#2: '\\d+' matches one or more digits (e.g., '123').",
+      "#3: '\\w' matches any letter, digit, or underscore — a 'word' character.",
+      "#4: '.' matches any single character except newline.",
+      "#5: '*' means zero or more occurrences of the preceding element.",
+      "#6: 're.sub()' is used to substitute parts of a string with a new value.",
+      "#7: 're.compile()' lets you reuse a compiled regex pattern for better performance.",
+      "#8: 're.split()' splits a string wherever the regex pattern matches."
+    ];
+
+    function submitQuiz() {
+      const form = document.getElementById("quizForm");
+      const formData = new FormData(form);
+      let score = 0;
+      let feedback = "";
+      let i = 0;
+      for (let [_, value] of formData.entries()) {
+        if (parseInt(value) === 1) {
+          score++;
+        } else {
+          feedback += `<div class='explanation'>${explanations[i]}</div>`;
+        }
+        i++;
+      }
+      const result = document.getElementById("result");
+      result.innerHTML = `You scored <strong>${score} / 8</strong>` + feedback;
+    }
+        AOS.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 5 – Categorize Expense Items | ULA Legacy Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css">
+  <style>
+    pre {
+      position: relative;
+    }
+    .copy-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: #10b981;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .hljs {
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+      .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-green-900 text-white py-8 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-4xl font-extrabold">Phase 5 – Intelligent Categorization</h1>
+      <p class="text-lg mt-2">🔥 Transform raw expense data into powerful dashboard-ready categories. No mentor needed. Just you and this legacy page.</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">🎯 Goal</h2>
+      <p>Turn this:</p>
+      <pre><code class="hljs language-python">{'item': 'Toothpaste', 'price': 800}
+{'item': 'Sunlight Detergent', 'price': 1200}
+{'item': 'Indomie Noodles', 'price': 150}</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+      <p>Into this:</p>
+      <pre><code class="hljs">| Item               | Price | Category      |
+| ------------------ | ----- | ------------- |
+| Toothpaste         | 800   | Personal Care |
+| Sunlight Detergent | 1200  | Cleaning      |
+| Indomie Noodles    | 150   | Food          |</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">✅ Step 1: Add Keyword Category Dictionary</h2>
+      <p>Paste this <strong>after</strong> <code>expenses = []</code> in your file:</p>
+      <pre><code class="hljs language-python">category_map = {
+    "tooth": "Personal Care",
+    "paste": "Personal Care",
+    "soap": "Personal Care",
+    "detergent": "Cleaning",
+    "omo": "Cleaning",
+    "colgate": "Personal Care",
+    "sunlight": "Cleaning",
+    "indomie": "Food",
+    "noodle": "Food",
+    "maggie": "Food",
+    "rice": "Food",
+    "milk": "Beverage",
+    "sugar": "Food",
+    "bread": "Food",
+    "mayonnaise": "Food",
+    "oil": "Food",
+    "pack": "General",
+    "cream": "Personal Care",
+    "shampoo": "Personal Care",
+    "brush": "Personal Care",
+    "chocolate": "Snack",
+    "stew": "Food",
+    "meat": "Food",
+    "fish": "Food",
+}</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">✅ Step 2: Add Categorization Logic</h2>
+      <p>Paste this <strong>after</strong> the loop that fills <code>expenses</code>, but <strong>before</strong> your final print:</p>
+      <pre><code class="hljs language-python">def categorize(item_name):
+    item_name = item_name.lower()
+    for keyword, category in category_map.items():
+        if keyword in item_name:
+            return category
+    return "Uncategorized"
+
+for e in expenses:
+    e['category'] = categorize(e['item'])</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">✅ Step 3: Update Output</h2>
+      <p>Replace your print and CSV save block with this:</p>
+      <pre><code class="hljs language-python">print("\nStructured Data with Categories:")
+for e in expenses:
+    print(f"{e['item']} - ₦{e['price']} - [{e['category']}]")
+
+with open('expenses.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Item', 'Price', 'Category'])
+    for e in expenses:
+        writer.writerow([e['item'], e['price'], e['category']])</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">✅ Final Output Example</h2>
+      <pre><code class="hljs">Structured Data with Categories:
+Colgate Toothpaste - ₦800 - [Personal Care]
+Sunlight Detergent - ₦1200 - [Cleaning]
+Indomie Noodles - ₦150 - [Food]</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+
+      <pre><code class="hljs">Item,Price,Category
+Colgate Toothpaste,800,Personal Care
+Sunlight Detergent,1200,Cleaning
+Indomie Noodles,150,Food</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    
+    <a href="../index.html">
+      <div class="nav-floating bg-green-900 onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+  
+
+    <footer class="mt-16 border-t py-4 text-center text-sm text-gray-600">
+      Phase 5 – Categorization Logic | ULA Legacy Project |Built by Nuhu Muhammad Datti | Powered by NITDA/NCAIR 
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    function copyText(btn) {
+      const codeBlock = btn.previousElementSibling;
+      const text = codeBlock.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+    AOS.init();
+  </script>
+</body>
+</html>

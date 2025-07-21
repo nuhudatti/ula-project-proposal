@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 2 – OCR Receipt Extraction | ULA Legacy Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    pre {
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+      .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-green-900 text-white py-8 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-4xl font-extrabold">Phase 2 – Extracting Text from a Receipt Image (OCR)</h1>
+      <p class="text-lg mt-2">🔥 Built for greatness. Learn like you're in a private Python masterclass.</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
+
+    <!-- What You Will Learn -->
+    <section>
+      <h2 class="text-2xl font-bold mb-2">🎯 What You’ll Learn in This Phase</h2>
+      <ul class="list-disc list-inside text-lg">
+        <li>What OCR is and how it works</li>
+        <li>Installing and using pytesseract</li>
+        <li>Loading a receipt image in Python</li>
+        <li>Extracting and cleaning text</li>
+      </ul>
+    </section>
+
+    <!-- Step 1: What is OCR -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">✅ STEP 1: What is OCR?</h2>
+      <p class="text-base leading-relaxed">
+        OCR (Optical Character Recognition) helps Python "read" words from images.
+        Like scanning this:
+      </p>
+      <pre><code>Rice      ₦2000
+Milk      ₦1500
+Soap      ₦500</code></pre>
+      <p class="mt-2">Python will turn this into usable text automatically. 🔥</p>
+    </section>
+
+    <!-- Step 2: Install Tools -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">✅ STEP 2: Install Required Tools</h2>
+      <h3 class="font-bold mt-4">🛠 1. Install Tesseract OCR</h3>
+      <p class="text-sm">Windows users: Install from <a href="https://github.com/UB-Mannheim/tesseract/wiki" class="text-blue-600 underline">this link</a><br />
+      Remember the path: <code>C:\Program Files\Tesseract-OCR\tesseract.exe</code></p>
+
+      <h3 class="font-bold mt-4">Mac users:</h3>
+      <pre><code>brew install tesseract</code></pre>
+
+      <h3 class="font-bold mt-4">🛠 2. Install Python Libraries:</h3>
+      <pre><code>pip install pytesseract opencv-python pillow</code></pre>
+    </section>
+
+    <!-- Step 3: Full Code -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">✅ STEP 3: Code to Extract Text</h2>
+      <p>📁 Create a new file: <code>receipt_reader.py</code></p>
+      <pre><code>import pytesseract
+import cv2
+from PIL import Image
+
+# 1. Set the path to Tesseract (Windows only)
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# 2. Load the image
+img = cv2.imread('receipt.jpg')
+
+# 3. Convert to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# 4. Extract text
+text = pytesseract.image_to_string(gray)
+
+# 5. Show result
+print("Extracted Text:\n")
+print(text)</code></pre>
+    </section>
+
+    <!-- Layman Explanation -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">🧠 Explanation of Each Line</h2>
+      <table class="table-auto w-full border mt-4 text-sm">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border px-2 py-1 text-left">Line</th>
+            <th class="border px-2 py-1 text-left">What It Means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="border px-2 py-1">import pytesseract</td><td class="border px-2 py-1">Loads the OCR engine</td></tr>
+          <tr><td class="border px-2 py-1">import cv2</td><td class="border px-2 py-1">OpenCV for image loading</td></tr>
+          <tr><td class="border px-2 py-1">from PIL import Image</td><td class="border px-2 py-1">Pillow helps handle images</td></tr>
+          <tr><td class="border px-2 py-1">tesseract_cmd = ...</td><td class="border px-2 py-1">Tells Python where Tesseract is (Windows)</td></tr>
+          <tr><td class="border px-2 py-1">cv2.imread</td><td class="border px-2 py-1">Loads the receipt image</td></tr>
+          <tr><td class="border px-2 py-1">cv2.cvtColor</td><td class="border px-2 py-1">Converts to grayscale for better reading</td></tr>
+          <tr><td class="border px-2 py-1">image_to_string</td><td class="border px-2 py-1">Runs OCR to extract text</td></tr>
+          <tr><td class="border px-2 py-1">print(text)</td><td class="border px-2 py-1">Displays the output</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Step 4: Test It -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">✅ STEP 4: Test It</h2>
+      <ul class="list-disc list-inside">
+        <li>Use a real receipt</li>
+        <li>Take a clear photo and save as <code>receipt.jpg</code></li>
+        <li>Run your code:</li>
+      </ul>
+      <pre><code>python receipt_reader.py</code></pre>
+    </section>
+
+    <!-- Sample Output -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">✅ Sample Output</h2>
+      <pre><code>Sunlight Detergent  ₦2,000
+Indomie Noodles     ₦3,500
+Coca-Cola           ₦1,200
+Toothpaste          ₦850
+USB Cable           ₦1,500</code></pre>
+      <p class="mt-2">🎉 Success! Python can now read receipts. Next: Parsing line-by-line.</p>
+    </section>
+
+        <a href="../index.html">
+      <div class="nav-floating bg-green-900 onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+    <footer class="mt-20 border-t py-4 border-gray-300">
+      <p class="text-center text-sm text-gray-600">Phase 2 – OCR Extraction | ULA Legacy Project | Built by Nuhu Muhammad Datti | Powered by NITDA/NCAIR </p>
+    </footer>
+  </main>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

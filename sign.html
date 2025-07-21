@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5IRE Legacy - Python Training Verification</title>
+   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;600&display=swap');
+    
+    :root {
+      --gold: #D4AF37;
+      --navy: #0A1930;
+      --emerald: #10B981;
+      --royal-blue: #1E3A8A;
+    }
+    
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
+    }
+    /* QR Code */
+    
+    #qrcode {
+      margin: 20px auto;
+      width: fit-content;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .badge {
+      background: linear-gradient(45deg, var(--navy), var(--royal-blue));
+    }
+    
+    .signature-line {
+      background: linear-gradient(to right, transparent 0%, #d1d5db 10%, #d1d5db 90%, transparent 100%);
+      height: 1px;
+    }
+    
+    .gold-border {
+      border-color: var(--gold);
+    }
+    
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        background: white !important;
+        color: black;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print {
+        display: none;
+      }
+      .print-padding {
+        padding: 2cm;
+      }
+    }
+    
+    .watermark {
+      position: fixed;
+      opacity: 0.03;
+      font-size: 20rem;
+      z-index: -1;
+      white-space: nowrap;
+      transform: rotate(-30deg);
+      font-weight: bold;
+      color: var(--royal-blue);
+    }
+  </style>
+</head>
+<body class="px-4 py-8">
+  <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden print:shadow-none print-padding">
+    <!-- Watermark -->
+    <div class="watermark no-print" style="top: 30%; left: -10%;">5IRE LEGACY</div>
+    
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-6 px-8 text-center">
+      <div class="flex justify-between items-center mb-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/NITDA_Logo.png/600px-NITDA_Logo.png" class="h-16" alt="NCAIR Logo">
+        <div class="text-right">
+          <span class="inline-block bg-white text-blue-800 px-3 py-1 rounded-full text-xs font-bold">DOCUMENT ID: 5IRE-PY-2025-001</span>
+          <p class="text-blue-200 text-sm mt-1">Global Verification Standard</p>
+        </div>
+      </div>
+      <h1 class="text-3xl font-bold mt-2">PYTHON TRAINING VERIFICATION</h1>
+      <p class="text-blue-200 mt-1">Perpetual Digital Legacy Certificate</p>
+    </div>
+    
+    <!-- Verification Body -->
+    <div class="p-8">
+      <!-- Student Details -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+        <div>
+          <h3 class="text-sm font-semibold text-blue-800 uppercase tracking-wider">Student Information</h3>
+          <p class="text-lg font-medium mt-1">Nuhu Muhammad Datti</p>
+          <p class="text-blue-700">IBB University, Lapai</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-blue-800 uppercase tracking-wider">Program Details</h3>
+          <p class="text-lg font-medium mt-1">SIWES Cohort 25/26</p>
+          <p class="text-blue-700">April - October 2023</p>
+        </div>
+      </div>
+      
+      <!-- QR Code Area -->
+      <div class="flex justify-end mb-6 no-print">
+        <div class="bg-white p-2 rounded border border-gray-200 shadow-sm">
+          <div class="w-24 h-24 bg-gray-100 flex items-center justify-center text-gray-400">
+            <div id="qrcode"></div>
+          </div>
+          <p class="text-xs text-center mt-1">Scan to verify</p>
+        </div>
+      </div>
+      
+      <!-- Python Beginner Section -->
+      <div class="mb-10">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 p-2 rounded-lg mr-4">
+            <i class="fas fa-laptop-code text-blue-600 text-2xl"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-blue-900">Python Beginner Verification</h2>
+        </div>
+        
+        <div class="ml-12 pl-4 border-l-4 border-blue-200">
+          <p class="mb-4">This certifies that <span class="font-semibold">Nuhu Muhammad Datti</span> has demonstrated mastery of foundational Python programming through NCAIR's rigorous training program, exhibiting exceptional skill in:</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 mr-2"></i>
+              <span>Core syntax & program structures</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 mr-2"></i>
+              <span>Functions & modular programming</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 mr-2"></i>
+              <span>File handling & data structures</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 mr-2"></i>
+              <span>Object-Oriented Programming</span>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <h3 class="font-semibold text-blue-800 mb-2">Facilitator Verification</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <p class="text-sm text-gray-600">Name</p>
+                <p class="font-medium">Mr. Joseph</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Contact</p>
+                <p class="font-mono">+234 907 086 0256</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Signature</p>
+                <div class="signature-line mt-10 my-2"></div>
+                <p class="text-xs text-gray-500 mt-5">Date: _______________</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Python Advanced Section -->
+      <div class="mb-10">
+        <div class="flex items-center mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-4">
+            <i class="fas fa-brain text-purple-600 text-2xl"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-purple-900">Python Advanced Verification</h2>
+        </div>
+        
+        <div class="ml-12 pl-4 border-l-4 border-purple-200">
+          <p class="mb-4">This confirms <span class="font-semibold">Nuhu Muhammad Datti</span> has achieved advanced proficiency in Python programming, demonstrating exceptional capability in:</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="flex items-start">
+              <i class="fas fa-star text-amber-500 mt-1 mr-2"></i>
+              <span>Algorithm optimization</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-star text-amber-500 mt-1 mr-2"></i>
+              <span>Advanced OOP techniques</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-star text-amber-500 mt-1 mr-2"></i>
+              <span>API development</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-star text-amber-500 mt-1 mr-2"></i>
+              <span>Real-world deployment</span>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <h3 class="font-semibold text-purple-800 mb-2">Facilitator Verification</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <p class="text-sm text-gray-600">Primary</p>
+                <p class="font-medium">Mr. Jason</p>
+                <p class="font-mono text-sm">+234 806 566 5363</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Secondary</p>
+                <p class="font-medium">Mr. Mubaraq</p>
+                <p class="font-mono text-sm">+234 811 912 2778</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Signatures</p>
+                <div class="signature-line my-2 mt-10"></div>
+                <div class="signature-line my-2 mt-10"></div>
+                <p class="text-xs text-gray-500 mt-5">Date: _______________</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project Validation -->
+      <div class="mb-10">
+        <div class="flex items-center mb-4">
+          <div class="bg-emerald-100 p-2 rounded-lg mr-4">
+            <i class="fas fa-tasks text-emerald-600 text-2xl"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-emerald-900">Capstone Project Validation</h2>
+        </div>
+        
+        <div class="ml-12 pl-4 border-l-4 border-emerald-200">
+          <p class="mb-4">The following projects have been reviewed and certified to meet NCAIR's industry standards:</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="border border-gray-200 rounded-lg p-4 hover:border-emerald-300 transition">
+              <h3 class="font-bold text-emerald-800 mb-2">1. Smart Receipt Analyzer</h3>
+              <p class="text-sm text-gray-700">AI-powered receipt processing system with NLP capabilities</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4 hover:border-emerald-300 transition">
+              <h3 class="font-bold text-emerald-800 mb-2">2. E-commerce System</h3>
+              <p class="text-sm text-gray-700">Full-stack online marketplace with payment integration</p>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <h3 class="font-semibold text-emerald-800 mb-2">Lab Coordinator Verification</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <p class="text-sm text-gray-600">Name</p>
+                <p class="font-medium">Ms. Cynthia</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Contact</p>
+                <p class="font-mono">+234 814 494 5146</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Signature</p>
+                <div class="signature-line my-2 mt-10"></div>
+                <p class="text-xs text-gray-500 mt-5">Date: _______________</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 5IRE Legacy Endorsement -->
+      <div class="mb-10">
+        <div class="flex items-center mb-4">
+          <div class="bg-amber-100 p-2 rounded-lg mr-4">
+            <i class="fas fa-infinity text-amber-600 text-2xl"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-amber-900">5IRE Legacy Platform Endorsement</h2>
+        </div>
+        
+        <div class="ml-12 pl-4 border-l-4 border-amber-200">
+          <p class="mb-4">This recognizes the significant contribution of <span class="font-semibold">Nuhu Muhammad Datti</span>'s 5IRE Digital Legacy Platform to technological preservation:</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="flex items-start">
+              <i class="fas fa-check-double text-amber-500 mt-1 mr-2"></i>
+              <span>Comprehensive curriculum documentation</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-double text-amber-500 mt-1 mr-2"></i>
+              <span>Authentic learning resource repository</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-double text-amber-500 mt-1 mr-2"></i>
+              <span>Professional standard maintenance</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-double text-amber-500 mt-1 mr-2"></i>
+              <span>Future trainee reference system</span>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <h3 class="font-semibold text-amber-800 mb-2">Institutional Verification</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <p class="text-sm text-gray-600">Representative</p>
+                <p class="font-medium mt-5">_________________________</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Designation</p>
+                <p class="font-medium mt-5">_________________________</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Signature</p>
+                <div class="signature-line my-2 mt-10"></div>
+                <p class="text-xs text-gray-500 mt-5">Date: _______________</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Verification Note -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-8">
+        <div class="flex items-start">
+          <i class="fas fa-shield-alt text-blue-500 mt-1 mr-3"></i>
+          <div>
+            <h3 class="font-bold text-blue-800 mb-1">Verification Note</h3>
+            <p class="text-sm text-blue-700">This document becomes valid only when signed by authorized NCAIR facilitators. Digital verification will be available soon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="bg-gray-900 text-white py-4 px-8 text-center text-sm">
+      <p>© 2025 5IRE Legacy Foundation | Perpetual Knowledge Preservation System</p>
+      <p class="text-gray-400 mt-1">This document is part of Nigeria's official digital heritage archive</p>
+    </div>
+  </div>
+  
+  <!-- Print Button -->
+  <div class="max-w-4xl mx-auto mt-6 no-print">
+    <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg flex items-center mx-auto">
+      <i class="fas fa-print mr-2"></i> Print/Save This Legacy Document
+    </button>
+  </div>
+  <!-- Home Button - Add to your education page template -->
+<a href="./index.html" class="fixed bottom-6 left-6 z-40">
+  <button class="flex items-center space-x-2 bg-white border-2 border-[#1e3a8a] text-[#1e3a8a] font-bold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 hover:bg-[#1e3a8a]/10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+    <span>Home Portal</span>
+  </button>
+</a>
+
+  <script>
+    // qR Code
+    const qrContainer = document.getElementById("qrcode");
+
+    const websiteURL = "https://yourwebsite.com"; // 🟢 CHANGE this to your real link
+
+    const qrCode = new QRCode(qrContainer, {
+      text: websiteURL,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    function downloadQR() {
+      const canvas = qrContainer.querySelector("canvas");
+      if (canvas) {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "qr-code.png";
+        link.click();
+      } else {
+        alert("QR code not ready yet.");
+      }
+    }
+    // Print optimization
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add timestamp before printing
+      window.onbeforeprint = function() {
+        document.getElementById('printDate').textContent = new Date().toLocaleDateString();
+      };
+    });
+  </script>
+</body>
+</html>

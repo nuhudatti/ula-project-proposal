@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA/NCAIR ULA - Python Receipt Manager Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .code-container {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .code-container:hover .copy-btn {
+            opacity: 1;
+        }
+    .quiz-card {
+        transition: all 0.3s ease;
+    }
+    
+    .quiz-card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .question-header:hover {
+        color: #047857; /* green-800 */
+    }
+    
+    input[type="radio"]:checked {
+        border-color: #047857;
+        background-color: #047857;
+    }
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header Section -->
+    <header class="bg-green-800 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-16">
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold">Unified Learning Archive</h1>
+                    <p class="text-green-200">Empowering Digital Literacy for National Development</p>
+                    <p class="text-sm text-green-300 mt-1">Built by Group 5 • Powered by Elona • Honoring NITDA/NCAIR 🇳🇬</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-700 to-green-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">Python Receipt Manager with OCR</h1>
+            <p class="text-xl text-green-100 max-w-3xl mx-auto">
+                A comprehensive guide to building an automated receipt processing system using Python, 
+                Object-Oriented Programming, and Tesseract OCR
+            </p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a href="#tutorial" class="bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-100 transition">Start Learning</a>
+                <a href="#code" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition">View Full Code</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorial Section -->
+    <section id="tutorial" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Comprehensive Tutorial</h2>
+                
+                <!-- Introduction -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">Introduction</h3>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-100">
+                        <p class="mb-4">This tutorial will teach you how to build a professional receipt management system using Python and Object-Oriented Programming (OOP) principles. The system will:</p>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Extract text from receipt images using Optical Character Recognition (OCR)</li>
+                            <li>Categorize purchased items automatically</li>
+                            <li>Generate expense reports in CSV format</li>
+                            <li>Follow NITDA/NCAIR coding standards for maintainability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Key Concepts -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">Key Concepts</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                            <h4 class="font-bold text-blue-800 mb-3">Object-Oriented Programming</h4>
+                            <p>We use Python classes to organize our code into logical components (Receipt and ReceiptManager) for better maintainability.</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-lg border border-purple-100">
+                            <h4 class="font-bold text-purple-800 mb-3">OCR with Tesseract</h4>
+                            <p>We leverage pytesseract library to extract text from receipt images, converting visual data into processable text.</p>
+                        </div>
+                        <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-100">
+                            <h4 class="font-bold text-yellow-800 mb-3">Data Processing</h4>
+                            <p>We clean and structure the extracted data using regular expressions and string manipulation.</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg border border-red-100">
+                            <h4 class="font-bold text-red-800 mb-3">File Handling</h4>
+                            <p>We save the processed data to CSV files with proper error handling and file existence checks.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step-by-Step Explanation -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">Step-by-Step Implementation</h3>
+                    
+                    <div class="space-y-8">
+                        <!-- Step 1 -->
+                        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-lg mb-3">1. Setting Up the Receipt Class</h4>
+                            <p>The Receipt class handles all operations related to a single receipt:</p>
+                            <ul class="list-disc pl-6 mt-2 space-y-1">
+                                <li><code class="bg-gray-200 px-1 rounded">load_image()</code> - Reads the receipt image file</li>
+                                <li><code class="bg-gray-200 px-1 rounded">extract_text()</code> - Uses OCR to extract text from the image</li>
+                                <li><code class="bg-gray-200 px-1 rounded">parse_items()</code> - Processes the extracted text to identify items and prices</li>
+                                <li><code class="bg-gray-200 px-1 rounded">categorize()</code> - Automatically categorizes items based on keywords</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-lg mb-3">2. Implementing the ReceiptManager</h4>
+                            <p>The ReceiptManager coordinates the overall process:</p>
+                            <ul class="list-disc pl-6 mt-2 space-y-1">
+                                <li><code class="bg-gray-200 px-1 rounded">add_receipt()</code> - Adds receipt files to the processing queue</li>
+                                <li><code class="bg-gray-200 px-1 rounded">process_receipts()</code> - Processes all queued receipts and saves to CSV</li>
+                                <li><code class="bg-gray-200 px-1 rounded">run()</code> - Provides the user interface for interaction</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-lg mb-3">3. Running the Application</h4>
+                            <p>The main execution block creates a ReceiptManager instance and starts the program:</p>
+                            <div class="mt-4 bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+                                <pre><code class="language-python">if __name__ == "__main__":
+    manager = ReceiptManager()
+    manager.run()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Practices -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">NITDA/NCAIR Coding Standards</h3>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-100">
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><strong>Modular Design:</strong> Code is organized into logical classes and methods</li>
+                            <li><strong>Error Handling:</strong> Proper checks for file existence and data validity</li>
+                            <li><strong>Documentation:</strong> Clear structure makes the code self-documenting</li>
+                            <li><strong>Maintainability:</strong> Easy to extend with new features or modify existing ones</li>
+                            <li><strong>User Feedback:</strong> Clear status messages guide the user through the process</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Code Section -->
+    <section id="code" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Complete Implementation</h2>
+                
+                <div class="mb-8 bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Python Receipt Manager with OCR</h3>
+                    <p class="mb-4">Below is the complete implementation following NITDA/NCAIR standards:</p>
+                    
+                    <div class="code-container bg-gray-800 rounded-lg overflow-hidden">
+                        <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#full-code">
+                            Copy Code
+                        </button>
+                        <pre id="full-code" class="p-4 overflow-x-auto"><code class="language-python">import pytesseract
+import cv2
+import csv
+import re
+import os
+from datetime import datetime
+
+# Configure Tesseract OCR path (adjust if needed)
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# Predefined categories
+CATEGORY_MAP = {
+    "tooth": "Personal Care", "paste": "Personal Care", "soap": "Personal Care",
+    "detergent": "Cleaning", "omo": "Cleaning", "colgate": "Personal Care",
+    "sunlight": "Cleaning", "indomie": "Food", "noodle": "Food", "maggie": "Food",
+    "rice": "Food", "milk": "Beverage", "sugar": "Food", "bread": "Food",
+    "mayonnaise": "Food", "oil": "Food", "pack": "General", "cream": "Personal Care",
+    "shampoo": "Personal Care", "brush": "Personal Care", "chocolate": "Snack",
+    "stew": "Food", "meat": "Food", "fish": "Food", "lorem": "Food",
+    "ipsum": "Food", "dolor sit amet": "Food", "consectetur": "Snack", "adipiscing elit": "Snack"
+}
+
+class Receipt:
+    def __init__(self, filename):
+        self.filename = filename
+        self.items = []
+
+    def load_image(self):
+        image = cv2.imread(self.filename)
+        if image is None:
+            raise FileNotFoundError(f"❌ Could not read image: {self.filename}")
+        return image
+
+    def extract_text(self, image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        return pytesseract.image_to_string(gray)
+
+    def parse_items(self, text):
+        lines = [line.strip() for line in text.split('\n') if line.strip()]
+        for line in lines:
+            if any(word in line.lower() for word in ['total', 'cash', 'change', 'receipt']):
+                continue
+
+            match = re.search(r'(.+?)\s+([₦N]?\s?[\d.,]+)[\)]?$', line)
+            if match:
+                item_name = match.group(1).strip()
+                price_str = match.group(2).replace('₦', '').replace('N', '').replace(',', '.').strip()
+                try:
+                    price = round(float(price_str))
+                    category = self.categorize(item_name)
+                    self.items.append((item_name, price, category))
+                except:
+                    continue
+
+    def categorize(self, item_name):
+        item_name = item_name.lower()
+        for keyword, category in CATEGORY_MAP.items():
+            if keyword in item_name:
+                return category
+        return "Uncategorized"
+
+class ReceiptManager:
+    def __init__(self):
+        self.receipts = []
+        self.output_file = "expenses.csv"
+
+    def add_receipt(self, filename):
+        if os.path.isfile(filename):
+            self.receipts.append(filename)
+            print(f"✅ Receipt added: {filename}")
+        else:
+            print("❌ File not found.")
+
+    def process_receipts(self):
+        if not self.receipts:
+            print("⚠ No receipts added yet.")
+            return
+
+        file_exists = os.path.isfile(self.output_file)
+        with open(self.output_file, 'a', newline='') as file:
+            writer = csv.writer(file)
+            if not file_exists:
+                writer.writerow(['Receipt', 'Item', 'Price', 'Category', 'Date'])
+
+            for filename in self.receipts:
+                try:
+                    receipt = Receipt(filename)
+                    img = receipt.load_image()
+                    text = receipt.extract_text(img)
+                    receipt.parse_items(text)
+
+                    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+                    for item_name, price, category in receipt.items:
+                        writer.writerow([filename, item_name, price, category, now])
+
+                    print(f"✅ Processed: {filename}")
+                except FileNotFoundError as e:
+                    print(e)
+
+        self.receipts.clear()
+        print("📁 All receipts processed. Check 'expenses.csv' for your report.")
+
+    def run(self):
+        print("🔹 PYTHON RECEIPT MANAGER 🔹")
+        print("🔁 Developed by Nuhu @ NITDA/NCAIR\n")
+
+        while True:
+            print("\nChoose an option:")
+            print("1. Add receipt image")
+            print("2. Process and generate report")
+            print("3. Exit")
+
+            choice = input("Enter your choice (1/2/3): ").strip()
+
+            if choice == '1':
+                img_name = input("🖼 Enter image file name (e.g., receipt1.jpg): ").strip()
+                self.add_receipt(img_name)
+
+            elif choice == '2':
+                self.process_receipts()
+
+            elif choice == '3':
+                print("👋 Exiting. Goodbye!")
+                break
+
+            else:
+                print("❌ Invalid choice. Please enter 1, 2, or 3.")
+
+# Run the program
+if __name__ == "__main__":
+    manager = ReceiptManager()
+    manager.run()</code></pre>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <h3 class="text-xl font-semibold mb-4">How to Use This Program</h3>
+                    <ol class="list-decimal pl-6 space-y-3">
+                        <li>Install required packages: <code class="bg-blue-100 px-2 py-1 rounded">pip install pytesseract opencv-python</code></li>
+                        <li>Download and install <a href="https://github.com/UB-Mannheim/tesseract/wiki" class="text-blue-600 underline">Tesseract OCR</a></li>
+                        <li>Save receipt images in the same folder as the script</li>
+                        <li>Run the script and follow the menu prompts</li>
+                        <li>Check the generated <code class="bg-blue-100 px-2 py-1 rounded">expenses.csv</code> for your report</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beginner Explanations Section -->
+<section class="py-12 bg-white border-t border-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Simple Explanations for Everyone</h2>
+            <p class="text-center mb-8 text-gray-600">Two-line explanations so <strong>any Group 5 member</strong> can understand and explain confidently</p>
+
+            <div class="space-y-8">
+                <!-- Receipt Class -->
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">🔷 class Receipt</h3>
+                    <p class="text-lg mb-4"><em>Handles reading, extracting, and analyzing a single receipt image.</em><br>
+                    It finds items, prices, and categories from one photo.</p>
+                    
+                    <div class="ml-4 space-y-4">
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-blue-700">__init__(self, filename)</h4>
+                            <p>Stores the filename of the receipt image.<br>
+                            This lets us remember which receipt we're working on.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-blue-700">load_image(self)</h4>
+                            <p>Loads the image from your computer.<br>
+                            If the image isn't found, it shows an error.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-blue-700">extract_text(self, image)</h4>
+                            <p>Turns the receipt image into text using OCR (pytesseract).<br>
+                            Basically, it reads what's written on the paper.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-blue-700">parse_items(self, text)</h4>
+                            <p>Goes line by line through the text and finds items with prices.<br>
+                            It also figures out which category each item belongs to.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-blue-700">categorize(self, item_name)</h4>
+                            <p>Checks each item name and tries to match it to a category like food or personal care.<br>
+                            If it doesn't match anything, it's marked "Uncategorized".</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ReceiptManager Class -->
+                <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">🔷 class ReceiptManager</h3>
+                    <p class="text-lg mb-4"><em>Handles all receipts, collects them, and creates the final report.</em><br>
+                    Think of it as the team captain managing all the receipts together.</p>
+                    
+                    <div class="ml-4 space-y-4">
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-purple-700">__init__(self)</h4>
+                            <p>Creates an empty list to hold all receipt files added.<br>
+                            Also sets the name of the CSV file to save results.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-purple-700">add_receipt(self, filename)</h4>
+                            <p>Checks if a file exists and adds it to the list of receipts.<br>
+                            It's like telling the system "this receipt is ready to process."</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-purple-700">process_receipts(self)</h4>
+                            <p>Goes through all added receipts and writes the details into a CSV report.<br>
+                            Each item from each receipt is saved with name, price, category, and time.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded">
+                            <h4 class="font-semibold text-purple-700">run(self)</h4>
+                            <p>Shows the main menu where the user can add receipts, process them, or exit.<br>
+                            This is the main loop that runs the app.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Block -->
+                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">🔷 if __name__ == "__main__":</h3>
+                    <p class="text-lg"><em>This line tells Python to start the program here.</em><br>
+                    It runs the whole system by calling the ReceiptManager.</p>
+                </div>
+
+                <!-- Summary -->
+                <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-4">✅ Summary</h3>
+                    <ul class="space-y-2 text-lg">
+                        <li>• <strong>Receipt</strong> handles <em>one receipt</em>: reads image → gets text → finds items.</li>
+                        <li>• <strong>ReceiptManager</strong> handles <em>all receipts</em>: adds files → processes → saves report.</li>
+                    </ul>
+                    <div class="mt-4 p-4 bg-white rounded text-center">
+                        <p class="font-semibold text-green-600">Now you can explain this project like a pro! 🎉</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Code Explanation Section -->
+<section class="py-12 bg-gray-50 border-t border-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Line-by-Line Code Breakdown</h2>
+            <p class="text-center mb-8 text-gray-600">Complete explanation in plain English for absolute beginners</p>
+
+            <div class="space-y-12">
+                <!-- Import Section -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 p-2 rounded-full mr-3">1</span>
+                        Importing Required Libraries
+                    </h3>
+                    <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                        <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#import-code">
+                            Copy
+                        </button>
+                        <pre id="import-code"><code class="language-python">import pytesseract
+import cv2
+import csv
+import re
+import os
+from datetime import datetime</code></pre>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">What This Does:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>pytesseract</strong> - The "text reader" that extracts words from images</li>
+                            <li><strong>cv2 (OpenCV)</strong> - Helps the computer understand and process images</li>
+                            <li><strong>csv</strong> - Creates spreadsheet files to save our results</li>
+                            <li><strong>re</strong> - Helps find patterns in text (like prices)</li>
+                            <li><strong>os</strong> - Lets Python interact with your computer's files</li>
+                            <li><strong>datetime</strong> - Adds timestamps to track when items were recorded</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tesseract Setup -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 p-2 rounded-full mr-3">2</span>
+                        Tesseract OCR Path Setup
+                    </h3>
+                    <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                        <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#tesseract-code">
+                            Copy
+                        </button>
+                        <pre id="tesseract-code"><code class="language-python">pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'</code></pre>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">Simple Explanation:</h4>
+                        <p>This is like telling Python: <em>"The tool that reads text from images is installed here on my computer"</em>. The <code>r</code> before the path helps Python understand Windows file paths correctly.</p>
+                    </div>
+                </div>
+
+                <!-- Category Map -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 p-2 rounded-full mr-3">3</span>
+                        Category Dictionary
+                    </h3>
+                    <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                        <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#category-code">
+                            Copy
+                        </button>
+                        <pre id="category-code"><code class="language-python">CATEGORY_MAP = {
+    "tooth": "Personal Care", 
+    "paste": "Personal Care",
+    # ... other items ...
+    "adipiscing elit": "Snack"
+}</code></pre>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">How It Works:</h4>
+                        <p>This is like a <em>cheat sheet</em> that tells the program:</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>If you see "tooth" or "paste" → it's <strong>Personal Care</strong></li>
+                            <li>If you see "indomie" → it's <strong>Food</strong></li>
+                            <li>If no matches → mark as <strong>Uncategorized</strong></li>
+                        </ul>
+                        <p class="mt-2 text-sm text-blue-700">This makes automatic categorization possible without manual input.</p>
+                    </div>
+                </div>
+
+                <!-- Receipt Class -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-purple-700 mb-6 border-b border-purple-200 pb-2">🔷 The Receipt Class</h3>
+                    <p class="mb-6 text-lg text-purple-800"><em>Handles everything about a single receipt - from loading the image to extracting and categorizing items</em></p>
+
+                    <!-- __init__ -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-purple-700 mb-3">Initialization (__init__)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#init-code">
+                                Copy
+                            </button>
+                            <pre id="init-code"><code class="language-python">def __init__(self, filename):
+    self.filename = filename
+    self.items = []</code></pre>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p><strong>What happens:</strong> When we create a new Receipt object, we:</p>
+                            <ol class="list-decimal pl-5 mt-2 space-y-1">
+                                <li>Remember the image file name (<code>self.filename</code>)</li>
+                                <li>Prepare an empty list (<code>self.items</code>) to store found items later</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- load_image -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-purple-700 mb-3">Loading the Image (load_image)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#load-image-code">
+                                Copy
+                            </button>
+                            <pre id="load-image-code"><code class="language-python">def load_image(self):
+    image = cv2.imread(self.filename)
+    if image is None:
+        raise FileNotFoundError(f"❌ Could not read image: {self.filename}")
+    return image</code></pre>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p><strong>Step-by-step:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>Tries to open the image file using OpenCV (<code>cv2.imread</code>)</li>
+                                <li>If failed (returns <code>None</code>), shows an error message</li>
+                                <li>If successful, returns the image for processing</li>
+                            </ol>
+                            <p class="mt-2 text-sm text-purple-700">Think of this like trying to open a photo on your phone - if it can't be opened, you get an error.</p>
+                        </div>
+                    </div>
+
+                    <!-- extract_text -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-purple-700 mb-3">Extracting Text (extract_text)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#extract-text-code">
+                                Copy
+                            </button>
+                            <pre id="extract-text-code"><code class="language-python">def extract_text(self, image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return pytesseract.image_to_string(gray)</code></pre>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p><strong>How it works:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>Converts the color image to black & white (<code>GRAY</code>) - this helps OCR work better</li>
+                                <li>Uses pytesseract to "read" the text from the simplified image</li>
+                                <li>Returns all found text as a string</li>
+                            </ol>
+                            <div class="mt-3 p-3 bg-white rounded border-l-4 border-purple-500">
+                                <p class="text-sm"><strong>Real-world analogy:</strong> Like taking a photo of a receipt and using your phone's "copy text from image" feature.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- parse_items -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-purple-700 mb-3">Finding Items (parse_items)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#parse-items-code">
+                                Copy
+                            </button>
+                            <pre id="parse-items-code"><code class="language-python">def parse_items(self, text):
+    lines = [line.strip() for line in text.split('\n') if line.strip()]
+    
+    for line in lines:
+        if any(word in line.lower() for word in ['total', 'cash', 'change', 'receipt']):
+            continue
+            
+        match = re.search(r'(.+?)\s+([₦N]?\s?[\d.,]+)[\)]?$', line)
+        if match:
+            item_name = match.group(1).strip()
+            price_str = match.group(2).replace('₦', '').replace('N', '').replace(',', '.').strip()
+            
+            try:
+                price = round(float(price_str))
+                category = self.categorize(item_name)
+                self.items.append((item_name, price, category))
+            except:
+                continue</code></pre>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p><strong>Detailed breakdown:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li><strong>Line cleaning:</strong> Splits text into lines and removes empty ones</li>
+                                <li><strong>Skip totals:</strong> Ignores lines containing "total", "cash" etc.</li>
+                                <li><strong>Pattern matching:</strong> Looks for item names followed by prices</li>
+                                <li><strong>Price cleaning:</strong> Removes currency symbols and fixes decimals</li>
+                                <li><strong>Storage:</strong> Saves valid items with their prices and categories</li>
+                            </ol>
+                            <div class="mt-3 p-3 bg-white rounded border-l-4 border-purple-500">
+                                <p class="text-sm"><strong>Key Point:</strong> The <code>re.search</code> pattern looks for:
+                                <br>1. Item name (text) → 2. Space → 3. Price (numbers with optional currency symbols)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- categorize -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-purple-700 mb-3">Categorizing Items (categorize)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#categorize-code">
+                                Copy
+                            </button>
+                            <pre id="categorize-code"><code class="language-python">def categorize(self, item_name):
+    item_name = item_name.lower()
+    for keyword, category in CATEGORY_MAP.items():
+        if keyword in item_name:
+            return category
+    return "Uncategorized"</code></pre>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p><strong>How categorization works:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>Makes the item name lowercase for easier matching</li>
+                                <li>Checks if any keyword from our dictionary exists in the item name</li>
+                                <li>Returns the matching category if found</li>
+                                <li>Defaults to "Uncategorized" if no matches</li>
+                            </ol>
+                            <p class="mt-2 text-sm text-purple-700">Example: "Colgate Toothpaste" → contains "tooth" → returns "Personal Care"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ReceiptManager Class -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-green-700 mb-6 border-b border-green-200 pb-2">🔷 The ReceiptManager Class</h3>
+                    <p class="mb-6 text-lg text-green-800"><em>Manages multiple receipts and handles the overall program flow</em></p>
+
+                    <!-- __init__ -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-green-700 mb-3">Initialization (__init__)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#manager-init-code">
+                                Copy
+                            </button>
+                            <pre id="manager-init-code"><code class="language-python">def __init__(self):
+    self.receipts = []
+    self.output_file = "expenses.csv"</code></pre>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p><strong>Setup:</strong></p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><code>self.receipts</code> - Empty list to store receipt filenames</li>
+                                <li><code>self.output_file</code> - Sets the CSV filename for saving results</li>
+                            </ul>
+                            <p class="mt-2 text-sm text-green-700">This is like preparing a blank notebook (<code>receipts</code>) and deciding where to save the final report (<code>expenses.csv</code>).</p>
+                        </div>
+                    </div>
+
+                    <!-- add_receipt -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-green-700 mb-3">Adding Receipts (add_receipt)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#add-receipt-code">
+                                Copy
+                            </button>
+                            <pre id="add-receipt-code"><code class="language-python">def add_receipt(self, filename):
+    if os.path.isfile(filename):
+        self.receipts.append(filename)
+        print(f"✅ Receipt added: {filename}")
+    else:
+        print("❌ File not found.")</code></pre>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p><strong>Process flow:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>Checks if the file exists using <code>os.path.isfile</code></li>
+                                <li>If exists → adds to processing queue with success message</li>
+                                <li>If not → shows error message</li>
+                            </ol>
+                            <p class="mt-2 text-sm text-green-700">This is like putting a physical receipt in your "to process" tray.</p>
+                        </div>
+                    </div>
+
+                    <!-- process_receipts -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-green-700 mb-3">Processing Receipts (process_receipts)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#process-receipts-code">
+                                Copy
+                            </button>
+                            <pre id="process-receipts-code"><code class="language-python">def process_receipts(self):
+    if not self.receipts:
+        print("⚠ No receipts added yet.")
+        return
+
+    file_exists = os.path.isfile(self.output_file)
+    with open(self.output_file, 'a', newline='') as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            writer.writerow(['Receipt', 'Item', 'Price', 'Category', 'Date'])
+
+        for filename in self.receipts:
+            try:
+                receipt = Receipt(filename)
+                img = receipt.load_image()
+                text = receipt.extract_text(img)
+                receipt.parse_items(text)
+
+                now = datetime.now().strftime("%Y-%m-%d %H:%M")
+                for item_name, price, category in receipt.items:
+                    writer.writerow([filename, item_name, price, category, now])
+
+                print(f"✅ Processed: {filename}")
+            except FileNotFoundError as e:
+                print(e)
+
+    self.receipts.clear()
+    print("📁 All receipts processed. Check 'expenses.csv' for your report.")</code></pre>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p><strong>Complete workflow:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>First checks if there are receipts to process</li>
+                                <li>Prepares the CSV file (adds headers if new file)</li>
+                                <li>For each receipt:
+                                    <ul class="list-disc pl-5 mt-1 space-y-1">
+                                        <li>Creates a Receipt object</li>
+                                        <li>Loads image and extracts text</li>
+                                        <li>Finds and categorizes items</li>
+                                        <li>Saves each item to CSV with timestamp</li>
+                                    </ul>
+                                </li>
+                                <li>Clears the processing queue when done</li>
+                                <li>Shows completion message</li>
+                            </ol>
+                            <div class="mt-3 p-3 bg-white rounded border-l-4 border-green-500">
+                                <p class="text-sm"><strong>Key Features:</strong></p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>Error handling with try/except</li>
+                                    <li>Appends to existing CSV without overwriting</li>
+                                    <li>Clear user feedback at each step</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- run -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-green-700 mb-3">Main Menu (run)</h4>
+                        <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                            <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#run-code">
+                                Copy
+                            </button>
+                            <pre id="run-code"><code class="language-python">def run(self):
+    print("🔹 PYTHON RECEIPT MANAGER 🔹")
+    print("🔁 Developed by Nuhu @ NITDA/NCAIR\n")
+
+    while True:
+        print("\nChoose an option:")
+        print("1. Add receipt image")
+        print("2. Process and generate report")
+        print("3. Exit")
+
+        choice = input("Enter your choice (1/2/3): ").strip()
+
+        if choice == '1':
+            img_name = input("🖼 Enter image file name (e.g., receipt1.jpg): ").strip()
+            self.add_receipt(img_name)
+
+        elif choice == '2':
+            self.process_receipts()
+
+        elif choice == '3':
+            print("👋 Exiting. Goodbye!")
+            break
+
+        else:
+            print("❌ Invalid choice. Please enter 1, 2, or 3.")</code></pre>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p><strong>User interaction:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>Shows welcome message and menu</li>
+                                <li>Continuously displays options until user exits</li>
+                                <li>Handles three main actions:
+                                    <ul class="list-disc pl-5 mt-1 space-y-1">
+                                        <li><strong>1:</strong> Add new receipt (calls <code>add_receipt</code>)</li>
+                                        <li><strong>2:</strong> Process all receipts (calls <code>process_receipts</code>)</li>
+                                        <li><strong>3:</strong> Exit the program</li>
+                                    </ul>
+                                </li>
+                                <li>Validates user input and provides feedback</li>
+                            </ol>
+                            <p class="mt-2 text-sm text-green-700">This creates the interactive experience users see when running the program.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Block -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-orange-700 mb-4">Program Starter</h3>
+                    <div class="code-container bg-gray-800 rounded-lg overflow-hidden mb-4">
+                        <button class="copy-btn bg-green-600 text-white px-3 py-1 rounded text-sm" data-clipboard-target="#main-code">
+                            Copy
+                        </button>
+                        <pre id="main-code"><code class="language-python">if __name__ == "__main__":
+    manager = ReceiptManager()
+    manager.run()</code></pre>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <p><strong>What happens when you run the file:</strong></p>
+                        <ol class="list-decimal pl-5 space-y-1">
+                            <li>Python checks if this is the main file being run (not imported)</li>
+                            <li>Creates a <code>ReceiptManager</code> instance</li>
+                            <li>Starts the program by calling <code>run()</code></li>
+                        </ol>
+                        <div class="mt-3 p-3 bg-white rounded border-l-4 border-orange-500">
+                            <p class="text-sm"><strong>Professional Tip:</strong> The <code>if __name__ == "__main__":</code> block ensures this code only runs when the file is executed directly, not when imported as a module.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Card -->
+                <div class="bg-gradient-to-r from-green-600 to-green-800 text-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">🎯 Key Takeaways</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">Receipt Class</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Handles <strong>one receipt at a time</strong></li>
+                                <li>Does the <strong>heavy lifting</strong> of image processing</li>
+                                <li>Extracts and <strong>organizes</strong> item data</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">ReceiptManager Class</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>Manages multiple</strong> receipts</li>
+                                <li>Handles <strong>user interaction</strong></li>
+                                <li>Saves <strong>final reports</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-lg">Now you can explain every part of this project with confidence! 🚀</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Q&A Section -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-green-800 mb-2">Receipt Manager Q&A Challenge</h2>
+        <p class="text-center text-gray-600 mb-8">Test your knowledge with these 30 essential questions</p>
+        
+        <div class="max-w-4xl mx-auto">
+            <!-- Score Display -->
+            <div id="score-display" class="hidden bg-white p-4 rounded-lg shadow-md mb-8 text-center">
+                <h3 class="text-2xl font-bold mb-2">Your Results</h3>
+                <p id="score-text" class="text-xl mb-4"></p>
+                <div id="incorrect-answers" class="text-left"></div>
+                <button onclick="resetQuiz()" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">Try Again</button>
+            </div>
+
+            <!-- Quiz Form -->
+            <form id="quiz-form" class="space-y-6">
+                <!-- Question 1 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(1)">
+                        <h3 class="text-xl font-semibold">1. What is the primary purpose of the pytesseract library in this project?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) To create graphical user interfaces</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) To extract text from images (OCR)</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) To connect to databases</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) To perform mathematical calculations</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(2)">
+                        <h3 class="text-xl font-semibold">2. Why do we convert the image to grayscale before OCR processing?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) To reduce file size</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) To improve text recognition accuracy</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) To make the image look better</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) Because color images are not supported</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions 3-29 would follow the same pattern -->
+                <!-- Sample of additional questions: -->
+
+                
+                
+                <!-- Question 3 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(3)">
+                        <h3 class="text-xl font-semibold">3. What is the purpose of the CATEGORY_MAP dictionary?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) To store image file paths</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) To map keywords to expense categories</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) To record user preferences</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) To configure OCR settings</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions 4-29 (completing the full set of 30) -->
+<!-- Question 4 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(4)">
+        <h3 class="text-xl font-semibold">4. What does the cv2.imread() function do?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Loads an image from a file</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Reads text from an image</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Displays an image on screen</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Saves an image to disk</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 5 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(5)">
+        <h3 class="text-xl font-semibold">5. What happens if the program fails to load an image?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="A" class="h-5 w-5 text-green-600">
+                <span>A) It silently continues with the next image</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="B" class="h-5 w-5 text-green-600">
+                <span>B) It creates an empty image</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="C" class="h-5 w-5 text-green-600">
+                <span>C) It raises a FileNotFoundError</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="D" class="h-5 w-5 text-green-600">
+                <span>D) It asks the user to try again</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 6 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(6)">
+        <h3 class="text-xl font-semibold">6. What is the main purpose of the regular expression in parse_items()?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To validate the image format</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To find item names followed by prices</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To check for valid categories</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To count the number of items</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 7 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(7)">
+        <h3 class="text-xl font-semibold">7. Why does the program skip lines containing 'total' or 'cash'?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="A" class="h-5 w-5 text-green-600">
+                <span>A) They're not individual purchased items</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="B" class="h-5 w-5 text-green-600">
+                <span>B) They cause errors in the OCR</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="C" class="h-5 w-5 text-green-600">
+                <span>C) They're always incorrectly read</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="D" class="h-5 w-5 text-green-600">
+                <span>D) They're used for different processing</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 8 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(8)">
+        <h3 class="text-xl font-semibold">8. What does the Receipt class primarily represent in this program?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="A" class="h-5 w-5 text-green-600">
+                <span>A) A collection of all receipts</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The processing of a single receipt</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The user interface components</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The file saving functionality</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 9 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(9)">
+        <h3 class="text-xl font-semibold">9. What is the main responsibility of the ReceiptManager class?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Image processing and text extraction</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Category mapping and classification</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Managing multiple receipts and workflow</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Regular expression pattern matching</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 10 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(10)">
+        <h3 class="text-xl font-semibold">10. What file extension is used for the output report?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="A" class="h-5 w-5 text-green-600">
+                <span>A) .txt</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="B" class="h-5 w-5 text-green-600">
+                <span>B) .csv</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="C" class="h-5 w-5 text-green-600">
+                <span>C) .xlsx</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="D" class="h-5 w-5 text-green-600">
+                <span>D) .json</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 11 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(11)">
+        <h3 class="text-xl font-semibold">11. Why is the datetime module imported and used?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To timestamp when items were processed</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To measure how long processing takes</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To schedule future processing</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To validate receipt dates</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 12 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(12)">
+        <h3 class="text-xl font-semibold">12. Why is there a try/except block when processing prices?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To handle potential conversion errors</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To skip items without prices</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To validate category mappings</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To retry OCR on failure</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 13 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(13)">
+        <h3 class="text-xl font-semibold">13. What category is assigned if no keywords match an item?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Miscellaneous</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Unknown</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="C" class="h-5 w-5 text-green-600">
+                <span>C) General</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Uncategorized</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 14 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(14)">
+        <h3 class="text-xl font-semibold">14. What does the expression round(float(price_str)) accomplish?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Converts price to a whole number</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Validates the price format</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Rounds to two decimal places</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Converts currency formats</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 15 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(15)">
+        <h3 class="text-xl font-semibold">15. How are extracted items stored in the Receipt class?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="A" class="h-5 w-5 text-green-600">
+                <span>A) As tuples in the items list</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="B" class="h-5 w-5 text-green-600">
+                <span>B) In a dictionary with item names as keys</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="C" class="h-5 w-5 text-green-600">
+                <span>C) As separate instance variables</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="D" class="h-5 w-5 text-green-600">
+                <span>D) In a temporary CSV file</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 16 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(16)">
+        <h3 class="text-xl font-semibold">16. What does the 'a' mode in open() do when saving to CSV?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Overwrites any existing file</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Appends without overwriting existing data</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Creates a file if it doesn't exist</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Both B and C</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 17 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(17)">
+        <h3 class="text-xl font-semibold">17. What is the first thing process_receipts() checks?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="A" class="h-5 w-5 text-green-600">
+                <span>A) If there are receipts to process</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="B" class="h-5 w-5 text-green-600">
+                <span>B) If Tesseract is installed</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="C" class="h-5 w-5 text-green-600">
+                <span>C) If OpenCV is working</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="D" class="h-5 w-5 text-green-600">
+                <span>D) If the output file exists</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 18 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(18)">
+        <h3 class="text-xl font-semibold">18. What is written first if creating a new CSV file?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The first receipt's data</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="B" class="h-5 w-5 text-green-600">
+                <span>B) A timestamp</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Column headers</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Configuration settings</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 19 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(19)">
+        <h3 class="text-xl font-semibold">19. What gets cleared after processing all receipts?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The output CSV file</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The receipts list</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The category map</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The terminal screen</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 20 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(20)">
+        <h3 class="text-xl font-semibold">20. How are prices cleaned before conversion?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="A" class="h-5 w-5 text-green-600">
+                <span>A) By removing all non-digit characters</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="B" class="h-5 w-5 text-green-600">
+                <span>B) By converting commas to periods</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="C" class="h-5 w-5 text-green-600">
+                <span>C) By removing currency symbols</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="D" class="h-5 w-5 text-green-600">
+                <span>D) All of the above</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 21 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(21)">
+        <h3 class="text-xl font-semibold">21. What is the main purpose of the run() method?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To handle user interaction through a menu</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To process images in batch mode</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To configure system settings</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To install required dependencies</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 22 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(22)">
+        <h3 class="text-xl font-semibold">22. How do you add a receipt to be processed?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="A" class="h-5 w-5 text-green-600">
+                <span>A) By placing it in a specific folder</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="B" class="h-5 w-5 text-green-600">
+                <span>B) By selecting option 1 in the menu</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="C" class="h-5 w-5 text-green-600">
+                <span>C) By dragging it onto the program icon</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="D" class="h-5 w-5 text-green-600">
+                <span>D) By renaming it to 'receipt.jpg'</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 23 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(23)">
+        <h3 class="text-xl font-semibold">23. What happens if you enter an invalid menu choice?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The program crashes</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="B" class="h-5 w-5 text-green-600">
+                <span>B) It defaults to option 1</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="C" class="h-5 w-5 text-green-600">
+                <span>C) It shows an error message</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="D" class="h-5 w-5 text-green-600">
+                <span>D) It processes all receipts anyway</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 24 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(24)">
+        <h3 class="text-xl font-semibold">24. What is the purpose of the if __name__ == "__main__" block?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To define global variables</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To handle import statements</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To run code when executed directly</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To prevent infinite loops</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 25 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(25)">
+        <h3 class="text-xl font-semibold">25. Why use classes instead of just functions for this project?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To make the code run faster</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="B" class="h-5 w-5 text-green-600">
+                <span>B) For better organization and encapsulation</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Because Python requires it for OCR</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To reduce the number of variables</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 26 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(26)">
+        <h3 class="text-xl font-semibold"> Click to Submit <h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+
+                <!-- Question 30 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(30)">
+                        <h3 class="text-xl font-semibold"> Click the button below to View Result</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) It processes all receipts</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) It adds a new receipt</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) It exits the program</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) It shows the help menu</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-8">
+                    <button type="button" onclick="checkAnswers()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                        Submit Answers
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+ <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+    <!-- Footer -->
+    <footer class="bg-green-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-12">
+                    <p class="mt-2 text-green-200">National Information Technology Development Agency</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-green-300">Unified Learning Archive</p>
+                    <p class="text-green-200">"A legacy that will echo till eternity"</p>
+                    <p class="mt-2 text-sm text-green-400">© 2023 NITDA/NCAIR. All rights reserved.</p>
+                </div>
+            </div>
+              <div class="flex space-x-4">
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
+        </div>
+    </footer>
+
+    <script>
+       
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Initialize clipboard.js
+        new ClipboardJS('.copy-btn');
+        
+        // Show feedback when code is copied
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        // Track currently open question
+    let currentOpenQuestion = null;
+    
+    // Toggle question visibility
+    function toggleQuestion(questionNum) {
+        const question = document.querySelector(`.quiz-card:nth-child(${questionNum}) .question-body`);
+        const icon = document.querySelector(`.quiz-card:nth-child(${questionNum}) .toggle-icon`);
+        
+        // Close previously opened question
+        if (currentOpenQuestion && currentOpenQuestion !== question) {
+            currentOpenQuestion.classList.add('hidden');
+            const prevIcon = currentOpenQuestion.parentElement.querySelector('.toggle-icon');
+            prevIcon.textContent = '+';
+        }
+        
+        // Toggle current question
+        if (question.classList.contains('hidden')) {
+            question.classList.remove('hidden');
+            icon.textContent = '-';
+            currentOpenQuestion = question;
+        } else {
+            question.classList.add('hidden');
+            icon.textContent = '+';
+            currentOpenQuestion = null;
+        }
+    }
+    
+    // Answer key
+    const correctAnswers = {
+        q1: "B", q2: "B", q3: "B", q4: "A", q5: "C", q6: "B", q7: "A", q8: "B", q9: "c", q10: "B", q11: "A", q12: "C", q13: "D", q14: "B", q15: "A",q16: "B", q17: "A", q18: "C", q19: "B", q20: "D", q21: "A", q22: "B", q23: "D", q24: "C", q24: "C", q25: "B", q26: "C", q27: "A", q28: "B", q29: "D",q30: "C",
+    };
+    
+    // Explanations for answers
+    const answerExplanations = {
+        q1: "pytesseract is used for Optical Character Recognition (OCR) to extract text from images.",
+        q2: "Converting to grayscale improves text recognition accuracy by reducing complexity.",
+        q3: "CATEGORY_MAP defines how keywords in item names map to specific categories.",
+        q4: "What does cv2.imread() do? (A - Loads image)",
+        q5: "What happens if image loading fails? (C - Raises FileNotFoundError)",
+        q6: "What's the purpose of regular expressions here? (B - Find item-price patterns)",
+        q7: "Why skip lines with 'total' or 'cash'? (A - They're not items)",
+        q8: "What does the Receipt class represent? (B - Single receipt processing)",
+        q9: "What does ReceiptManager handle? (C - Multiple receipts and workflow)",
+        q10: "File extension for output? (B - .csv)",
+        q11: "What's the purpose of datetime? (A - Timestamp records)",
+        q12: "Why use try/except when parsing prices? (C - Handle conversion errors)",
+        q13: "Default category if no match? (D - Uncategorized)",
+        q14: "What does round(float(price_str)) do? (B - Converts to whole number)",
+        q15: "How are items stored in Receipt class? (A - As tuples in items list)",
+        q16: "What does 'a' mode in open() do? (B - Appends without overwriting)",
+        q17: "First thing process_receipts() checks? (A - If receipts exist)",
+        q18: "What's written first if CSV is new? (C - Column headers)",
+        q19: "What clears after processing? (B - receipts list)",
+        q20: "How are prices cleaned? (D - Remove ₦/N and fix decimals) ",
+        q21: "What's the run() method's purpose? (A - User interaction loop)",
+        q22: "How to add a receipt? (B - Option 1 in menu)",
+        q23: "What happens if invalid menu choice? (D - Shows error message)",
+        q23: "What happens if invalid menu choice? (D - Shows error message)",
+        q24: "What's the if name block for? (C - Run when executed directly)",
+        q25: "Why use classes instead of just functions? (B - Better organization)",
+        q26: "What's the main project benefit? (C - Automates receipt processing)",
+        q27: "Example of Personal Care item? (A - Toothpaste)",
+        q28: "Example of Food category item? (B - Indomie)",
+        q29: "What does the program NOT do? (D - Connect to internet)",
+        q30: "Option 3 exits the program as shown in the run() method's menu handling."
+    };
+    
+    // Check answers
+    function checkAnswers() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const results = [];
+        
+        // Check each question
+        for (let i = 1; i <= 30; i++) {
+            const questionName = `q${i}`;
+            const selectedOption = form.elements[questionName]?.value;
+            
+            if (selectedOption === correctAnswers[questionName]) {
+                score++;
+            } else if (selectedOption) {
+                results.push({
+                    question: i,
+                    correct: correctAnswers[questionName],
+                    explanation: answerExplanations[questionName]
+                });
+            }
+        }
+        
+        // Display results
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreText = document.getElementById('score-text');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        
+        scoreText.innerHTML = `You scored <span class="font-bold">${score}/30</span> (${Math.round((score/30)*100)}%)`;
+        incorrectAnswers.innerHTML = '';
+        
+        if (results.length > 0) {
+            incorrectAnswers.innerHTML += '<h4 class="font-semibold mt-4">Questions to review:</h4>';
+            results.forEach(item => {
+                incorrectAnswers.innerHTML += `
+                    <div class="mt-3 p-3 bg-red-50 rounded-lg">
+                        <p><strong>Question ${item.question}:</strong> The correct answer is <span class="font-bold">${item.correct}</span></p>
+                        <p class="text-sm mt-1">${item.explanation}</p>
+                    </div>
+                `;
+            });
+        }
+        
+        // Hide form and show results
+        document.getElementById('quiz-form').classList.add('hidden');
+        scoreDisplay.classList.remove('hidden');
+    }
+    
+    // Reset quiz
+    function resetQuiz() {
+        document.getElementById('quiz-form').classList.remove('hidden');
+        document.getElementById('score-display').classList.add('hidden');
+        
+        // Clear all selections
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.checked = false;
+        });
+        
+        // Close all questions
+        const questionBodies = document.querySelectorAll('.question-body');
+        const toggleIcons = document.querySelectorAll('.toggle-icon');
+        
+        questionBodies.forEach(body => {
+            body.classList.add('hidden');
+        });
+        
+        toggleIcons.forEach(icon => {
+            icon.textContent = '+';
+        });
+        
+        currentOpenQuestion = null;
+    };
+      AOS.init();
+    </script>
+</body>
+</html>

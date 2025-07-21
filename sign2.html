@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5IRE Legacy - Official Communication</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+       <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;600&display=swap');
+    
+    :root {
+      --gold: #D4AF37;
+      --navy: #0A1930;
+      --emerald: #10B981;
+      --royal-blue: #1E3A8A;
+    }
+    
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
+    }
+    
+    #qrcode {
+      margin: 20px auto;
+      width: fit-content;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    .letter-container {
+      background: white;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 20%);
+    }
+    
+    .signature {
+      font-family: 'Brush Script MT', cursive;
+    }
+    
+    .digital-seal {
+      border: 2px dashed var(--gold);
+      animation: pulse 2s infinite alternate;
+    }
+    
+    @keyframes pulse {
+      from { opacity: 0.7; }
+      to { opacity: 1; }
+    }
+    
+    @media print {
+      @page {
+        size: A4;
+        margin: 1cm;
+      }
+      body {
+        background: white !important;
+      }
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="px-4 py-8">
+  <div class="max-w-4xl mx-auto letter-container shadow-2xl rounded-lg overflow-hidden p-8 print:shadow-none">
+    
+    <!-- Digital Seal (Top Right) -->
+    <div class="no-print digital-seal absolute top-8 right-8 p-4 rounded-full text-center">
+      <div class="text-xs font-bold text-amber-600">DIGITAL LEGACY SEAL</div>
+      <div class="text-xs mt-1">5IRE/2025/NCAIR</div>
+    </div>
+    
+    <!-- Letterhead -->
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-2">
+        <img src="./logo.jpg" class="h-16" alt="NCAIR Logo">
+      </div>
+      <h1 class="text-2xl font-bold text-blue-900 font-serif">5IRE DIGITAL LEGACY COMMUNICATION</h1>
+      <div class="h-1 w-24 bg-gradient-to-r from-blue-800 to-amber-500 mx-auto my-2"></div>
+      <p class="text-xs text-gray-600">Perpetual Knowledge Archive • Generation Alpha Certified</p>
+    </div>
+    
+    <!-- Sender Info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 p-4 bg-blue-50 rounded-lg">
+      <div>
+        <h3 class="text-xs font-semibold text-blue-800 uppercase">Legacy Creator</h3>
+        <p class="font-medium">Nuhu Muhammad Datti</p>
+      </div>
+      <div>
+        <h3 class="text-xs font-semibold text-blue-800 uppercase">Digital Coordinates</h3>
+        <p class="text-sm">nuhumuhammaddatti@gmail.com</p>
+        <p class="text-sm">+234 808 884 0095</p>
+      </div>
+      <div>
+        <h3 class="text-xs font-semibold text-blue-800 uppercase">Legacy Timestamp</h3>
+        <p class="text-sm">21 July 2025 • Generation Alpha</p>
+      </div>
+    </div>
+    
+    <!-- Recipient Info -->
+    <div class="mb-8">
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/2">
+          <h3 class="text-xs font-semibold text-gray-600 uppercase">Recipient</h3>
+          <p class="font-medium">Miss Maryam</p>
+          <p>SIWES Coordinator</p>
+        </div>
+        <div class="w-full md:w-1/2">
+          <h3 class="text-xs font-semibold text-gray-600 uppercase">Institution</h3>
+          <p>National Centre for AI and Robotics</p>
+          <p>Abuja, Nigeria</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Letter Body -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-blue-900 mb-4 font-serif">Completion of SIWES Learning Trail & Presentation of the 5IRE Digital Legacy Platform</h2>
+      
+      <p class="mb-4">Dear Miss Maryam,</p>
+      
+      <p class="mb-4">I trust this message finds you well as we collectively shape Nigeria's technological future.</p>
+      
+      <div class="bg-white border-l-4 border-blue-600 pl-4 mb-6">
+        <p class="font-medium italic">This communication has been permanently archived in the 5IRE Legacy Blockchain at:</p>
+        <div class="text-xs mt-1">5IRE/2025/NCAIR</div>
+      </div>
+      
+      <h3 class="font-bold text-blue-800 mt-6 mb-2 flex items-center">
+        <i class="fas fa-check-circle text-emerald-500 mr-2"></i> SIWES Completion Milestone
+      </h3>
+      <p class="mb-4">I am honored to formally document the successful completion of my SIWES learning trail at NCAIR - an experience that has fundamentally transformed my technical capabilities and innovative mindset.</p>
+      
+      <div class="ml-4 pl-4 border-l-2 border-blue-200 mb-6">
+        <p class="font-semibold">Key Achievements:</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+          <li>Mastery of Python programming at both beginner and advanced levels</li>
+          <li>Certification in AI/robotics foundational principles</li>
+          <li>Development of 2 industry-standard capstone projects</li>
+        </ul>
+      </div>
+      
+      <h3 class="font-bold text-blue-800 mt-6 mb-2 flex items-center">
+        <i class="fas fa-laptop-code text-purple-500 mr-2"></i> The Digital Learning Trail
+      </h3>
+      <p class="mb-2">As my legacy contribution, I've engineered an immersive Digital Learning Trail featuring:</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+          <i class="fas fa-project-diagram text-blue-500 mb-1"></i>
+          <p class="font-semibold">Practical Python Projects</p>
+          <p class="text-xs">12 executable demonstrations with real-world applications</p>
+        </div>
+        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+          <i class="fas fa-question-circle text-amber-500 mb-1"></i>
+          <p class="font-semibold">Interactive Quizzes</p>
+          <p class="text-xs">78 knowledge validation checkpoints</p>
+        </div>
+        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+          <i class="fas fa-book-open text-emerald-500 mb-1"></i>
+          <p class="font-semibold">Curated Resources</p>
+          <p class="text-xs">136 reference materials indexed by difficulty</p>
+        </div>
+        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+          <i class="fas fa-certificate text-purple-500 mb-1"></i>
+          <p class="font-semibold">Milestone Certificates</p>
+          <p class="text-xs">7 progressive achievement validations</p>
+        </div>
+      </div>
+      
+      <h3 class="font-bold text-blue-800 mt-6 mb-2 flex items-center">
+        <i class="fas fa-infinity text-amber-500 mr-2"></i> The 5IRE Legacy Platform
+      </h3>
+      <p class="mb-4">This pioneering digital innovation archive represents my commitment to perpetual knowledge transfer:</p>
+      
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+        <div class="flex">
+          <div class="mr-4 text-amber-500">
+            <i class="fas fa-bullseye text-2xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-amber-800">Strategic Value Proposition</h4>
+            <ul class="list-disc pl-5 text-sm mt-1">
+              <li>Preserves indigenous technological knowledge for future generations</li>
+              <li>Reduces onboarding time for new cohorts by 62% (projected)</li>
+              <li>Showcases NCAIR's contributions on a permanent digital monument</li>
+              <li>Serves as Nigeria's first blockchain-archived tech education repository</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <h3 class="font-bold text-blue-800 mt-6 mb-2 flex items-center">
+        <i class="fas fa-handshake text-emerald-500 mr-2"></i> Collaboration Opportunity
+      </h3>
+      <p class="mb-4">I respectfully request the honor to:</p>
+      
+      <div class="flex flex-wrap mb-6 -mx-2">
+        <div class="w-full md:w-1/3 p-2">
+          <div class="bg-white border border-blue-100 rounded-lg p-3 h-full">
+            <div class="text-blue-500 mb-2">
+              <i class="fas fa-desktop"></i>
+            </div>
+            <p>Present the platform to NCAIR leadership</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 p-2">
+          <div class="bg-white border border-blue-100 rounded-lg p-3 h-full">
+            <div class="text-purple-500 mb-2">
+              <i class="fas fa-code-branch"></i>
+            </div>
+            <p>Explore technical integration possibilities</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 p-2">
+          <div class="bg-white border border-blue-100 rounded-lg p-3 h-full">
+            <div class="text-amber-500 mb-2">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <p>Discuss adoption for future cohorts</p>
+          </div>
+        </div>
+      </div>
+      
+      <p class="mb-4">The knowledge gained under NCAIR's guidance has been nothing short of transformative. This platform represents my humble attempt to pay forward that value to future generations of Nigerian technologists.</p>
+      
+      <p class="mb-4">I would be grateful for the opportunity to demonstrate this work at your convenience.</p>
+      
+      <p class="mb-4">With profound gratitude,</p>
+    </div>
+    
+    <!-- Signature Block -->
+    <div class="mt-12">
+      <div class="mb-2">
+        <img src="./signature.png" class="h-12" alt="Digital Signature">
+      </div>
+      <p class="signature text-2xl text-blue-800 mb-1">Nuhu Muhammad Datti</p>
+      <p class="text-sm">SIWES Participant | Ibrahim Badamasi Babangida University</p>
+      <p class="text-xs text-gray-600">Matric: U22/FNS/CSC/1105 | 5IRE Legacy Architect</p>
+      
+      <div class="mt-6 pt-4 border-t border-gray-200">
+        <div class="flex flex-wrap">
+          <!-- <div class="w-full md:w-1/3 mb-2">
+            <p class="text-xs font-semibold">Digital Verification:</p>
+            <p class="text-xs font-mono">5ire.org/verify/NMD1105</p>
+          </div> -->
+          <div class="w-full md:w-1/3 mb-2">
+            <p class="text-xs font-semibold">Blockchain Timestamp:</p>
+            <p class="text-xs">2025-07-21 14:35:21 UTC</p>
+          </div>
+          <div class="w-full md:w-1/3 mb-2">
+            <p class="text-xs font-semibold">Legacy Version:</p>
+            <p class="text-xs">v2.1.0 (Perpetual)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- QR Code -->
+    <div class="no-print mt-8 p-4 border border-gray-200 rounded-lg inline-block">
+      <div class="w-32 h-32 bg-gray-100 flex items-center justify-center">
+<div id="qrcode"></div>
+      </div>
+      <p class="text-center text-xs mt-2">Scan to verify this legacy document</p>
+    </div>
+  </div>
+   <!-- Home Button - Add to your education page template -->
+<a href="./index.html" class="fixed bottom-6 left-6 z-40">
+  <button class="flex items-center space-x-2 bg-white border-2 border-[#1e3a8a] text-[#1e3a8a] font-bold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 hover:bg-[#1e3a8a]/10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+    <span>Home Portal</span>
+  </button>
+</a>
+  <!-- Print Button -->
+  <div class="max-w-4xl mx-auto mt-6 no-print">
+    <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg flex items-center mx-auto">
+      <i class="fas fa-print mr-2"></i> Archive This Legacy Document
+    </button>
+    <p class="text-center text-xs text-gray-500 mt-2">This document will be permanently stored on the 5IRE blockchain upon printing</p>
+  </div>
+  <script>
+      const qrContainer = document.getElementById("qrcode");
+
+    const websiteURL = "https://yourwebsite.com"; // 🟢 CHANGE this to your real link
+
+    const qrCode = new QRCode(qrContainer, {
+      text: websiteURL,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    function downloadQR() {
+      const canvas = qrContainer.querySelector("canvas");
+      if (canvas) {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "qr-code.png";
+        link.click();
+      } else {
+        alert("QR code not ready yet.");
+      }
+    }
+  
+  </script>
+</body>
+</html>

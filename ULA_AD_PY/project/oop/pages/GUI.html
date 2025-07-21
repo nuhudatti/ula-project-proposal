@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA/NCAIR ULA - Receipt GUI Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+    .question-header {
+        transition: background-color 0.2s;
+    }
+    .question-header:hover {
+        background-color: rgba(0, 51, 102, 0.1);
+    }
+    input[type="radio"]:checked + span {
+        font-weight: 600;
+        color: #003366;
+    }
+    label:hover {
+        border-color: #003366;
+    }
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+</style>
+    <style>
+        .code-container {
+            position: relative;
+            background: #1e1e1e;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .code-container:hover .copy-btn {
+            opacity: 1;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #059669;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header Section -->
+    <header class="bg-green-800 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-16">
+                </div>
+                <div class="text-center md:text-right">
+                    <h1 class="text-3xl font-bold">Unified Learning Archive</h1>
+                    <p class="text-green-200">Python Receipt GUI Tutorial</p>
+                    <p class="text-sm text-green-300 mt-1">"A legacy that will echo till eternity"</p>
+                    <p class="text-sm text-green-300 mt-1">Built by Group 5 • Powered by Elona • Honoring NITDA/NCAIR 🇳🇬</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-700 to-green-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">Build a Receipt GUI with Python</h1>
+            <p class="text-xl text-green-100 max-w-3xl mx-auto">
+                Transform your command-line tool into a professional graphical interface
+            </p>
+            <div class="mt-8">
+                <div class="inline-flex rounded-md shadow">
+                    <a href="#tutorial" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-green-800 bg-white hover:bg-green-50">
+                        Start Learning
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorial Section -->
+    <section id="tutorial" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Complete GUI Tutorial</h2>
+                
+                <!-- Introduction -->
+                <div class="mb-12 bg-green-50 p-6 rounded-lg border border-green-100">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">What You'll Build</h3>
+                    <p class="mb-4">This tutorial will guide you through creating a professional GUI for your receipt analyzer that:</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>Replaces command-line inputs with intuitive buttons</li>
+                        <li>Provides visual feedback at each step</li>
+                        <li>Maintains all the functionality of your existing tools</li>
+                        <li>Follows NITDA/NCAIR coding standards</li>
+                    </ul>
+                </div>
+
+                <!-- GUI Explanation -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">What is a GUI?</h3>
+                    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                        <blockquote class="text-lg italic mb-4">
+                            "A GUI is like a beautiful window or app with buttons, text, and file pickers — instead of using the command line (black screen)."
+                        </blockquote>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Command Line Version</h4>
+                                <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+                                    1. Add receipt<br>
+                                    2. Process<br>
+                                    3. Exit
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">GUI Version</h4>
+                                <div class="border border-gray-200 p-3 rounded text-center">
+                                    <button class="bg-blue-500 text-white px-3 py-1 rounded mb-2">🖼 Upload Image</button><br>
+                                    <button class="bg-purple-500 text-white px-3 py-1 rounded mb-2">🧠 Analyze</button><br>
+                                    <button class="bg-green-500 text-white px-3 py-1 rounded">📊 View Dashboard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Table -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">GUI Features Overview</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-green-100">
+                                <tr>
+                                    <th class="py-2 px-4 border-b">Feature</th>
+                                    <th class="py-2 px-4 border-b">GUI Implementation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">Upload Receipt</td>
+                                    <td class="py-2 px-4 border-b">Button to select a photo from your computer</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-2 px-4 border-b">Extract Text</td>
+                                    <td class="py-2 px-4 border-b">Click a button to run OCR (read the receipt)</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">Show Items</td>
+                                    <td class="py-2 px-4 border-b">Display found items & prices in the interface</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-2 px-4 border-b">Categorize Items</td>
+                                    <td class="py-2 px-4 border-b">Button to sort items into categories automatically</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">Save as CSV</td>
+                                    <td class="py-2 px-4 border-b">Automatic saving to expenses.csv</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-2 px-4 border-b">View Dashboard</td>
+                                    <td class="py-2 px-4 border-b">Button to open the chart window</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tools Section -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">Tools You'll Use</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="feature-card bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-blue-700 mb-3">Tkinter</h4>
+                            <p>Python's built-in GUI toolkit that creates windows, buttons, and inputs.</p>
+                        </div>
+                        <div class="feature-card bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-purple-700 mb-3">pytesseract</h4>
+                            <p>Optical Character Recognition (OCR) to read text from receipt images.</p>
+                        </div>
+                        <div class="feature-card bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-green-700 mb-3">Pandas</h4>
+                            <p>Powerful data manipulation library for handling the expense data.</p>
+                        </div>
+                        <div class="feature-card bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-yellow-700 mb-3">Matplotlib</h4>
+                            <p>Visualization library that draws the interactive expense charts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Implementation Section -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-6">Step-by-Step Implementation</h3>
+                    
+                    <!-- Step 1 -->
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 p-2 rounded-full mr-3">1</span>
+                            Create a New File
+                        </h4>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <p class="font-mono text-lg">receipt_gui.py</p>
+                            <p class="text-sm text-gray-600 mt-1">Save this in the same folder as your other receipt files</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 p-2 rounded-full mr-3">2</span>
+                            Starter GUI Template
+                        </h4>
+                        <p class="mb-4">Here's the complete code for your GUI application:</p>
+                        
+                        <div class="code-container mb-6">
+                            <button class="copy-btn" data-clipboard-target="#gui-code">
+                                Copy Code
+                            </button>
+                            <pre id="gui-code"><code class="language-python">import tkinter as tk
+from tkinter import filedialog, messagebox
+import os
+import pytesseract
+import cv2
+import csv
+from datetime import datetime
+from dashboard import ExpenseDataLoader, ExpenseDashboard  # From your dashboard.py
+
+# Set up OCR path
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+class ReceiptApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("🧾 Receipt Analyzer - Group 5")
+        master.geometry("400x300")
+
+        self.label = tk.Label(master, text="Smart Receipt Analyzer", font=("Arial", 14))
+        self.label.pack(pady=10)
+
+        self.upload_button = tk.Button(master, text="📁 Upload Receipt", command=self.upload_image)
+        self.upload_button.pack(pady=5)
+
+        self.process_button = tk.Button(master, text="⚙ Process Receipt", command=self.process_receipt)
+        self.process_button.pack(pady=5)
+
+        self.dashboard_button = tk.Button(master, text="📊 Show Dashboard", command=self.show_dashboard)
+        self.dashboard_button.pack(pady=5)
+
+        self.status_label = tk.Label(master, text="", fg="green")
+        self.status_label.pack(pady=10)
+
+        self.receipt_file = ""
+
+    def upload_image(self):
+        self.receipt_file = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
+        if self.receipt_file:
+            self.status_label.config(text=f"Selected: {os.path.basename(self.receipt_file)}")
+
+    def process_receipt(self):
+        if not self.receipt_file:
+            messagebox.showwarning("No File", "Please upload a receipt image first.")
+            return
+
+        img = cv2.imread(self.receipt_file)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        text = pytesseract.image_to_string(gray)
+
+        with open("expenses.csv", 'a', newline='') as file:
+            writer = csv.writer(file)
+            if os.stat("expenses.csv").st_size == 0:
+                writer.writerow(['Receipt', 'Item', 'Price', 'Category', 'Date'])
+
+            lines = [line.strip() for line in text.split('\n') if line.strip()]
+            for line in lines:
+                if any(word in line.lower() for word in ['total', 'change']):
+                    continue
+                parts = line.rsplit(' ', 1)
+                if len(parts) == 2:
+                    item, price = parts
+                    try:
+                        amount = float(price.replace("₦", "").replace(",", "").strip())
+                        category = "Uncategorized"
+                        now = datetime.now().strftime("%Y-%m-%d %H:%M")
+                        writer.writerow([self.receipt_file, item.strip(), amount, category, now])
+                    except:
+                        continue
+
+        messagebox.showinfo("Done", "Receipt processed and saved.")
+        self.status_label.config(text="✅ Receipt saved.")
+
+    def show_dashboard(self):
+        loader = ExpenseDataLoader()
+        totals = loader.load_data()
+        if totals:
+            dashboard = ExpenseDashboard(totals)
+            dashboard.show_bar_chart()
+        else:
+            messagebox.showinfo("No Data", "No data to display.")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ReceiptApp(root)
+    root.mainloop()</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 p-2 rounded-full mr-3">3</span>
+                            File Structure
+                        </h4>
+                        <div class="bg-gray-100 p-4 rounded-lg font-mono">
+                            <div class="flex items-center">
+                                <span class="text-gray-500 mr-2">📁</span>
+                                <span>project-folder/</span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">├──</span>
+                                    <span class="text-blue-600">receipt_gui.py</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">├──</span>
+                                    <span class="text-purple-600">dashboard.py</span>
+                                    <span class="text-gray-500 ml-2"># (with classes)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">├──</span>
+                                    <span class="text-green-600">expenses.csv</span>
+                                    <span class="text-gray-500 ml-2"># (automatically created)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-gray-500 mr-2">└──</span>
+                                    <span>tesseract image</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+                            <span class="bg-green-100 text-green-800 p-2 rounded-full mr-3">4</span>
+                            How It Works
+                        </h4>
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <div class="flex items-start mb-4">
+                                <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</div>
+                                <div>
+                                    <h5 class="font-semibold">Upload Receipt</h5>
+                                    <p>Click the button to select an image from your computer</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start mb-4">
+                                <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</div>
+                                <div>
+                                    <h5 class="font-semibold">Process Receipt</h5>
+                                    <p>The system reads the text and saves results to CSV</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</div>
+                                <div>
+                                    <h5 class="font-semibold">Show Dashboard</h5>
+                                    <p>View your categorized expenses in a professional chart</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NITDA Standards -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">NITDA/NCAIR Standards Implemented</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                            <h4 class="text-lg font-semibold text-purple-800 mb-3">Professional Interface</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Clean, intuitive button layout</li>
+                                <li>Clear status messages</li>
+                                <li>User-friendly error handling</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-semibold text-blue-800 mb-3">Modular Design</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Reuses existing dashboard components</li>
+                                <li>Separate methods for each functionality</li>
+                                <li>Easy to extend with new features</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-semibold text-green-800 mb-3">Error Handling</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Checks for file existence</li>
+                                <li>Validates data before processing</li>
+                                <li>Provides helpful error messages</li>
+                            </ul>
+                        </div>
+                        <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                            <h4 class="text-lg font-semibold text-yellow-800 mb-3">Documentation</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Clear method responsibilities</li>
+                                <li>Follows Python naming conventions</li>
+                                <li>Self-documenting structure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Demo Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">GUI Demo Preview</h2>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex flex-col items-center">
+                        <div class="border-2 border-gray-300 p-6 rounded-lg mb-6 w-full max-w-xs">
+                            <h3 class="text-center font-bold mb-4">🧾 Receipt Analyzer - Group 5</h3>
+                            <p class="text-center mb-4">Smart Receipt Analyzer</p>
+                            <div class="space-y-3">
+                                <button class="w-full bg-blue-500 text-white py-2 rounded">📁 Upload Receipt</button>
+                                <button class="w-full bg-purple-500 text-white py-2 rounded">⚙ Process Receipt</button>
+                                <button class="w-full bg-green-500 text-white py-2 rounded">📊 Show Dashboard</button>
+                            </div>
+                            <p class="text-center text-sm text-green-600 mt-4">Selected: receipt1.jpg</p>
+                        </div>
+                        <p class="text-sm text-gray-600">This is how your GUI will appear when running the application</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <h2 class="text-3xl font-bold text-nitdaPrimary mb-6">Simple Explanations for Everyone</h2>
+    <p class="text-gray-700 mb-6">Two-line explanations so any Group 5 member can understand and explain confidently:</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- GUI Concepts -->
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">What is a GUI?</h3>
+            <p class="text-gray-700">A graphical user interface lets you click buttons instead of typing commands. It's like using a smartphone app instead of texting commands.</p>
+        </div>
+        
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">Tkinter</h3>
+            <p class="text-gray-700">Python's built-in tool for making windows and buttons. Think of it as Lego blocks for building app interfaces.</p>
+        </div>
+        
+        <!-- Buttons -->
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">Upload Button</h3>
+            <p class="text-gray-700">Opens your file explorer to select a receipt photo. Works just like attaching a file to an email.</p>
+        </div>
+        
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">Process Button</h3>
+            <p class="text-gray-700">Takes the photo and reads the text automatically. Like a scanner that understands receipts.</p>
+        </div>
+        
+        <!-- OCR -->
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">pytesseract (OCR)</h3>
+            <p class="text-gray-700">The "eyes" of our program that read text from images. Similar to how your phone scans QR codes.</p>
+        </div>
+        
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">CSV File</h3>
+            <p class="text-gray-700">Where all your receipt data gets saved. Like an Excel spreadsheet that updates automatically.</p>
+        </div>
+        
+        <!-- Dashboard -->
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">Dashboard Button</h3>
+            <p class="text-gray-700">Shows your spending patterns in charts. Like a report card for your expenses.</p>
+        </div>
+        
+        <div class="bg-nitdaPrimary/5 p-4 rounded-lg border border-nitdaPrimary/20">
+            <h3 class="font-bold text-nitdaPrimary mb-2">Status Label</h3>
+            <p class="text-gray-700">Shows messages about what's happening. Like the "Sending..." notification when you text someone.</p>
+        </div>
+    </div>
+    
+    <div class="mt-6 bg-nitdaSecondary/10 p-4 rounded-lg">
+        <h3 class="font-bold text-nitdaPrimary mb-2">Remember:</h3>
+        <p class="text-gray-700">Our program works in 3 simple steps: <span class="font-semibold">1) Upload → 2) Process → 3) View Results</span>. Each button does one job, just like different kitchen appliances.</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+    <!-- Header -->
+    <div class="bg-nitdaPrimary text-white px-6 py-4">
+        <h1 class="text-2xl font-bold">🧾 receipt_gui.py – Line-by-Line Explanation</h1>
+        <p class="opacity-90">For NITDA/NCAIR Facilitators, Directors, and Team Members</p>
+    </div>
+
+    <!-- IMPORTS SECTION -->
+    <div class="p-6 border-b">
+        <h2 class="text-xl font-bold text-nitdaPrimary mb-4 flex items-center">
+            <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">1</span>
+            IMPORTS SECTION
+        </h2>
+        
+        <div class="code-block mb-6">
+            <div class="code-header">
+                <span>Python Imports</span>
+            </div>
+            <div class="code-content">
+                <pre><code><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk
+<span class="keyword">from</span> tkinter <span class="keyword">import</span> filedialog, messagebox
+<span class="keyword">import</span> os
+<span class="keyword">import</span> pytesseract
+<span class="keyword">import</span> cv2
+<span class="keyword">import</span> csv
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+<span class="keyword">from</span> dashboard <span class="keyword">import</span> ExpenseDataLoader, ExpenseDashboard</code></pre>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border">
+                <thead class="bg-nitdaPrimary text-white">
+                    <tr>
+                        <th class="py-2 px-4 text-left">Line</th>
+                        <th class="py-2 px-4 text-left">Explanation</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="py-2 px-4 font-mono">tkinter</td>
+                        <td class="py-2 px-4">Python's "construction kit" for windows and buttons (like building with LEGO blocks)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-mono">filedialog</td>
+                        <td class="py-2 px-4">The "file explorer" popup that lets users select receipt images</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-mono">messagebox</td>
+                        <td class="py-2 px-4">Displays notification popups (like a phone's alert system)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-mono">pytesseract</td>
+                        <td class="py-2 px-4">The "text scanner" that reads words from images (like a digital magnifying glass)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-mono">cv2 (OpenCV)</td>
+                        <td class="py-2 px-4">Image processor that enhances receipts for better scanning</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-mono">csv</td>
+                        <td class="py-2 px-4">Creates Excel-compatible spreadsheets of your receipt data</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-mono">dashboard import</td>
+                        <td class="py-2 px-4">Connects to your chart-display code (like adding a report dashboard)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CLASS RECEIPTAPP -->
+    <div class="p-6 border-b">
+        <h2 class="text-xl font-bold text-nitdaPrimary mb-4 flex items-center">
+            <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">2</span>
+            class ReceiptApp: The Brain of Your GUI
+        </h2>
+        <p class="mb-4 text-gray-700">This class builds the entire interface - like an architect designing a house room-by-room.</p>
+        
+        <div class="code-block mb-4">
+            <div class="code-content">
+                <pre><code><span class="keyword">class</span> <span class="function">ReceiptApp</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="parameter">self</span>, <span class="parameter">master</span>):</code></pre>
+            </div>
+        </div>
+        <p class="bg-blue-50 border-l-4 border-blue-400 p-4">
+            <span class="font-bold">Key Concept:</span> <code>__init__</code> is the "construction phase" where we build all buttons and labels when the app starts.
+        </p>
+    </div>
+
+    <!-- GUI SETUP -->
+    <div class="p-6 border-b">
+        <h3 class="text-lg font-semibold text-nitdaSecondary mb-3">Window Setup</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="code-block">
+                <div class="code-content">
+                    <pre><code>master.title(<span class="string">"🧾 Receipt Analyzer - Group 5"</span>)
+master.geometry(<span class="string">"400x300"</span>)</code></pre>
+                </div>
+            </div>
+            <div class="bg-nitdaPrimary/5 p-4 rounded-lg">
+                <p><span class="font-bold">Title:</span> Like naming your business</p>
+                <p><span class="font-bold">Geometry:</span> Sets window size (400px wide × 300px tall) - about half a laptop screen</p>
+            </div>
+        </div>
+
+        <h3 class="text-lg font-semibold text-nitdaSecondary mb-3">Main Label</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="code-block">
+                <div class="code-content">
+                    <pre><code>self.label = tk.Label(text=<span class="string">"Smart Receipt Analyzer"</span>, 
+                    font=(<span class="string">"Arial"</span>, <span class="number">14</span>))
+self.label.pack(pady=<span class="number">10</span>)</code></pre>
+                </div>
+            </div>
+            <div class="bg-nitdaPrimary/5 p-4 rounded-lg">
+                <p><span class="font-bold">Creates:</span> The bold title at the top</p>
+                <p><span class="font-bold">pady=10:</span> Adds 10 pixels of cushion space below it</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUTTONS SECTION -->
+    <div class="p-6 border-b">
+        <h3 class="text-lg font-semibold text-nitdaSecondary mb-3">Core Buttons</h3>
+        
+        <!-- Upload Button -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="code-block">
+                <div class="code-content">
+                    <pre><code>self.upload_button = tk.Button(
+    text=<span class="string">"📁 Upload Receipt"</span>,
+    command=<span class="parameter">self</span>.upload_image
+)</code></pre>
+                </div>
+            </div>
+            <div class="bg-nitdaPrimary/5 p-4 rounded-lg">
+                <p class="font-bold mb-2">What it does:</p>
+                <ol class="list-decimal pl-5 space-y-1">
+                    <li>Displays the folder icon (📁)</li>
+                    <li>Calls <code>upload_image()</code> when clicked</li>
+                    <li>Works like an "Attach File" button in email</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Process Button -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="code-block">
+                <div class="code-content">
+                    <pre><code>self.process_button = tk.Button(
+    text=<span class="string">"⚙ Process Receipt"</span>,
+    command=<span class="parameter">self</span>.process_receipt
+)</code></pre>
+                </div>
+            </div>
+            <div class="bg-nitdaPrimary/5 p-4 rounded-lg">
+                <p class="font-bold mb-2">How it works:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Gears icon (⚙) hints at "processing"</li>
+                    <li>Triggers text scanning when clicked</li>
+                    <li>Only works after uploading a file</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dashboard Button -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="code-block">
+                <div class="code-content">
+                    <pre><code>self.dashboard_button = tk.Button(
+    text=<span class="string">"📊 Show Dashboard"</span>,
+    command=<span class="parameter">self</span>.show_dashboard
+)</code></pre>
+                </div>
+            </div>
+            <div class="bg-nitdaPrimary/5 p-4 rounded-lg">
+                <p class="font-bold mb-2">Key Features:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Chart icon (📊) indicates visualization</li>
+                    <li>Requires processed data to display</li>
+                    <li>Opens a separate chart window</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- FUNCTION BREAKDOWNS -->
+    <div class="p-6">
+        <h2 class="text-xl font-bold text-nitdaPrimary mb-4">Key Functions Explained</h2>
+        
+        <!-- upload_image -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-nitdaSecondary mb-3 flex items-center">
+                <span class="bg-nitdaSecondary text-white rounded-full w-5 h-5 flex items-center justify-center mr-2 text-sm">A</span>
+                upload_image(self)
+            </h3>
+            <div class="code-block mb-3">
+                <div class="code-content">
+                    <pre><code><span class="keyword">def</span> <span class="function">upload_image</span>(<span class="parameter">self</span>):
+    self.receipt_file = filedialog.askopenfilename(
+        filetypes=[(<span class="string">"Image Files"</span>, <span class="string">"*.png;*.jpg;*.jpeg"</span>)]
+    )
+    <span class="keyword">if</span> self.receipt_file:
+        self.status_label.config(
+            text=f<span class="string">"Selected: {os.path.basename(self.receipt_file)}"</span>
+        )</code></pre>
+                </div>
+            </div>
+            <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                <p><span class="font-bold">Real-world analogy:</span> Like using your phone's gallery picker to select a photo, then seeing its name appear on screen.</p>
+            </div>
+        </div>
+
+        <!-- process_receipt -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-nitdaSecondary mb-3 flex items-center">
+                <span class="bg-nitdaSecondary text-white rounded-full w-5 h-5 flex items-center justify-center mr-2 text-sm">B</span>
+                process_receipt(self)
+            </h3>
+            <div class="space-y-4">
+                <div class="code-block">
+                    <div class="code-content">
+                        <pre><code><span class="keyword">if</span> <span class="keyword">not</span> self.receipt_file:
+    messagebox.showwarning(<span class="string">"No File"</span>, <span class="string">"Please upload first."</span>)
+    <span class="keyword">return</span></code></pre>
+                    </div>
+                </div>
+                <p class="bg-yellow-50 border-l-4 border-yellow-400 p-3">
+                    <span class="font-bold">Safety check:</span> Prevents errors if users click Process without uploading - like a car that won't start without fuel.
+                </p>
+
+                <div class="code-block">
+                    <div class="code-content">
+                        <pre><code>img = cv2.imread(self.receipt_file)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+text = pytesseract.image_to_string(gray)</code></pre>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                    <div class="bg-nitdaPrimary/5 p-3 rounded">
+                        <p class="font-bold">1. imread()</p>
+                        <p>Loads the image like opening a photo album</p>
+                    </div>
+                    <div class="bg-nitdaPrimary/5 p-3 rounded">
+                        <p class="font-bold">2. cvtColor()</p>
+                        <p>Converts to black & white for better text detection</p>
+                    </div>
+                    <div class="bg-nitdaPrimary/5 p-3 rounded">
+                        <p class="font-bold">3. image_to_string()</p>
+                        <p>Extracts text like scanning a document</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSV Handling -->
+        <div class="mb-8">
+            <h4 class="font-bold text-nitdaPrimary mb-2">CSV Saving Process</h4>
+            <div class="code-block mb-3">
+                <div class="code-content">
+                    <pre><code><span class="keyword">with</span> <span class="function">open</span>(<span class="string">"expenses.csv"</span>, <span class="string">'a'</span>) <span class="keyword">as</span> file:
+    writer = csv.writer(file)
+    <span class="keyword">if</span> os.stat(<span class="string">"expenses.csv"</span>).st_size == <span class="number">0</span>:
+        writer.writerow([<span class="string">'Receipt'</span>, <span class="string">'Item'</span>, ...])
+
+    <span class="comment"># ... parsing logic ...</span>
+
+    writer.writerow([self.receipt_file, item, price, ...])</code></pre>
+                </div>
+            </div>
+            <div class="bg-purple-50 border-l-4 border-purple-400 p-4">
+                <p><span class="font-bold">How it organizes data:</span></p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><code>'a'</code> mode = Appends new receipts without erasing old data</li>
+                    <li>Checks if file is empty to add headers (like column titles in Excel)</li>
+                    <li>Each row contains: [Image path, Item name, Price, Category, Date]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUMMARY TABLE -->
+    <div class="p-6 bg-nitdaPrimary/5">
+        <h2 class="text-xl font-bold text-nitdaPrimary mb-4">✅ Functional Summary</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border">
+                <thead class="bg-nitdaPrimary text-white">
+                    <tr>
+                        <th class="py-2 px-4 text-left">Component</th>
+                        <th class="py-2 px-4 text-left">Role</th>
+                        <th class="py-2 px-4 text-left">Analogy</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="py-2 px-4 font-medium">__init__</td>
+                        <td class="py-2 px-4">Builds the GUI skeleton</td>
+                        <td class="py-2 px-4">Like constructing a house's framework</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-medium">upload_image()</td>
+                        <td class="py-2 px-4">File selection handler</td>
+                        <td class="py-2 px-4">A document scanner's "Load" button</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-medium">process_receipt()</td>
+                        <td class="py-2 px-4">OCR & data extraction</td>
+                        <td class="py-2 px-4">Like an accountant reviewing receipts</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 font-medium">show_dashboard()</td>
+                        <td class="py-2 px-4">Data visualization</td>
+                        <td class="py-2 px-4">Generates report charts</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Export Options -->
+    <div class="p-6 bg-gray-50">
+        <h3 class="text-lg font-semibold text-gray-700 mb-3">Export Options:</h3>
+        <div class="flex flex-wrap gap-3">
+            <button class="bg-nitdaPrimary text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="far fa-file-pdf mr-2"></i> PDF Format
+            </button>
+            <button class="bg-nitdaSecondary text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="far fa-presentation mr-2"></i> Presentation Slides
+            </button>
+            <button class="bg-nitdaAccent text-white px-4 py-2 rounded-lg flex items-center">
+                <i class="far fa-code mr-2"></i> Web Embed Code
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Q&A -->
+
+<div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <h2 class="text-3xl font-bold text-nitdaPrimary mb-6">Q&A: GUI Development Questions</h2>
+    <p class="text-gray-700 mb-6">Common questions answered in simple terms:</p>
+
+    <div class="space-y-6">
+        <!-- Question 1 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                Why do we use Tkinter instead of other GUI tools?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> Tkinter comes pre-installed with Python, so it works immediately without extra installations. It's like using the built-in calculator on your phone instead of downloading a new app.</p>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                What does <code>master.geometry("400x300")</code> do?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> This sets the window size to 400 pixels wide and 300 pixels tall. Think of it like setting the dimensions of a picture frame before putting in your photo.</p>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                Why do we convert images to grayscale before OCR?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> Color variations can confuse text recognition. Grayscale simplifies the image to just light/dark areas, like reading text on a photocopy instead of a colorful magazine.</p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                How does the program know which part is price vs item?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> It splits each line at the last space - the right part is treated as price (₦1,200) and everything left is the item (e.g., "Rice 5kg"). This works like reading a supermarket receipt from right to left for prices.</p>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">5</span>
+                What happens if I click "Process" without uploading?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> The <code>if not self.receipt_file</code> check shows a warning popup - like your phone saying "Please select a photo first" when you try to edit without choosing one.</p>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">6</span>
+                Why use CSV instead of a database?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> CSV files are simpler for beginners and open in Excel. It's like using a notebook instead of a filing cabinet when you're just starting to organize receipts.</p>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="bg-nitdaPrimary/5 p-5 rounded-lg">
+            <h3 class="font-bold text-nitdaPrimary mb-2 flex items-start">
+                <span class="bg-nitdaPrimary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">7</span>
+                What does <code>root.mainloop()</code> do?
+            </h3>
+            <div class="pl-9">
+                <p class="text-gray-700"><span class="font-semibold">Answer:</span> This keeps the window open and responsive to your clicks, like how your phone screen stays on waiting for your touch. Without it, the window would open and immediately close.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-nitdaSecondary/10 border-l-4 border-nitdaSecondary p-4 rounded-lg">
+        <h3 class="font-bold text-nitdaPrimary mb-2">Troubleshooting Tips:</h3>
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+            <li><span class="font-semibold">Blank window?</span> Check you have <code>root.mainloop()</code> at the end</li>
+            <li><span class="font-semibold">OCR errors?</span> Try taking clearer photos with less background clutter</li>
+            <li><span class="font-semibold">Buttons not working?</span> Verify all <code>command=</code> links point to correct functions</li>
+            <li><span class="font-semibold">CSV not saving?</span> Make sure the program has write permissions in your folder</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- Q&A -->
+
+<div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="bg-nitdaPrimary text-white px-6 py-4">
+        <h1 class="text-2xl font-bold">🧠 Knowledge Mastery Quiz</h1>
+        <p class="opacity-90">Test your understanding of the Receipt Analyzer GUI</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="bg-gray-100 h-2">
+        <div id="quiz-progress" class="bg-nitdaSecondary h-full transition-all duration-300" style="width: 0%"></div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div class="p-6">
+        <div id="quiz-container" class="space-y-6"></div>
+        
+        <!-- Results Section -->
+        <div id="results-section" class="hidden mt-8 p-6 bg-nitdaPrimary/5 rounded-lg">
+            <h3 class="text-xl font-bold text-nitdaPrimary mb-4">Your Results</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <p class="text-4xl font-bold text-nitdaPrimary" id="score-display">0</p>
+                    <p class="text-gray-600">Score</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <p class="text-4xl font-bold text-nitdaPrimary" id="percentage-display">0%</p>
+                    <p class="text-gray-600">Percentage</p>
+                </div>
+            </div>
+            <div id="wrong-answers" class="mt-6 space-y-4"></div>
+            <button id="retry-btn" class="mt-6 bg-nitdaPrimary text-white px-6 py-2 rounded-lg hover:bg-nitdaSecondary transition">
+                Try Again
+            </button>
+        </div>
+
+        <!-- Submit Button -->
+        <button id="submit-btn" class="mt-8 w-full bg-nitdaAccent text-white py-3 rounded-lg font-bold hover:bg-orange-700 transition">
+            Submit Answers
+        </button>
+    </div>
+</div>
+ <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+ 
+
+    <!-- Footer -->
+    <footer class="bg-green-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-12">
+                    <p class="mt-2 text-green-200">National Information Technology Development Agency</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-green-300">Unified Learning Archive</p>
+                    <p class="text-green-200">"A legacy that will outshine globally"</p>
+                    <p class="mt-2 text-sm text-green-400">© 2023 NITDA/NCAIR. All rights reserved.</p>
+                </div>
+            </div>
+              <div class="flex space-x-4">
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
+        </div>
+    </footer>
+
+    <script>
+        
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Initialize clipboard.js
+        new ClipboardJS('.copy-btn');
+        
+        // Show feedback when code is copied
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+         // Quiz Data - 30 Questions
+    const quizData = [
+        {
+            question: "1. What is the primary purpose of Tkinter in this project?",
+            options: [
+                "To perform OCR on receipt images",
+                "To create the graphical user interface",
+                "To analyze spending patterns",
+                "To connect to a database"
+            ],
+            answer: 1,
+            explanation: "Tkinter is Python's standard GUI toolkit used to create windows, buttons, and other interface elements."
+        },
+        {
+            question: "2. What does the 'geometry()' method control?",
+            options: [
+                "The mathematical calculations in OCR",
+                "The window size and position",
+                "The color scheme of buttons",
+                "The file saving location"
+            ],
+            answer: 1,
+            explanation: "The geometry method sets the window dimensions in pixels (width x height)."
+        },
+        {
+            question: "3. Why do we convert images to grayscale before OCR?",
+            options: [
+                "To reduce file size",
+                "To improve text recognition accuracy",
+                "Because Tesseract only works with black and white",
+                "To make the interface look better"
+            ],
+            answer: 1,
+            explanation: "Grayscale simplifies the image by removing color variations that might interfere with text detection."
+        },
+        {
+    question: "4. What does the 'pack()' method do in Tkinter?",
+    options: [
+        "Compresses image files for faster processing",
+        "Organizes widgets in blocks before placing them",
+        "Packages the application for distribution",
+        "Combines multiple CSV files into one"
+    ],
+    answer: 1,
+    explanation: "The pack() method is a geometry manager that organizes widgets in blocks before placing them in the parent widget."
+},
+{
+    question: "5. Why do we use filedialog.askopenfilename()?",
+    options: [
+        "To rename files in a directory",
+        "To let users select an input file",
+        "To automatically save processed files",
+        "To create new folders for storage"
+    ],
+    answer: 1,
+    explanation: "This function opens a system file dialog window allowing users to navigate and select a file."
+},
+{
+    question: "6. What is the purpose of the status_label?",
+    options: [
+        "To display error messages in red",
+        "To show file processing progress",
+        "To indicate which buttons are active",
+        "To show the current system time"
+    ],
+    answer: 1,
+    explanation: "The status_label provides user feedback like 'File uploaded' or 'Processing complete'."
+},
+{
+    question: "7. How does the program handle currency symbols (₦) in prices?",
+    options: [
+        "Converts them to their numeric equivalents",
+        "Removes them before processing numbers",
+        "Stores them as special characters",
+        "Creates a separate currency column"
+    ],
+    answer: 1,
+    explanation: "The code uses replace('₦', '') to clean the price string before converting to float."
+},
+{
+    question: "8. What happens when os.stat('expenses.csv').st_size == 0?",
+    options: [
+        "The program creates a new CSV template",
+        "Column headers are written to the empty file",
+        "It switches to JSON format instead",
+        "A warning message is shown to users"
+    ],
+    answer: 1,
+    explanation: "This check ensures headers are only written to brand new CSV files, not appended files."
+},
+{
+    question: "9. Why do we skip lines containing 'total' or 'change'?",
+    options: [
+        "They're duplicate entries",
+        "These aren't individual items",
+        "They confuse the OCR system",
+        "The amounts are usually incorrect"
+    ],
+    answer: 1,
+    explanation: "We want to capture individual items, not summary calculations which would distort spending analysis."
+},
+{
+    question: "10. What's the purpose of rsplit(' ', 1)?",
+    options: [
+        "Splits at the first space found",
+        "Separates item names from prices",
+        "Removes all spaces from text",
+        "Creates two equal-length parts"
+    ],
+    answer: 1,
+    explanation: "Receipts typically put prices at the end - this splits the last space between item and price."
+},
+{
+    question: "11. Why use try/except when processing prices?",
+    options: [
+        "To handle non-numeric values gracefully",
+        "Because OCR always makes mistakes",
+        "To skip items without prices",
+        "All of the above"
+    ],
+    answer: 0,
+    explanation: "This prevents crashes if the price can't be converted to a number (e.g., if OCR misreads)."
+},
+{
+    question: "12. What does the 'a' mode in open('expenses.csv', 'a') mean?",
+    options: [
+        "Advanced encryption mode",
+        "Append to existing file",
+        "Automatic column alignment",
+        "Allow concurrent access"
+    ],
+    answer: 1,
+    explanation: "Append mode adds new rows without overwriting existing data in the CSV."
+},
+{
+    question: "13. How are uncategorized items handled?",
+    options: [
+        "They're excluded from the CSV",
+        "Marked with 'Uncategorized'",
+        "Placed in a separate file",
+        "Automatically categorized"
+    ],
+    answer: 1,
+    explanation: "The code assigns 'Uncategorized' as default, which can be updated later."
+},
+{
+    question: "14. What triggers the 'No data to display' message?",
+    options: [
+        "Empty CSV file",
+        "Image processing failure",
+        "Dashboard loading error",
+        "All of the above"
+    ],
+    answer: 0,
+    explanation: "This appears when the ExpenseDataLoader finds no records in expenses.csv."
+},
+{
+    question: "15. Why use datetime.now() for receipts?",
+    options: [
+        "To track processing time",
+        "For expiration date checks",
+        "To organize by scan date",
+        "Both 1 and 3"
+    ],
+    answer: 3,
+    explanation: "Timestamps help analyze spending patterns over time and audit processing history."
+},
+{
+    question: "16. What's the role of ExpenseDataLoader?",
+    options: [
+        "Processes images via OCR",
+        "Manages the GUI widgets",
+        "Reads and analyzes CSV data",
+        "Handles file uploads"
+    ],
+    answer: 2,
+    explanation: "This class (from dashboard.py) prepares spending data for visualization."
+},
+{
+    question: "17. How does show_dashboard() display its chart?",
+    options: [
+        "In a web browser",
+        "Using matplotlib",
+        "As a popup table",
+        "Via Excel export"
+    ],
+    answer: 1,
+    explanation: "The dashboard uses matplotlib to generate visualizations in a separate window."
+},
+{
+    question: "18. What maintains the GUI window open?",
+    options: [
+        "root.update()",
+        "app.mainloop()",
+        "root.mainloop()",
+        "tk.hold()"
+    ],
+    answer: 2,
+    explanation: "mainloop() keeps the Tkinter window responsive to user interactions."
+},
+{
+    question: "19. Why is __name__ == '__main__' used?",
+    options: [
+        "To prevent import-time execution",
+        "As a security check",
+        "For version compatibility",
+        "To enable multiprocessing"
+    ],
+    answer: 0,
+    explanation: "This ensures the app only runs when executed directly, not when imported."
+},
+{
+    question: "20. What happens if Tesseract isn't installed?",
+    options: [
+        "The GUI still opens but OCR fails",
+        "The program won't launch",
+        "It falls back to online APIs",
+        "Manual entry becomes available"
+    ],
+    answer: 0,
+    explanation: "The GUI needs Tesseract for OCR but will still open without it (just can't process)."
+},
+{
+    question: "21. How are receipt images stored in the CSV?",
+    options: [
+        "As embedded thumbnails",
+        "Only their filenames",
+        "Base64 encoded data",
+        "They aren't stored"
+    ],
+    answer: 1,
+    explanation: "The CSV stores file paths for reference, not the actual image data."
+},
+{
+    question: "22. What's the advantage of using CSV over SQLite?",
+    options: [
+        "Better performance",
+        "Easier manual inspection",
+        "Stronger data validation",
+        "Built-in encryption"
+    ],
+    answer: 1,
+    explanation: "CSVs are human-readable and editable in Excel, ideal for beginners."
+},
+{
+    question: "23. Why convert prices to float?",
+    options: [
+        "For mathematical operations",
+        "To reduce storage space",
+        "Because CSV requires it",
+        "For currency conversion"
+    ],
+    answer: 0,
+    explanation: "Numerical values allow calculations like totals and averages in analysis."
+},
+{
+    question: "24. What does command=self.upload_image do?",
+    options: [
+        "Links button to function",
+        "Preloads sample images",
+        "Sets default upload path",
+        "Enables drag-and-drop"
+    ],
+    answer: 0,
+    explanation: "This connects the button click to execute the upload_image method."
+},
+{
+    question: "25. How could you improve receipt parsing accuracy?",
+    options: [
+        "Add image preprocessing",
+        "Use regex for prices",
+        "Implement ML models",
+        "All of the above"
+    ],
+    answer: 3,
+    explanation: "All these techniques can enhance OCR accuracy in different scenarios."
+},
+{
+    question: "26. What security consideration is missing?",
+    options: [
+        "Input sanitization",
+        "Password protection",
+        "Encrypted storage",
+        "User authentication"
+    ],
+    answer: 0,
+    explanation: "The code should validate/sanitize file inputs to prevent path manipulation."
+},
+{
+    question: "27. Why store the receipt_file path?",
+    options: [
+        "For duplicate checking",
+        "To reference the source",
+        "For backup purposes",
+        "All of the above"
+    ],
+    answer: 1,
+    explanation: "Keeping the path helps trace items back to their original receipts."
+},
+{
+    question: "28. What would make the GUI more user-friendly?",
+    options: [
+        "Progress bars",
+        "Preview panes",
+        "Batch processing",
+        "All of the above"
+    ],
+    answer: 3,
+    explanation: "All these features would enhance the user experience."
+},
+{
+    question: "29. How could you extend this system?",
+    options: [
+        "Add category editing",
+        "Implement receipts database",
+        "Enable multi-user access",
+        "All of the above"
+    ],
+    answer: 3,
+    explanation: "These are all logical extensions for different use cases."
+},
+        {
+            question: "30. What happens if you click 'Process Receipt' without uploading an image?",
+            options: [
+                "The program crashes",
+                "It uses the last uploaded image",
+                "A warning message appears",
+                "It creates an empty CSV file"
+            ],
+            answer: 2,
+            explanation: "The code includes validation that shows a warning popup if no file was selected."
+        }
+    ];
+
+    // DOM Elements
+    const quizContainer = document.getElementById('quiz-container');
+    const resultsSection = document.getElementById('results-section');
+    const scoreDisplay = document.getElementById('score-display');
+    const percentageDisplay = document.getElementById('percentage-display');
+    const wrongAnswersContainer = document.getElementById('wrong-answers');
+    const submitBtn = document.getElementById('submit-btn');
+    const retryBtn = document.getElementById('retry-btn');
+    const progressBar = document.getElementById('quiz-progress');
+
+    // Initialize Quiz
+    function initQuiz() {
+        quizContainer.innerHTML = '';
+        let currentOpenQuestion = null;
+
+        quizData.forEach((questionData, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.className = 'border rounded-lg overflow-hidden';
+            questionElement.innerHTML = `
+                <div class="bg-nitdaPrimary/5 p-4 flex justify-between items-center cursor-pointer question-header">
+                    <h3 class="font-medium">${questionData.question}</h3>
+                    <span class="transform transition-transform">+</span>
+                </div>
+                <div class="hidden p-4 question-body">
+                    <div class="space-y-3">
+                        ${questionData.options.map((option, i) => `
+                            <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-nitdaPrimary/5 cursor-pointer">
+                                <input type="radio" name="q${index}" value="${i}" class="h-4 w-4 text-nitdaAccent">
+                                <span>${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Toggle question visibility
+            const header = questionElement.querySelector('.question-header');
+            const body = questionElement.querySelector('.question-body');
+            const icon = header.querySelector('span');
+
+            header.addEventListener('click', () => {
+                if (currentOpenQuestion && currentOpenQuestion !== questionElement) {
+                    currentOpenQuestion.querySelector('.question-body').classList.add('hidden');
+                    currentOpenQuestion.querySelector('span').textContent = '+';
+                }
+                
+                body.classList.toggle('hidden');
+                icon.textContent = body.classList.contains('hidden') ? '+' : '-';
+                currentOpenQuestion = body.classList.contains('hidden') ? null : questionElement;
+            });
+
+            quizContainer.appendChild(questionElement);
+        });
+
+        // Update progress bar
+        progressBar.style.width = '0%';
+        resultsSection.classList.add('hidden');
+        submitBtn.classList.remove('hidden');
+    }
+
+    // Submit Quiz
+    submitBtn.addEventListener('click', () => {
+        let score = 0;
+        const wrongAnswers = [];
+
+        quizData.forEach((questionData, index) => {
+            const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+            
+            if (selectedOption) {
+                if (parseInt(selectedOption.value) === questionData.answer) {
+                    score++;
+                } else {
+                    wrongAnswers.push({
+                        question: questionData.question,
+                        correctAnswer: questionData.options[questionData.answer],
+                        explanation: questionData.explanation
+                    });
+                }
+            } else {
+                wrongAnswers.push({
+                    question: questionData.question,
+                    correctAnswer: questionData.options[questionData.answer],
+                    explanation: questionData.explanation,
+                    skipped: true
+                });
+            }
+        });
+
+        // Display results
+        const percentage = Math.round((score / quizData.length) * 100);
+        scoreDisplay.textContent = score;
+        percentageDisplay.textContent = `${percentage}%`;
+        
+        wrongAnswersContainer.innerHTML = wrongAnswers.map(wrong => `
+            <div class="p-4 bg-white rounded-lg shadow">
+                <h4 class="font-bold ${wrong.skipped ? 'text-yellow-600' : 'text-red-600'}">
+                    ${wrong.skipped ? '⚠️ Skipped:' : '✖ Wrong:'} ${wrong.question}
+                </h4>
+                <p class="mt-2"><span class="font-semibold">Correct Answer:</span> ${wrong.correctAnswer}</p>
+                <p class="mt-1 text-sm text-gray-600">${wrong.explanation}</p>
+            </div>
+        `).join('');
+
+        resultsSection.classList.remove('hidden');
+        submitBtn.classList.add('hidden');
+        progressBar.style.width = '100%';
+    });
+
+    // Retry Quiz
+    retryBtn.addEventListener('click', initQuiz);
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', initQuiz);
+     AOS.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RegexVerse – Learn Regular Expressions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      margin: 0;
+      background: #0f2027;
+      color: #dcdcdc;
+    }
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #0f2027, #203a43);
+    }
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+    header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #ccc;
+    }
+     .cta-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      border: 2px solid #00ffcc;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #00ffcc;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #00ffcc;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .accordion {
+      max-width: 900px;
+      margin: 40px auto;
+    }
+    .accordion-item {
+      background-color: #1e1e1e;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border-left: 5px solid #00ffcc;
+    }
+    .accordion-header {
+      padding: 20px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      background-color: #252526;
+    }
+    .accordion-body {
+      display: none;
+      padding: 20px;
+      font-size: 0.95rem;
+      background-color: #2e2e2e;
+      line-height: 1.6;
+    }
+    pre {
+      background: #111;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 10px;
+      color: #9cdcfe;
+    }
+    .output {
+      background: #333;
+      padding: 10px;
+      border-radius: 6px;
+      color: #b5cea8;
+      margin-top: 10px;
+    }
+    .regex-table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+    }
+    .regex-table th, .regex-table td {
+      border: 1px solid #333;
+      padding: 10px;
+      text-align: left;
+    }
+    .regex-table th {
+      background-color: #00ffcc;
+      color: #000;
+    }
+    .regex-table td {
+      background-color: #2e2e2e;
+    }
+     .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+   
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔍 RegexVerse – Decode Patterns. Unlock Power.</h1>
+    <p>Interactive guide to mastering Regular Expressions in Python. Made by Cohort 26.py at NITDA/NCAIR – built for Africa, designed for the world.</p>
+     <div class="cta-buttons">
+      <a href="Quize.html" class="btn">Take a Quiz</a>
+      <a href="About.html" class="btn">About NITDA Project</a>
+    </div>
+  </header>
+
+  <div class="accordion">
+    <!-- Intro Section -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">🧠 What is Regex?</div>
+      <div class="accordion-body">
+        <p>Imagine you have a long text, and you want to <strong>find something inside it</strong>: numbers, emails, words like “mat” in “cat bat mat rat”.</p>
+        <p>Regex is a <strong>pattern</strong> that tells Python: <em>“Here’s what I’m looking for. Find it.”</em></p>
+        <p>
+        You use regex to <strong>search</strong>, <strong>extract</strong>, <strong>clean</strong>, or <strong>validate</strong> text. Python helps you with a built-in module: <code>import re</code>.
+        </p>
+        <h4>Common Symbols</h4>
+        <table class="regex-table">
+          <thead><tr><th>Symbol</th><th>What it means</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>\d</td><td>digit (0–9)</td><td>phone number</td></tr>
+            <tr><td>\w</td><td>letter/number/_</td><td>username</td></tr>
+            <tr><td>.</td><td>any character</td><td>wildcard match</td></tr>
+            <tr><td>+</td><td>1 or more</td><td>aa+</td></tr>
+            <tr><td>*</td><td>0 or more</td><td>ha*</td></tr>
+            <tr><td>[]</td><td>choose a/b/c</td><td>[abc]</td></tr>
+            <tr><td>^</td><td>starts with</td><td>^Hello</td></tr>
+            <tr><td>$</td><td>ends with</td><td>world$</td></tr>
+          </tbody>
+        </table>
+         <h2>🧪 Real Example</h2>
+    <p>
+      Let’s say we want to pull out all the numbers from a sentence:
+    </p>
+    <pre>import re
+
+text = "We have 3 Apples and 14 Oranges."
+pattern = r"\d+"
+print(re.findall(pattern, text))</pre>
+    <p><strong>Output:</strong> <code>['3', '14']</code></p>
+    <p>
+      We used <code>\d+</code> where:
+      <ul>
+        <li><code>\d</code> = digit</li>
+        <li><code>+</code> = 1 or more digits grouped</li>
+      </ul>
+      So the pattern tells Python: “Find me all number blocks in this text.”
+    </p>
+      </div>
+    </div>
+
+    <!-- Placeholder for 8 lessons (already exist) -->
+    <!-- You can now paste your lesson 1–8 accordion items here -->
+    <!-- Lesson 1 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#1 – Introduction to Regex</div>
+      <div class="accordion-body">
+        Regular Expressions (regex) let you define search patterns. Python uses the `re` module.
+        <pre>import re
+
+text = "We have 3 Apples and 14 Oranges."
+pattern = r"\d+"
+print(re.findall(pattern, text))</pre>
+        <div class="output">['3', '14']</div>
+      </div>
+    </div>
+
+    <!-- Lesson 2 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#2 – Simple Character Matches</div>
+      <div class="accordion-body">
+        Match specific strings inside text using a simple pattern.
+        <pre>text = "cat bat mat rat"
+pattern = "mat"
+print(re.findall(pattern, text))</pre>
+        <div class="output">['mat']</div>
+      </div>
+    </div>
+
+    <!-- Lesson 3 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#3 – Character Classes</div>
+      <div class="accordion-body">
+        Character classes match groups like letters or digits.
+        <pre>text = "We have 3 Apples and 14 Oranges."
+pattern = r"\d+"
+print(re.findall(pattern, text))</pre>
+        <div class="output">['3', '14']</div>
+      </div>
+    </div>
+
+    <!-- Lesson 4 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#4 – Special Characters</div>
+      <div class="accordion-body">
+        Regex has special characters:
+        <ul>
+          <li>^ = starts with</li>
+          <li>$ = ends with</li>
+          <li>. = any character</li>
+          <li>| = or</li>
+        </ul>
+        <pre>text = "Hello!"
+pattern = r"^H.*!$"
+print(re.findall(pattern, text))</pre>
+        <div class="output">['Hello!']</div>
+      </div>
+    </div>
+
+    <!-- Lesson 5 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#5 – Quantifiers</div>
+      <div class="accordion-body">
+        Quantifiers allow repetition:
+        <ul>
+          <li>* = 0 or more</li>
+          <li>+ = 1 or more</li>
+          <li>? = 0 or 1</li>
+          <li>{n} = exactly n</li>
+        </ul>
+        <pre>text = "Heeeeey!"
+pattern = r"He{4,}y!"
+print(re.findall(pattern, text))</pre>
+        <div class="output">['Heeeeey!']</div>
+      </div>
+    </div>
+
+    <!-- Lesson 6 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#6 – Substitution</div>
+      <div class="accordion-body">
+        Use `re.sub()` to replace matches with another word.
+        <pre>text = "Python is powerful. Python is fun."
+pattern = "Python"
+print(re.sub(pattern, "Regex", text))</pre>
+        <div class="output">Regex is powerful. Regex is fun.</div>
+      </div>
+    </div>
+
+    <!-- Lesson 7 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#7 – Compiling Patterns</div>
+      <div class="accordion-body">
+        Pre-compile patterns for performance if used multiple times.
+        <pre>pattern = re.compile(r"\d+")
+print(pattern.findall("There are 4 apples and 15 oranges"))</pre>
+        <div class="output">['4', '15']</div>
+      </div>
+    </div>
+
+    <!-- Lesson 8 -->
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleLesson(this)">#8 – Splitting Strings</div>
+      <div class="accordion-body">
+        Split text based on patterns using `re.split()`.
+        <pre>text = "apple,orange;banana|grape"
+pattern = r"[,;|]"
+print(re.split(pattern, text))</pre>
+        <div class="output">['apple', 'orange', 'banana', 'grape']</div>
+      </div>
+    </div>
+  </div>
+
+   <a href="index.html">
+    <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+  </div>
+   </a>
+  <footer>
+     &copy; 2025 Team 5IRE — Innovation for Impact. Inspired by NITDA/NCAIR Standards.
+  </footer>
+
+  <script>
+    function toggleLesson(clickedHeader) {
+      const allBodies = document.querySelectorAll('.accordion-body');
+      const currentBody = clickedHeader.nextElementSibling;
+      allBodies.forEach(body => {
+        if (body !== currentBody) body.style.display = 'none';
+      });
+      currentBody.style.display = currentBody.style.display === 'block' ? 'none' : 'block';
+    }
+         AOS.init();
+  </script>
+</body>
+</html>

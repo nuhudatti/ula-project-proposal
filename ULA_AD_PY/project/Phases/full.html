@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Receipt Analyzer & Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      pre {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+      }
+      .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+    <script>
+      function copyCode(id) {
+        const code = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          alert("✅ Code copied to clipboard!");
+        });
+      }
+    </script>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <header class="bg-gradient-to-r from-green-700 to-green-900 text-white py-10 shadow">
+      <div class="container mx-auto px-6">
+        <p class="text-xl"></p>
+         <h1 class="text-4xl font-bold mb-4">🧾 Smart Receipt Analyzer</h1>
+        <p class="text-lg mb-6">
+             A legacy-level real-world Python OCR project built for Africa — Powered by NITDA & NCAIR
+        </p>
+      </div>
+    </header>
+
+    <!-- <section class="container mx-auto px-6 py-10">
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-semibold text-green-800 mb-4">📁 Download Project Files</h2>
+        <div class="flex justify-center gap-4">
+          <a href="expenses.csv" download class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">📦Download CSV</a>
+          <a href="receipt_reader.py" download class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">🎤 Download Full Code</a>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="container mx-auto px-6 py-10">
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-semibold text-green-800 mb-4">📜 Full Python Code</h2>
+        <button onclick="copyCode()" class="bg-[#0e639c] hover:bg-[#1177bb] text-white text-xs px-3 py-1 rounded">
+      📋 Copy Code
+    </button>
+        <pre class="overflow-x-auto p-4 text-sm"><code id="codeBlock" class="language-python">
+            
+import pytesseract
+import cv2
+import csv
+import re
+from PIL import Image
+
+# Path to Tesseract OCR
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# Load and preprocess image
+img = cv2.imread('receipt.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+raw_text = pytesseract.image_to_string(gray)
+
+# Clean lines
+lines = raw_text.split('\n')
+lines = [line.strip() for line in lines if line.strip() != '']
+print("Cleaned Lines:")
+for line in lines:
+    print(f"-> {line}")
+
+# Categorization setup
+expenses = []
+category_map = {
+    "indomie": "Food",
+    "milk": "Beverage",
+    "detergent": "Cleaning",
+    "tooth": "Personal Care",
+    # ... more keywords ...
+}
+
+def categorize(item_name):
+    item_name = item_name.lower()
+    for keyword, category in category_map.items():
+        if keyword in item_name:
+            return category
+    return "Uncategorized"
+
+# Extract item/price from text
+for line in lines:
+    if any(x in line.lower() for x in ['total', 'thank', 'change']): continue
+    match = re.search(r'(.+?)\s+([₦N]?\s?[\d.,]+)', line)
+    if match:
+        item = match.group(1).strip()
+        price_str = match.group(2).replace('₦', '').replace(',', '.').strip()
+        try:
+            price = round(float(price_str))
+            expenses.append({'item': item, 'price': price, 'category': categorize(item)})
+        except:
+            continue
+
+# Print and save to CSV
+print("\nStructured Data:")
+for e in expenses:
+    print(f"{e['item']} - ₦{e['price']} - [{e['category']}]")
+
+with open('expenses.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(['Item', 'Price', 'Category'])
+    for e in expenses:
+        writer.writerow([e['item'], e['price'], e['category']])
+</code></pre>
+      </div>
+
+      <div class="mt-6 text-left">
+          <button onclick="document.getElementById('explain').classList.toggle('hidden')" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">🧠 Show Full Code Explanation</button>
+          <div id="explain" class="hidden mt-4 space-y-4 text-gray-800 bg-white rounded-lg p-6 shadow">
+            <p><strong>📌 Setup:</strong> We load all libraries and define the OCR path for Windows using pytesseract.tesseract_cmd.</p>
+            <p><strong>🧾 Image to Text:</strong> Using OpenCV, we load the image, convert it to grayscale, and use Tesseract to read the content into raw_text.</p>
+            <p><strong>🧹 Clean Lines:</strong> We split the text into lines and remove empty entries.</p>
+            <p><strong>💡 Keyword Categorization:</strong> A dictionary of keywords is used to detect what category each item belongs to — if no match is found, we mark it as Uncategorized.</p>
+            <p><strong>🧠 Regex Matching:</strong> We use a smart regular expression to extract item names and price values from the end of each line.</p>
+            <p><strong>💾 Save to CSV:</strong> Finally, we write our clean data to a CSV file named expenses.csv for reporting and dashboarding.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <a href="../index.html">
+      <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+  
+  
+    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
+      <p>🧠 Built by Nuhu Muhammad — Inspired by ULA × NITDA/NCAIR × 5IRE Movement</p>
+    </footer>
+    
+    <script>
+function copyCode() {
+  const code = document.getElementById("codeBlock").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    alert("✅ Code copied to clipboard!");
+  });
+}
+AOS.init();
+</script>
+  </body>
+</html>

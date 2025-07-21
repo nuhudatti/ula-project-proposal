@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta property="og:title" content="Smart Receipt Analyzer & Expense Dashboard – A NITDA/NCAIR Legacy Project">
+<meta property="og:description" content="A powerful OCR + Python data analysis project that automates receipt tracking, categorizes spending, and visualizes your expenses. Designed to echo innovation across Africa.">
+<meta property="og:image" content="https://nuhudatti.github.io/receipt-intelligence/others/img.png">
+<meta property="og:url" content="https://nuhudatti.github.io/receipt-intelligence/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+     .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+     
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+</style>
+
+    <title>ULA – OCR + Python Legacy Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="https://nitda.gov.ng/wp-content/uploads/2020/01/cropped-NITDA-Logo-32x32.png">
+  </head>
+  <body class="bg-[#f9fafb] text-gray-900 font-sans">
+    <!-- Header -->
+    <header class="bg-[#003057] text-white p-6 shadow-md">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold tracking-wide">Buld To Last – Unified Learning Archive <span id="typed2"></span></h1>
+          <!-- <nav class="space-x-6 text-sm">
+          <a href="#phases" class="hover:underline">Phases</a>
+          <a href="#download" class="hover:underline">Download</a>
+          <a href="#voice" class="hover:underline">Voice Over</a>
+          <a href="#about" class="hover:underline">About Project</a>
+        </nav> -->
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="text-center py-20 bg-gradient-to-r from-[#003057] to-[#007eb6] text-white">
+      <h2 class="text-4xl font-extrabold mb-4">Build a Legacy with Python + OCR</h2>
+      <p>This isn’t just a project. It’s proof that you’ve gone from zero to hero.</p>
+      <p class="max-w-2xl mx-auto text-lg opacity-90">Designed to inspire Africa’s next generation. Powered by NITDA & NCAIR, this project combines innovation, education, and data intelligence — all in one.</p>
+      <div class="mt-8 space-x-4">
+        <a href="#phases" class="bg-white text-[#003057] px-6 py-3 rounded-xl font-semibold shadow hover:scale-105 transition">Explore Phases</a>
+        <a href="#download" class="border border-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-[#003057] transition">Download Project</a>
+      </div>
+    </section>
+
+    <!-- Phases Navigation -->
+    <section id="phases" class="py-16 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <h3 class="text-3xl font-bold text-center mb-10">📘 Explore the 5 Project Phases</h3>
+        <div class="grid md:grid-cols-5 gap-6 px-4">
+          <a href="./Phases/phase1_analyzer.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 1</h4>
+            <p class="text-sm">Project full walkthrough </p>
+          </a>
+          <a href="./Phases/phase2_receipt_extractor.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 2</h4>
+            <p class="text-sm">OCR Receipt Extraction</p>
+          </a>
+          <a href="./Phases/phase3_text_to_data.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 3</h4>
+            <p class="text-sm">Parsing Text to Structured Data</p>
+          </a>
+          <a href="./Phases/phase4_final_receipt_ready.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 4</h4>
+            <p class="text-sm">Complite Receipt Reader Script</p>
+          </a>
+          <a href="./Phases/phase5_categorize_expenses.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 5</h4>
+            <p class="text-sm">Categorize Expense Items</p>
+          </a>
+           <a href="./Phases/phase6_keyword_matching_logic.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 6</h4>
+            <p class="text-sm">Keyword Matching Logic</p>
+          </a>
+           <a href="./Phases/dashboar.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 7</h4>
+            <p class="text-sm">Visual Dashboard</p>
+          </a>
+          <a href="./Phases/full.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 8</h4>
+            <p class="text-sm">Smart Receipt Analyzer & Dashboard</p>
+          </a>
+            <a href="./Phases/code-explain/index.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Phase 9</h4>
+            <p class="text-sm">Presentation Guide</p>
+          </a>
+          <a href="./Phases/certificate.html" class="bg-[#003057] text-white p-6 rounded-xl text-center hover:bg-[#004b80] transition">
+            <h4 class="font-bold text-lg">Certificate</h4>
+            <p class="text-sm">Certificate Generator</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+     <!-- Download Section -->
+    <section id="download" class="bg-[#f1f5f9] py-16">
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-4">💡 Explore the Power of OOP</h3>
+        <p class="mb-6 text-gray-700">Discover how object-oriented principles like classes, inheritance, and encapsulation come together in this real-world Python project. A hands-on way to master OOP concepts while solving practical problems.</p>
+        <a href="./oop/index.html"  class="bg-[#007eb6] text-white px-8 py-3 rounded-xl shadow-lg hover:bg-[#006699]">View OOP Project</a>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="bg-[#f1f5f9] py-16">
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-4">📦 Download the Complete Project</h3>
+        <p class="mb-6 text-gray-700">Get the full project ZIP including all Python files, dashboards, and setup instructions.</p>
+        <a href="./others/Group5.zip" download class="bg-[#007eb6] text-white px-8 py-3 rounded-xl shadow-lg hover:bg-[#006699]">⬇ Download Now</a> <br> <br> <br>
+        <a href="./oop/Project/OPP GROUP 5.zip" download class="bg-[#007eb6]  text-white px-8 py-3  rounded-xl shadow-lg hover:bg-[#006699]">⬇ Download Now With OOP</a>
+      </div>
+    </section>
+
+    <!-- Voice-over Section -->
+    <section id="voice" class="py-16 bg-white">
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-4">🎧 Facilitator Voice-over</h3>
+        <p class="text-gray-600 mb-6">Listen to the full walkthrough as the facilitator explains the entire project module-by-module.</p>
+        <audio controls class="w-full">
+          <source src="./others/voice.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </section>
+
+    <!-- About Project -->
+    <section id="about" class="py-20 bg-[#003057] text-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-6">🌍 About This Legacy Project</h3>
+        <p class="text-lg leading-relaxed text-gray-200">This project was built with the mission to replace textbooks, traditional classes, and expensive tutorials. It's designed to guide students step-by-step in mastering advanced Python, OCR, data pipelines, and dashboard visualization using real-world examples. Every line of code is explained like a top-tier mentor is right beside you.</p>
+      </div>
+    </section>
+
+    
+      <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back To Home
+    </div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-6 text-center text-sm">
+      Built by Nuhu Muhammad Datti | Powered by NITDA/NCAIR | Designed to Echo Eternity 🚀
+    </footer>
+
+       <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+       AOS.init();
+    </script>
+  </body>
+</html>

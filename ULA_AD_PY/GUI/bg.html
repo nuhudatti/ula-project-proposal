@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tkinter GUI Fundamentals | NITDA Legacy Learning Trail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header Section -->
+    <header class="bg-indigo-700 text-white py-8 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">Tkinter GUI Fundamentals</h1>
+            <p class="text-xl text-indigo-100">From Zero to Interactive Windows - A Beginner's Guide</p>
+            <p><span id="typed2"></span></p>
+        </div>
+    </header>
+
+     <div class="container mx-auto px-4 py-2">
+        <div class="flex items-center">
+            <a href="./index.html" class="text-blue-600 hover:underline">Learning Trail</a>
+            <span class="mx-2 text-gray-400">›</span>
+            <span class="text-gray-600">Beginner Tkinter</span>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Introduction Section -->
+        <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">Why Learn GUI Programming?</h2>
+            <p class="mb-4 text-gray-700">Graphical User Interfaces (GUIs) transform your Python scripts into professional applications that anyone can use. With Tkinter, Python's built-in GUI toolkit, you can create desktop applications with intuitive interfaces.</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mt-6">
+                <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                    <h3 class="font-bold text-indigo-700 mb-2">Visual Applications</h3>
+                    <p class="text-gray-700">Create programs with buttons, menus and windows instead of command line</p>
+                </div>
+                <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                    <h3 class="font-bold text-indigo-700 mb-2">Built-in to Python</h3>
+                    <p class="text-gray-700">No extra installations needed - Tkinter comes with Python</p>
+                </div>
+                <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                    <h3 class="font-bold text-indigo-700 mb-2">Rapid Development</h3>
+                    <p class="text-gray-700">Quickly prototype applications with simple, readable code</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Understanding Windows and Widgets -->
+        <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">1. Understanding Windows and Widgets</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">What is a Window?</h3>
+                <p class="text-gray-700 mb-4">A <span class="font-bold">window</span> is the main container where all GUI elements (widgets) are placed.</p>
+                
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">What are Widgets?</h3>
+                <p class="text-gray-700">Widgets are interactive elements like buttons, labels, and text inputs that make up your interface.</p>
+            </div>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-300 ml-4 text-sm">basic_window.py</span>
+                </div>
+                <pre><code class="language-python">import tkinter as tk  # Import the Tkinter module
+window = tk.Tk()      # Create the main window
+window.mainloop()     # Start the application</code></pre>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-indigo-50">
+                        <tr>
+                            <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Line</th>
+                            <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">import tkinter as tk</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Imports the Tkinter library and gives it an alias (<code>tk</code>) for easier use.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">window = tk.Tk()</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Creates the main application window.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">window.mainloop()</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Starts the GUI event loop, keeping the window open.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 2. Basic Layout Management -->
+        <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">2. Basic Layout Management</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Three Ways to Position Widgets</h3>
+                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-bold text-indigo-700 mb-2">.pack()</h4>
+                        <p class="text-gray-700">Automatically places widgets in available space</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-bold text-indigo-700 mb-2">.place()</h4>
+                        <p class="text-gray-700">Positions widgets at exact (x,y) coordinates</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-bold text-indigo-700 mb-2">.grid()</h4>
+                        <p class="text-gray-700">Arranges widgets in rows and columns (like a table)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Example: Using .pack()</h3>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-300 ml-4 text-sm">pack_example.py</span>
+                </div>
+                <pre><code class="language-python">import tkinter as tk
+
+window = tk.Tk()
+window.title("Layout Example")
+
+# Using pack()
+label1 = tk.Label(window, text="First Label").pack()  # Top
+label2 = tk.Label(window, text="Second Label").pack() # Below first label
+
+window.mainloop()</code></pre>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-indigo-50">
+                        <tr>
+                            <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Line</th>
+                            <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">window.title("Layout Example")</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Sets the window title.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">label1 = tk.Label(...).pack()</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Creates a label and packs it at the top.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">label2 = tk.Label(...).pack()</td>
+                            <td class="py-2 px-4 border-b border-gray-200">The second label appears below the first.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
+                <h4 class="font-bold text-blue-800 mb-2">💡 Pro Tip</h4>
+                <p class="text-blue-700"><code>.pack()</code> is great for simple layouts, but for more control, learn <code>.grid()</code> which lets you position widgets in rows and columns.</p>
+            </div>
+        </section>
+
+        <!-- 3. Labels, Buttons, and Entries -->
+        <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">3. Labels, Buttons, and Entries</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Key Widgets for Beginners</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-indigo-50">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Widget</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Purpose</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-bold">Label</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Displays text</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">tk.Label(window, text="Hello")</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-bold">Button</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Clickable action</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">tk.Button(window, text="Click Me")</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-bold">Entry</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Single-line text input</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">tk.Entry(window)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Example: Creating a Simple Form</h3>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-300 ml-4 text-sm">simple_form.py</span>
+                </div>
+                <pre><code class="language-python">import tkinter as tk
+
+window = tk.Tk()
+window.title("Simple Form")
+
+# Label
+name_label = tk.Label(window, text="Enter Name:").pack()
+
+# Entry (Text Input)
+name_entry = tk.Entry(window).pack()
+
+# Button
+submit_button = tk.Button(window, text="Submit").pack()
+
+window.mainloop()</code></pre>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Code Explanation</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-indigo-50">
+                                <tr>
+                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Line</th>
+                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Explanation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">name_label = tk.Label(...).pack()</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Creates a label for user input.</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">name_entry = tk.Entry(...).pack()</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Adds a text input field.</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">submit_button = tk.Button(...).pack()</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Adds a clickable button.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">Expected Output</h4>
+                    <div class="bg-white p-4 border border-gray-300 rounded">
+                        <div class="mb-2">
+                            <label class="block text-gray-700">Enter Name:</label>
+                            <input type="text" class="border border-gray-300 px-2 py-1 w-full">
+                        </div>
+                        <button class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Simple Event Handling -->
+        <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">4. Simple Event Handling</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Making Buttons Do Something</h3>
+                <p class="text-gray-700 mb-4">Use <code>command=</code> to define what happens when a button is clicked.</p>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Example: Button with Action</h3>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-300 ml-4 text-sm">button_event.py</span>
+                </div>
+                <pre><code class="language-python">import tkinter as tk
+
+def button_click():
+    print("Button was clicked!")
+
+window = tk.Tk()
+window.title("Event Handling Example")
+
+button = tk.Button(
+    window,
+    text="Click Me",
+    command=button_click  # Calls button_click() when clicked
+).pack()
+
+window.mainloop()</code></pre>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-indigo-50">
+                        <tr>
+                            <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Line</th>
+                            <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">def button_click():</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Defines a function to run when the button is clicked.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">command=button_click</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Connects the button to the function.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                <h4 class="font-bold text-yellow-800 mb-2">⚠️ Important Note</h4>
+                <p class="text-yellow-700">Don't include parentheses when passing a function to <code>command=</code>. Write <code>command=button_click</code> not <code>command=button_click()</code>.</p>
+            </div>
+        </section>
+
+        <!-- 5. Complete Beginner Example -->
+        <section class="mb-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">5. Complete Beginner Example</h2>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">A Simple GUI with All Basics</h3>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-300 ml-4 text-sm">greeting_app.py</span>
+                </div>
+                <pre><code class="language-python">import tkinter as tk
+
+def greet():
+    name = name_entry.get()
+    greeting_label.config(text=f"Hello, {name}!")
+
+window = tk.Tk()
+window.title("My First GUI")
+window.geometry("300x200")
+
+# Label
+tk.Label(window, text="Enter your name:").pack()
+
+# Entry (Text Input)
+name_entry = tk.Entry(window)
+name_entry.pack()
+
+# Button
+tk.Button(window, text="Greet", command=greet).pack()
+
+# Output Label (initially empty)
+greeting_label = tk.Label(window, text="")
+greeting_label.pack()
+
+window.mainloop()</code></pre>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Key Features</h4>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Text input field to get user's name</li>
+                        <li>Button that triggers a greeting</li>
+                        <li>Dynamic label that updates with the greeting</li>
+                        <li>Window with fixed size (300x200 pixels)</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">How It Works</h4>
+                    <ol class="list-decimal pl-5 text-gray-700 space-y-2">
+                        <li>User enters name in the text field</li>
+                        <li>Clicks the "Greet" button</li>
+                        <li>The <code>greet()</code> function runs</li>
+                        <li>Function gets the name and updates the label</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                <h4 class="font-bold text-green-800 mb-2">🎉 Congratulations!</h4>
+                <p class="text-green-700">You've now built a complete interactive GUI application with Tkinter! This foundation will help you create more complex applications.</p>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">Next Steps in Your GUI Journey</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="border border-indigo-100 rounded-lg p-4 bg-indigo-50">
+                    <h3 class="font-bold text-indigo-700 mb-2">1. Experiment with Layouts</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>Try <code>.grid()</code> for form layouts</li>
+                        <li>Mix <code>.pack()</code> and <code>.grid()</code></li>
+                        <li>Add padding with <code>padx</code> and <code>pady</code></li>
+                    </ul>
+                </div>
+                <div class="border border-indigo-100 rounded-lg p-4 bg-indigo-50">
+                    <h3 class="font-bold text-indigo-700 mb-2">2. Explore More Widgets</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>Checkbuttons (checkboxes)</li>
+                        <li>Radiobuttons</li>
+                        <li>Listboxes</li>
+                        <li>Scale widgets (sliders)</li>
+                    </ul>
+                </div>
+                <div class="border border-indigo-100 rounded-lg p-4 bg-indigo-50">
+                    <h3 class="font-bold text-indigo-700 mb-2">3. Enhance Your App</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>Add input validation</li>
+                        <li>Include error messages</li>
+                        <li>Try different colors and fonts</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-6 bg-indigo-100 rounded-lg">
+                <h3 class="text-xl font-bold text-indigo-800 mb-4">Interactive Challenge</h3>
+                <p class="text-gray-700 mb-4">Modify the greeting app to include these features:</p>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-4">
+                    <li>A "Clear" button that resets the name field</li>
+                    <li>A counter showing how many times the greet button was clicked</li>
+                    <li>Change the greeting color based on name length</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+      <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Footer -->
+    <footer class="bg-indigo-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-xl font-bold mb-2">NITDA Legacy Learning Trail</h3>
+            <p class="mb-4">Empowering developers through quality education</p>
+            <p class="text-indigo-200">© 2025 Python GUI Programming. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+         const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+         AOS.init();
+    </script>
+</body>
+</html>

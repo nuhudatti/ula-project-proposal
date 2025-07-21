@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo of a Tech Giant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --dark: #0e1116;
+      --light: #f1f5f9;
+      --accent: #4ade80;
+      --glass: rgba(255, 255, 255, 0.05);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0e1116, #1e293b);
+      color: var(--light);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+    /* header {
+      
+      margin-bottom: 3rem;
+    } */
+     
+    section {
+      background: var(--glass);
+      border: 1px solid #334155;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    section:hover {
+      border-color: var(--accent);
+    }
+    .head{
+          text-align: center;
+      margin-bottom: 10px;
+    }
+     h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .highlight {
+      color: #00ffb3;
+      animation: glow 3s infinite alternate;
+    }
+
+    .tech {
+      display: inline-block;
+      color: #4f92a7;
+      animation: shake 2s infinite ease-in-out;
+    }
+
+    .giant {
+      background: linear-gradient(to right, #ffffff, #00f7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .icon {
+      margin-right: 0.5rem;
+      color: #22d3ee;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .highlight {
+      color: #22d3ee;
+      font-weight: bold;
+    }
+    .highlight2{
+      color: #4e686c;
+      font-weight: bold;
+    }
+    .animated {
+      animation: fadeInUp 1s ease both;
+    }
+    .back-home-btn {
+  display: inline-block;
+  margin: 5px 6px;
+  padding: 10px 20px;
+  background-color:  #00ff99;
+  color:white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-home-btn:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+}
+.cta a {
+      text-decoration: none;
+      color: #0a0a0a;
+      background: #00ff99;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .cta a:hover {
+      background: #00cc77;
+    }
+
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+     @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffb3;
+      }
+      to {
+        text-shadow: 0 0 25px #00ffb3;
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+      
+    }
+  </style>
+</head>
+<body>
+    <div class="head">
+     <h1>
+      <span class="highlight">Echo</span> of the <span class="tech">Tech</span> <span class="giant">Giant</span>
+    </h1>
+    <p class="animated" style="animation-delay: 0.3s">A Call to Action from <span class="highlight">Datti</span></p>
+    </div>
+  <section class="animated" style="animation-delay: 0.5s">
+    <h2><i class="fa-solid fa-bolt icon"></i>Why I Came</h2>
+    <p>
+      Sir, the word <span class="highlight">"skills"</span> is what brought me to NITDA/NCAIR.
+      Not for formality. Not for CV lines. But because I’ve sparked a movement in my university — to bridge the gap between theory and practice, to work with our GIS system, and build a generation that learns, applies, and leads.
+    </p>
+    <p>
+      But skills are also what I lack. So, I came here — not just as a student — but as a <span class="highlight">seeker of transformation</span>.
+    </p>
+  </section>
+
+  <section class="animated" style="animation-delay: 0.7s">
+    <h2><i class="fa-solid fa-brain icon"></i>My Vision</h2>
+    <p>
+      I dream of a future where young minds connect to solve real problems — not alone, but <span class="highlight">together</span>. Where we document our process, not just results. Where a child today can become a giant tomorrow.
+    </p>
+    <p>
+      I’ve researched 340+ past questions, explained each, and created a learning trail. If I gain access to the archives of past student work — their projects, their stories — I will not just learn, I will <span class="highlight">elevate</span>.
+    </p>
+  </section>
+
+  <section class="animated" style="animation-delay: 0.9s">
+    <h2><i class="fa-solid fa-lightbulb icon"></i>The Project</h2>
+    <p>
+      <span class="highlight">Echo of a Tech Giant</span> — my final year project, my heartbeat.
+      It’s not just code. It’s a chronicle of how we learn, build, and pass it on.
+      A network of students — connected by name, skill, and story. So no one starts from zero again.
+    </p>
+  </section>
+
+  <section class="animated" style="animation-delay: 1.1s">
+    <h2><i class="fa-solid fa-user-graduate icon"></i>My Skills</h2>
+    <ul>
+      <li>HTML, CSS, Basics of Python & JavaScript</li>
+      <li>Internship @ Asteris Alliance Ltd (Engineering, QA, Git, Docs)</li>
+      <li>Needs: Mentorship on paths, focus, & real software building</li>
+    </ul>
+  </section>
+
+  <section class="animated" style="animation-delay: 1.3s">
+    <h2><i class="fa-solid fa-hands-helping icon"></i>My Pledge</h2>
+    <p>
+      This is not for fame. Not for applause.
+      It’s a <span class="highlight">call to action</span>.
+      Let’s unite. Let’s build.
+      Let’s create a story so loud, its echo reaches eternity.
+    </p>
+  </section>
+
+  <!-- Legacy Stories Section -->
+<section class="py-20 px-6 bg-gradient-to-r from-green-50 to-white">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-4xl md:text-5xl font-bold text-green-700 mb-4">🌍 Legacy in Motion</h2>
+    <p class="text-lg md:text-xl text-gray-700 mb-10">
+      Real stories. Real breakthroughs. Powered by purpose. <br>
+      These moments aren’t just memories — they’re <span class="font-semibold text-green-800">milestones</span> echoing across the future of learning in Africa.
+    </p>
+
+     <a href="mentos.html" class="back-home-btn"> 
+    <h3 class="tech" >Echo of the Tech Giant</h3>
+    <p class="text-gray-600">
+       A tribute to the unseen heroes behind Nigeria’s tech future NITDA, NCAIR, and visionary facilitators who didn't just mentor coders but activated legacy. 
+    </p>
+    </a> <br>
+
+    <a href="elona.html" class="back-home-btn"> 
+    <h3 class="tech" > The Rise of Elona A Visionary Before Her Time</h3>
+    <p class="text-gray-600">
+       Meet Elona: the quiet force inside NITDA/NCAIR whose ideas outran the present and echoed tomorrow.
+    </p>
+  </a> <br>
+  <a href="problems.html" class="back-home-btn"> 
+    <h3 class="tech" >Rewriting the Future of Education</h3>
+    <p class="text-gray-600">
+      These solutions are designed to modernize campus systems and empower students
+    </p>
+  </a> <br>
+  <a href="clarification.html" class="back-home-btn"> 
+    <h3 class="tech" >Clarification & Tribute</h3>
+    <p class="text-gray-600">
+        A personal message to mentors, facilitators, and respected seniors
+    </p>
+  </a> <br>
+
+  <a href="Distraction.html" class="back-home-btn"> 
+    <h3 class="tech" >The Future of Learning Starts Here</h3>
+    <p class="text-gray-600">
+        A bold education redesign for Gen Z attention spans
+    </p>
+  </a> <br>
+
+  <a href="./practice/index.html" class="back-home-btn"> 
+    <h3 class="tech" >Mini Projects That Make You Think</h3>
+    <p class="text-gray-600">
+        Designed to boost your Logic and Confidence
+    </p>
+  </a> <br>
+
+  <a href="./problems2.html" class="back-home-btn"> 
+    <h3 class="tech" >Inspired by Apple & Coca-Cola vibes</h3>
+   
+  </a> <br>
+  </div>
+</section>
+<a href="./index.html">
+      <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back  
+    </div>
+    </a>
+
+  <footer class="animated" style="animation-delay: 1.5s">
+    &copy; 2025 Datti | Designed to echo with impact.
+  </footer>
+
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA Legacy - Mastering Python GUI Programming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a148c;
+            --secondary: #ff6f00;
+            --accent: #00bcd4;
+            --light: #f5f5f5;
+            --dark: #212121;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #7b1fa2);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .learning-path {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+        
+        .path-card {
+            flex: 1 1 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+        .path-card a{
+            text-decoration: none;
+        }
+        
+        .path-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .path-card h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .path-card .level {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .code-header {
+            background: #1e1e1e;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: monospace;
+        }
+        
+        .copy-btn {
+            background: #3e3e3e;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: var(--accent);
+        }
+        
+        .code-content {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+        
+        .keyword { color: #f92672; }
+        .string { color: #e6db74; }
+        .comment { color: #75715e; }
+        .function { color: #66d9ef; }
+        .parameter { color: #fd971f; }
+        .number { color: #ae81ff; }
+        
+        .interactive-demo {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .demo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .demo-output {
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .demo-controls {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background-color: #5e35b1;
+        }
+        
+        .concept-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .concept-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .concept-card .icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            background-color: var(--dark);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Mastering GUI Programming with Python Tkinter</h1>
+             <p><span id="typed"></span></p>
+            <p class="subtitle">From Zero to GUI Hero - A Comprehensive Learning Path</p>
+            <p><span id="typed2"></span></p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section>
+            <h2>Why Learn GUI Programming?</h2>
+            <p>Graphical User Interfaces (GUIs) transform your Python scripts into professional applications that anyone can use. With Tkinter, Python's built-in GUI toolkit, you can create:</p>
+            <ul>
+                <li>Desktop applications with intuitive interfaces</li>
+                <li>Data visualization tools</li>
+                <li>Automation tools with user-friendly controls</li>
+                <li>Educational software</li>
+                <li>And much more!</li>
+            </ul>
+        </section>
+        
+        <section class="learning-path">
+            <div class="path-card">
+                
+                    <span class="level">Beginner</span>
+                <h2>GUI Fundamentals</h2>
+                <ul>
+                    <li>Understanding windows and widgets</li>
+                    <li>Basic layout management</li>
+                    <li>Labels, buttons, and entries</li>
+                    <li>Simple event handling</li>
+                </ul>
+                <a href="./bg.html" class="inline-block px-6 py-3 mt-8 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg glow-hover transition">
+                        Start Learning <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+           
+            
+            <div class="path-card">
+                <span class="level">Intermediate</span>
+                <h2>Building Functional Apps</h2>
+                <ul>
+                    <li>Advanced widget configuration</li>
+                    <li>Multiple windows and dialogs</li>
+                    <li>Data validation</li>
+                    <li>Menu systems</li>
+                </ul>
+                <a href="./inter.html" class="inline-block px-6 py-3 mt-8 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg glow-hover transition">
+                    Continue Learning <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+            
+            <div class="path-card">
+                <span class="level">Advanced</span>
+                <h2>Professional Applications</h2>
+                <ul>
+                    <li>Custom widget styling</li>
+                    <li>Threading with GUIs</li>
+                    <li>Database integration</li>
+                    <li>Packaging for distribution</li>
+                </ul>
+                 <a href="./ad.html" class="inline-block px-6 py-3 mt-8 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg glow-hover transition">
+                        Continue  Learning <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Your First Tkinter Application</h2>
+            <p>Let's start with the simplest possible Tkinter program that creates an empty window:</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>basic_window.py</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <div class="code-content">
+                    <pre><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk  <span class="comment"># Import the Tkinter module</span>
+
+<span class="comment"># Create the main application window</span>
+window = tk.Tk()
+window.title(<span class="string">"My First GUI"</span>)
+
+<span class="comment"># Start the application</span>
+window.mainloop()</pre>
+                </div>
+            </div>
+            
+            <div class="concept-card">
+                <h3>Key Concepts</h3>
+                <p><strong>Tk()</strong> - Creates the main window of your application. This is the foundation of all Tkinter programs.</p>
+                <p><strong>mainloop()</strong> - Starts the event loop that keeps your application running and responsive to user interactions.</p>
+            </div>
+        </section>
+        
+        <section class="interactive-demo">
+            <h2>Interactive Widget Explorer</h2>
+            <p>See how different Tkinter widgets look and behave. Customize properties and see the code update in real-time.</p>
+            
+            <div class="demo-container">
+                <div class="demo-output" id="tkinter-preview">
+                    <!-- This will be populated by JavaScript -->
+                    <div style="padding: 20px; background: white; border-radius: 5px;">
+                        <p style="color: #666;">Configure the widgets using the controls on the right →</p>
+                    </div>
+                </div>
+                
+                <div class="demo-controls">
+                    <div class="form-group">
+                        <label for="widget-type">Widget Type</label>
+                        <select id="widget-type">
+                            <option value="label">Label</option>
+                            <option value="button">Button</option>
+                            <option value="entry">Entry (Text Input)</option>
+                            <option value="text">Text (Multi-line)</option>
+                            <option value="checkbox">Checkbutton</option>
+                            <option value="radiobutton">Radiobutton</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="widget-text">Text</label>
+                        <input type="text" id="widget-text" value="Sample Text">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="widget-bg">Background Color</label>
+                        <input type="color" id="widget-bg" value="#ffffff">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="widget-fg">Text Color</label>
+                        <input type="color" id="widget-fg" value="#000000">
+                    </div>
+                    
+                    <button id="update-demo">Update Widget</button>
+                </div>
+            </div>
+            
+            <div class="code-container" style="margin-top: 20px;">
+                <div class="code-header">
+                    <span>generated_code.py</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <div class="code-content" id="generated-code">
+                    <pre><span class="comment"># Select a widget and configure it to see the generated code</span></pre>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Building a Complete Form Application</h2>
+            <p>Let's create a practical user registration form with validation:</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>registration_form.py</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <div class="code-content">
+                    <pre><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk
+<span class="keyword">from</span> tkinter <span class="keyword">import</span> messagebox
+
+<span class="keyword">class</span> <span class="function">RegistrationForm</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="parameter">self</span>, <span class="parameter">master</span>):
+        <span class="parameter">self</span>.master = master
+        master.title(<span class="string">"User Registration"</span>)
+        master.geometry(<span class="string">"400x300"</span>)
+        
+        <span class="comment"># Create form frame</span>
+        form_frame = tk.Frame(master, padx=<span class="number">20</span>, pady=<span class="number">20</span>)
+        form_frame.pack(fill=tk.BOTH, expand=<span class="keyword">True</span>)
+        
+        <span class="comment"># Form fields</span>
+        tk.Label(form_frame, text=<span class="string">"Full Name:"</span>).grid(row=<span class="number">0</span>, column=<span class="number">0</span>, sticky=tk.W, pady=<span class="number">5</span>)
+        <span class="parameter">self</span>.name_entry = tk.Entry(form_frame, width=<span class="number">30</span>)
+        <span class="parameter">self</span>.name_entry.grid(row=<span class="number">0</span>, column=<span class="number">1</span>, pady=<span class="number">5</span>)
+        
+        tk.Label(form_frame, text=<span class="string">"Email:"</span>).grid(row=<span class="number">1</span>, column=<span class="number">0</span>, sticky=tk.W, pady=<span class="number">5</span>)
+        <span class="parameter">self</span>.email_entry = tk.Entry(form_frame, width=<span class="number">30</span>)
+        <span class="parameter">self</span>.email_entry.grid(row=<span class="number">1</span>, column=<span class="number">1</span>, pady=<span class="number">5</span>)
+        
+        tk.Label(form_frame, text=<span class="string">"Password:"</span>).grid(row=<span class="number">2</span>, column=<span class="number">0</span>, sticky=tk.W, pady=<span class="number">5</span>)
+        <span class="parameter">self</span>.password_entry = tk.Entry(form_frame, width=<span class="number">30</span>, show=<span class="string">"*"</span>)
+        <span class="parameter">self</span>.password_entry.grid(row=<span class="number">2</span>, column=<span class="number">1</span>, pady=<span class="number">5</span>)
+        
+        <span class="comment"># Submit button</span>
+        submit_btn = tk.Button(
+            form_frame, 
+            text=<span class="string">"Register"</span>, 
+            command=<span class="parameter">self</span>.submit_form,
+            bg=<span class="string">"#4CAF50"</span>,
+            fg=<span class="string">"white"</span>,
+            padx=<span class="number">10</span>,
+            pady=<span class="number">5</span>
+        )
+        submit_btn.grid(row=<span class="number">3</span>, column=<span class="number">1</span>, pady=<span class="number">10</span>, sticky=tk.E)
+    
+    <span class="keyword">def</span> <span class="function">submit_form</span>(<span class="parameter">self</span>):
+        <span class="comment"># Get form data</span>
+        name = <span class="parameter">self</span>.name_entry.get()
+        email = <span class="parameter">self</span>.email_entry.get()
+        password = <span class="parameter">self</span>.password_entry.get()
+        
+        <span class="comment"># Simple validation</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> name <span class="keyword">or</span> <span class="keyword">not</span> email <span class="keyword">or</span> <span class="keyword">not</span> password:
+            messagebox.showerror(<span class="string">"Error"</span>, <span class="string">"All fields are required!"</span>)
+            <span class="keyword">return</span>
+        
+        <span class="comment"># Show success message</span>
+        messagebox.showinfo(
+            <span class="string">"Success"</span>, 
+            <span class="string">f"Registration successful!\nName: {name}\nEmail: {email}"</span>
+        )
+
+<span class="comment"># Create and run the application</span>
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    root = tk.Tk()
+    app = RegistrationForm(root)
+    root.mainloop()</pre>
+                </div>
+            </div>
+            
+            <div class="concept-card">
+                <h3>Advanced Concepts in This Example</h3>
+                <ul>
+                    <li><strong>Object-Oriented Approach:</strong> Using classes to organize your GUI code</li>
+                    <li><strong>Grid Layout:</strong> Precise widget positioning with rows and columns</li>
+                    <li><strong>Validation:</strong> Checking user input before processing</li>
+                    <li><strong>Dialogs:</strong> Using message boxes for user feedback</li>
+                    <li><strong>Password Fields:</strong> Secure input with character masking</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Next Steps in Your GUI Journey</h2>
+            <p>Now that you've mastered the basics, consider exploring these advanced topics:</p>
+            
+            <div class="learning-path">
+                <div class="path-card">
+                    <h2>Custom Styling</h2>
+                    <ul>
+                        <li>Using ttk themed widgets</li>
+                        <li>Custom fonts and colors</li>
+                        <li>Creating modern-looking interfaces</li>
+                    </ul>
+                </div>
+                
+                <div class="path-card">
+                    <h2>Data Visualization</h2>
+                    <ul>
+                        <li>Integrating Matplotlib charts</li>
+                        <li>Creating dashboards</li>
+                        <li>Real-time data updates</li>
+                    </ul>
+                </div>
+                
+                <div class="path-card">
+                    <h2>Application Architecture</h2>
+                    <ul>
+                        <li>MVC pattern with Tkinter</li>
+                        <li>Multi-window applications</li>
+                        <li>Persistence with databases</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+      <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back To Home
+    </div>
+    </a>
+
+    
+    <footer>
+        <div class="container">
+            <h3>NITDA Legacy - Empowering Developers Through Quality Education</h3>
+            <p>© 2025 Python GUI Programming Learning Path. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+        // Interactive demo functionality
+        document.getElementById('update-demo').addEventListener('click', function() {
+            const widgetType = document.getElementById('widget-type').value;
+            const widgetText = document.getElementById('widget-text').value;
+            const widgetBg = document.getElementById('widget-bg').value;
+            const widgetFg = document.getElementById('widget-fg').value;
+            
+            // Update preview
+            const preview = document.getElementById('tkinter-preview');
+            preview.innerHTML = '';
+            
+            let demoWidget;
+            switch(widgetType) {
+                case 'label':
+                    demoWidget = document.createElement('div');
+                    demoWidget.textContent = widgetText;
+                    demoWidget.style.padding = '10px';
+                    demoWidget.style.margin = '10px';
+                    break;
+                case 'button':
+                    demoWidget = document.createElement('button');
+                    demoWidget.textContent = widgetText;
+                    demoWidget.style.padding = '8px 16px';
+                    demoWidget.style.margin = '10px';
+                    break;
+                case 'entry':
+                    demoWidget = document.createElement('input');
+                    demoWidget.type = 'text';
+                    demoWidget.placeholder = widgetText || 'Enter text...';
+                    demoWidget.style.padding = '8px';
+                    demoWidget.style.margin = '10px';
+                    demoWidget.style.width = '200px';
+                    break;
+                case 'text':
+                    demoWidget = document.createElement('textarea');
+                    demoWidget.placeholder = widgetText || 'Enter multiline text...';
+                    demoWidget.style.padding = '8px';
+                    demoWidget.style.margin = '10px';
+                    demoWidget.style.width = '200px';
+                    demoWidget.style.height = '100px';
+                    break;
+                case 'checkbox':
+                    demoWidget = document.createElement('div');
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = 'demo-checkbox';
+                    const label = document.createElement('label');
+                    label.htmlFor = 'demo-checkbox';
+                    label.textContent = widgetText || 'Checkbox';
+                    label.style.marginLeft = '8px';
+                    demoWidget.appendChild(checkbox);
+                    demoWidget.appendChild(label);
+                    demoWidget.style.padding = '10px';
+                    demoWidget.style.margin = '10px';
+                    break;
+                case 'radiobutton':
+                    demoWidget = document.createElement('div');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.id = 'demo-radio';
+                    const radioLabel = document.createElement('label');
+                    radioLabel.htmlFor = 'demo-radio';
+                    radioLabel.textContent = widgetText || 'Option';
+                    radioLabel.style.marginLeft = '8px';
+                    demoWidget.appendChild(radio);
+                    demoWidget.appendChild(radioLabel);
+                    demoWidget.style.padding = '10px';
+                    demoWidget.style.margin = '10px';
+                    break;
+            }
+            
+            demoWidget.style.backgroundColor = widgetBg;
+            demoWidget.style.color = widgetFg;
+            preview.appendChild(demoWidget);
+            
+            // Update code display
+            const codeDisplay = document.getElementById('generated-code');
+            let widgetCode;
+            
+            switch(widgetType) {
+                case 'label':
+                    widgetCode = `tk.Label(
+    text=<span class="string">"${widgetText}"</span>,
+    bg=<span class="string">"${widgetBg}"</span>,
+    fg=<span class="string">"${widgetFg}"</span>
+).pack()`;
+                    break;
+                case 'button':
+                    widgetCode = `tk.Button(
+    text=<span class="string">"${widgetText}"</span>,
+    bg=<span class="string">"${widgetBg}"</span>,
+    fg=<span class="string">"${widgetFg}"</span>,
+    command=<span class="parameter">your_function</span>
+).pack()`;
+                    break;
+                case 'entry':
+                    widgetCode = `tk.Entry(
+    width=<span class="number">20</span>,
+    bg=<span class="string">"${widgetBg}"</span>,
+    fg=<span class="string">"${widgetFg}"</span>
+).pack()`;
+                    break;
+                case 'text':
+                    widgetCode = `tk.Text(
+    width=<span class="number">40</span>,
+    height=<span class="number">5</span>,
+    bg=<span class="string">"${widgetBg}"</span>,
+    fg=<span class="string">"${widgetFg}"</span>
+).pack()`;
+                    break;
+                case 'checkbox':
+                    widgetCode = `tk.Checkbutton(
+    text=<span class="string">"${widgetText}"</span>,
+    bg=<span class="string">"${widgetBg}"</span>,
+    fg=<span class="string">"${widgetFg}"</span>,
+    variable=<span class="parameter">your_boolean_var</span>
+).pack()`;
+                    break;
+                case 'radiobutton':
+                    widgetCode = `tk.Radiobutton(
+    text=<span class="string">"${widgetText}"</span>,
+    bg=<span class="string">"${widgetBg}"</span>,
+    fg=<span class="string">"${widgetFg}"</span>,
+    variable=<span class="parameter">your_var</span>,
+    value=<span class="parameter">your_value</span>
+).pack()`;
+                    break;
+            }
+            
+            codeDisplay.innerHTML = `<pre><span class="comment"># Example ${widgetType} widget</span>
+${widgetCode}</pre>`;
+        });
+        
+        // Copy button functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const codeContent = this.parentElement.nextElementSibling.textContent;
+                navigator.clipboard.writeText(codeContent).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = 'Copied!';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                });
+            });
+        });
+          const typed = new Typed('#typed', {
+      strings: [
+        " Cohort 26 • 2025",
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 0,
+      loop: false
+    });
+     const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+     AOS.init();
+    </script>
+</body>
+</html>

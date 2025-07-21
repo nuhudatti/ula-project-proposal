@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔐 Encapsulation – Lamborghini Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #1f2937;
+      --highlight: #00ffcc;
+      --code-bg: #1e1e1e;
+      --code-fg: #d4d4d4;
+      --keyword: #569cd6;
+      --class: #4ec9b0;
+      --string: #d69d85;
+      --comment: #6a9955;
+      --function: #dcdcaa;
+    }
+    body {
+      font-family: 'Fira Code', monospace;
+      background: var(--bg);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 100px auto;
+      padding: 30px;
+      background: var(--panel);
+      border-radius: 16px;
+      box-shadow: 0 0 45px rgba(0, 255, 204, 0.2);
+    }
+    h1, h2, h3 {
+      color: var(--highlight);
+    }
+    p, li {
+      line-height: 1.8;
+      color: #cbd5e1;
+    }
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      border-left: 6px solid var(--highlight);
+    }
+    code {
+      white-space: pre-wrap;
+    }
+    .highlight {
+      background-color: var(--highlight);
+      color: #000;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .popup {
+      background: #111;
+      border-left: 4px solid var(--highlight);
+      margin-top: 10px;
+      padding: 15px;
+      display: none;
+      border-radius: 6px;
+      line-height: 1.6;
+    }
+    button {
+      background: var(--highlight);
+      color: #000;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #00e6b2;
+    }
+    .keyword { color: var(--keyword); }
+    .class { color: var(--class); }
+    .string { color: var(--string); }
+    .comment { color: var(--comment); }
+    .function { color: var(--function); }
+
+      .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Encapsulation – The Lamborghini of Code Security</h1>
+    <p><span class="highlight">Encapsulation</span> is the superpower of modern Python OOP. It's about guarding your most valuable data like a Lamborghini guards its engine — with class, security, and precision.</p>
+
+    <h2>🧠 Why It Matters Globally</h2>
+    <ul>
+      <li>✅ Protects sensitive logic from outside tampering</li>
+      <li>✅ Enables safer updates and interactions</li>
+      <li>✅ Powers modern frameworks and industry-grade software</li>
+    </ul>
+
+    <h3>👨‍🎓 Example: Student Record Encapsulation</h3>
+    <pre><code><span class="keyword">class</span> <span class="class">Student</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age):
+        self.__name = name  <span class="comment"># 🔒 private attribute</span>
+        self.__age = age
+
+    <span class="keyword">def</span> <span class="function">get_name</span>(self):
+        <span class="keyword">return</span> self.__name
+
+    <span class="keyword">def</span> <span class="function">set_name</span>(self, new_name):
+        <span class="keyword">if</span> len(new_name) > 0:
+            self.__name = new_name
+
+    <span class="keyword">def</span> <span class="function">get_age</span>(self):
+        <span class="keyword">return</span> self.__age
+
+    <span class="keyword">def</span> <span class="function">set_age</span>(self, new_age):
+        <span class="keyword">if</span> new_age > 0:
+            self.__age = new_age
+
+s1 = <span class="class">Student</span>(<span class="string">"Amina"</span>, 20)
+print(s1.get_name())
+s1.set_name(<span class="string">"Zara"</span>)
+print(s1.get_name())</code></pre>
+    <button onclick="toggleExplain('ex1')">📖 Click to Breakdown</button>
+    <div id="ex1" class="popup">
+      <p>🔸 Attributes <code>__name</code> and <code>__age</code> are hidden from direct access.</p>
+      <p>🔸 Methods like <code>get_name()</code> and <code>set_name()</code> provide controlled access.</p>
+      <p>✅ Result? Safer, cleaner code trusted by global companies and institutions.</p>
+    </div>
+
+    <h2>🏦 Real-World Analogy: Bank Account Safety</h2>
+    <pre><code><span class="keyword">class</span> <span class="class">BankAccount</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, balance):
+        self.__balance = balance  <span class="comment"># 🔐 private</span>
+
+    <span class="keyword">def</span> <span class="function">deposit</span>(self, amount):
+        <span class="keyword">if</span> amount > 0:
+            self.__balance += amount
+
+    <span class="keyword">def</span> <span class="function">withdraw</span>(self, amount):
+        <span class="keyword">if</span> 0 < amount <= self.__balance:
+            self.__balance -= amount
+
+    <span class="keyword">def</span> <span class="function">get_balance</span>(self):
+        <span class="keyword">return</span> self.__balance
+
+acc = <span class="class">BankAccount</span>(1000)
+acc.deposit(500)
+print(acc.get_balance())</code></pre>
+    <button onclick="toggleExplain('ex2')">🔍 Explain Banking Code</button>
+    <div id="ex2" class="popup">
+      <p>🔒 <code>__balance</code> keeps the internal state safe from direct changes.</p>
+      <p>🧠 Only methods like <code>deposit()</code> and <code>withdraw()</code> can alter it under strict rules.</p>
+      <p>🌍 This level of protection is what global systems demand — and what you're mastering right now.</p>
+    </div>
+  </div>
+
+  <a href="./index.html">
+      <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+  <script>
+     AOS.init();
+    function toggleExplain(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

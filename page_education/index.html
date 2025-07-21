@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA ULA - The Digital Legacy Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+        
+        :root {
+            --ntida-blue: #1e3a8a;
+            --ntida-light: #2563eb;
+            --ntida-gold: #d4af37;
+            --ntida-emerald: #10b981;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            overflow-x: hidden;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--ntida-blue) 0%, var(--ntida-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .glow-hover:hover {
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.3);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--ntida-gold);
+            border-radius: 2px;
+        }
+        
+        .video-container {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .timeline-item:not(:last-child):after {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #e2e8f0, transparent);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--ntida-blue), var(--ntida-emerald));
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            pointer-events: none;
+        }
+         /* Navigation Styles */
+    nav {
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(30, 58, 138, 0.1);
+        box-shadow: 0 2px 10px rgba(30, 58, 138, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    /* Desktop Navigation Links */
+    nav a {
+        color: var(--ntida-blue);
+        font-weight: 500;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+        color: var(--ntida-light);
+    }
+
+    /* Active Link Indicator */
+    nav a:hover::after,
+    nav a:focus::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--ntida-gold);
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    /* Active Link Indicator */
+nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--ntida-gold);
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+
+    /* Apply Now Button */
+    nav .apply-btn {
+        background: linear-gradient(135deg, var(--ntida-blue) 0%, var(--ntida-light) 100%);
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+    }
+
+    nav .apply-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
+        background: linear-gradient(135deg, var(--ntida-light) 0%, var(--ntida-blue) 100%);
+    }
+
+    /* Mobile Menu Toggle */
+    #menu-toggle {
+        transition: all 0.3s ease;
+        color: var(--ntida-blue);
+    }
+
+    #menu-toggle:hover {
+        color: var(--ntida-light);
+        transform: scale(1.1);
+    }
+
+    /* Mobile Menu */
+    #mobile-menu {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(30, 58, 138, 0.1);
+    }
+
+    #mobile-menu a {
+        color: var(--ntida-blue);
+        transition: all 0.2s ease;
+        padding: 12px 0;
+    }
+
+    #mobile-menu a:hover {
+        color: var(--ntida-light);
+        transform: translateX(4px);
+    }
+
+    #mobile-menu .apply-btn {
+        background: linear-gradient(135deg, var(--ntida-blue) 0%, var(--ntida-light) 100%);
+        margin-top: 8px;
+    }
+
+    /* Backdrop */
+    .backdrop {
+        background: rgba(30, 58, 138, 0.2);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    /* Active State for Mobile Menu */
+    #mobile-menu.open a:hover::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--ntida-gold);
+    }
+    
+        /* NAV */
+        /* Add these styles to your existing CSS */
+        #mobile-menu {
+            position: fixed;
+            top: 68px; /* Height of your navbar */
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        #mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .backdrop {
+            position: fixed;
+            top: 68px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 30;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+   
+    </style>
+</head>
+<body>
+    <!-- Updated Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-200 py-3 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+  <!-- 5IRE Logo Mark -->
+    <div class="relative">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1e3a8a] to-[#10b981] flex items-center justify-center shadow-md">
+        <div class="absolute inset-0 border-2 border-white/20 rounded-lg"></div>
+        <span class="text-white font-bold text-xl tracking-tighter">5</span>
+        </div>
+        <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#d4af37] border-2 border-white"></div>
+    </div>
+    
+    <!-- 5IRE Logo Text -->
+    <div class="flex flex-col">
+        <span class="text-2xl font-bold bg-gradient-to-r from-[#1e3a8a] to-[#10b981] bg-clip-text text-transparent">
+        5IRE
+        </span>
+        <span class="text-xs font-medium text-gray-500 tracking-widest">BLOCKCHAIN ECOSYSTEM</span>
+    </div>
+    </div>
+        <div class="flex items-center">
+            <span class="hidden md:inline-block text-sm font-bold bg-blue-600 text-white px-3 py-1 rounded-full">ULA v1.0</span>
+        </div>
+        
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-8">
+            <a href="./index.html" class="font-medium text-gray-700 hover:text-blue-600 transition active">Home</a>
+            <a href="./course.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Courses</a>
+            <a href="./story.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Success Stories</a>
+            <a href="./impact.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Global Impact</a>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <a href="./partner.html" class="hidden md:inline-block px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Apply Now</a>
+            <button id="menu-toggle" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="backdrop" class="backdrop"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden">
+        <div class="flex flex-col space-y-4 p-6">
+            <a href="#" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link active">Home</a>
+            <a href="./course.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link">Courses</a>
+            <a href="./story.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link">Success Stories</a>
+            <a href="./impact.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link">Global Impact</a>
+            <a href="./impact.html" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition text-center mt-2 mobile-link">Apply Now</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white relative overflow-hidden">
+        <div class="hero-pattern"></div>
+        <div class="container mx-auto px-6 py-24 md:py-32 relative z-10">
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
+                        The Future of Digital Education
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        Building <span class="text-yellow-300">Digital Legacies</span> That Outshine The World
+                    </h1>
+                    <p class="text-xl md:text-2xl opacity-90 mb-8">
+                        Africa's most advanced digital skills ecosystem, creating the next generation of global tech leaders and innovators
+                    </p>
+    
+                    <div class="mt-12 flex flex-wrap items-center gap-6">
+                        <div class="flex items-center">
+                            <div class="flex -space-x-2">
+                                <!-- <img src="./img/datti.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+                                <img src="./img/jenifer.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+                                <img src="./img/aliyu hassa.jpg" class="w-10 h-10 rounded-full border-2 border-white"> -->
+                                
+                                  <!-- Visionary Explorer -->
+                                <div class="w-8 h-8 rounded-full border-2 border-yellow-400 bg-gray-900 flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-user-astronaut text-yellow-300 text-xl"></i>
+                                </div>
+
+                            <!-- Education Flame -->
+                            <div class="w-8 h-8 rounded-full border-2 border-red-500 bg-gray-900 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-fire text-red-400 text-xl"></i>
+                            </div>
+
+                            <!-- Book of Wisdom -->
+                            <div class="w-8 h-8 rounded-full border-2 border-blue-400 bg-gray-900 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-book text-blue-300 text-xl"></i>
+                            </div>
+
+                            <!-- Code & Tech -->
+                            <div class="w-8 h-8 rounded-full border-2 border-cyan-400 bg-gray-900 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-laptop-code text-cyan-300 text-xl"></i>
+                            </div>
+
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-bold">15,000+</div>
+                                <div class="text-sm opacity-80">Legacy Builders</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="hidden sm:block h-8 w-px bg-white/30"></div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mr-3">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold">#1 Ranked</div>
+                                <div class="text-sm opacity-80">In Africa</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-4 mt-5">
+                        <a href="#courses" class="px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold rounded-lg glow-hover transition duration-300 flex items-center">
+                            Start Your Legacy <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <!-- <a href="#video" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 font-medium rounded-lg transition duration-300 flex items-center">
+                            <i class="fas fa-play-circle mr-2"></i> Watch Story
+                        </a> -->
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="relative z-10 floating">
+                        <img src="https://illustrations.popsy.co/amber/digital-nomad.svg" alt="Digital Legacy" class="w-full">
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 w-64 h-64 rounded-full bg-blue-400/20 blur-3xl"></div>
+                    <div class="absolute -top-10 -right-10 w-64 h-64 rounded-full bg-purple-400/20 blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating particles -->
+        <div id="particles-js"></div>
+    </section>
+<!-- 2. -->
+ <!-- Global Inspiration Section -->
+<section class="py-20 bg-gradient-to-b from-white to-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto text-center mb-16">
+      <span class="inline-block mb-4 text-4xl">🌍</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+        Global Inspiration, <span class="text-[#1e3a8a]">African Innovation</span>
+      </h2>
+      <p class="text-xl text-gray-600">
+        Our vision combines global best practices with insights gained from local digital transformation efforts in Nigeria.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <!-- Local Inspiration -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border-2 border-[#1e3a8a] hover:shadow-md transition-all">
+        <div class="w-16 h-16 rounded-xl bg-[#1e3a8a]/10 flex items-center justify-center mb-6">
+          <span class="text-2xl text-[#1e3a8a]">🇳🇬</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-[#1e3a8a]">Nigerian Insight</h3>
+        <p class="text-gray-600">
+          Inspired by the work of national institutions advancing Africa’s digital future through policy, infrastructure, and innovation.
+        </p>
+      </div>
+
+      <!-- UNESCO -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+        <div class="w-16 h-16 rounded-xl bg-[#1e3a8a]/10 flex items-center justify-center mb-6">
+          <span class="text-2xl text-[#1e3a8a]">🏛️</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-[#1e3a8a]">UNESCO</h3>
+        <p class="text-gray-600">
+          Global learning frameworks promoting inclusive, sustainable, and lifelong education for all.
+        </p>
+      </div>
+
+      <!-- MIT -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+        <div class="w-16 h-16 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
+          <span class="text-2xl text-[#d4af37]">🎓</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-gray-900">MIT</h3>
+        <p class="text-gray-600">
+          A pioneer in free, open-access digital learning through the OpenCourseWare model.
+        </p>
+      </div>
+
+      <!-- Google -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+        <div class="w-16 h-16 rounded-xl bg-[#10b981]/10 flex items-center justify-center mb-6">
+          <span class="text-2xl text-[#10b981]">🔍</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-gray-900">Google</h3>
+        <p class="text-gray-600">
+          Driving innovation in global digital learning and educator empowerment.
+        </p>
+      </div>
+
+      <!-- ETH Zurich -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+        <div class="w-16 h-16 rounded-xl bg-[#2563eb]/10 flex items-center justify-center mb-6">
+          <span class="text-2xl text-[#2563eb]">🧪</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-[#2563eb]">ETH Zurich</h3>
+        <p class="text-gray-600">
+          A leader in scientific education and innovation excellence.
+        </p>
+      </div>
+
+      <!-- Our Mission -->
+      <div class="bg-gradient-to-br from-[#1e3a8a] to-[#10b981] p-8 rounded-2xl shadow-lg">
+        <div class="w-16 h-16 rounded-xl bg-white/20 flex items-center justify-center mb-6">
+          <span class="text-2xl text-white">✨</span>
+        </div>
+        <h3 class="text-xl font-bold mb-3 text-white">Our Inspired Mission</h3>
+        <p class="text-white/90">
+          Bringing together global models and African vision to build the continent’s digital future.
+        </p>
+      </div>
+    </div>
+
+    <!-- Optional Disclaimer -->
+     <div class="max-w-xl mx-auto mt-16 text-center">
+    <p class="text-xs text-gray-600 mt-4 italic">
+    ⚠️ This is a student-led educational project, independently developed by interns currently attached to NITDA/NCAIR. Mentions of institutions like NITDA/NCAIR, MIT, Google, UNESCO, or ETH Zurich are for educational reference only — no endorsement or affiliation is implied.
+    </p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+
+    <!-- Legacy Programs -->
+    <section id="courses" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-4">
+                    LEGACY PROGRAMS
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">
+                    Craft Your Digital Legacy
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-600 mt-3 max-w-3xl mx-auto">
+                 Transformative education that creates generational impact training Africa's next wave of global tech leaders
+                </p>
+                <p class="text-xl text-gray-600">
+                    Choose from World most comprehensive tech education pathways
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- AI/ML Legacy -->
+                <!-- AI Sovereignty Program -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100">
+                <div class="relative h-60 bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] flex items-center justify-center">
+                <div class="absolute inset-0 bg-[url('https://gist.githubusercontent.com/alaister/8032e8287eaa08e5b6a1480f763fb6b6/raw/9eb5f7941023e8b0a5b6c9747cd9a6bf809d5e10/world_map.svg')] bg-center opacity-10"></div>
+                <i class="fa-solid fa-brain fa-4x"></i>
+                <!-- <img src="https://illustrations.popsy.co/amber/artificial-intelligence.svg" class="h-40 z-10" alt="AI Sovereignty"> -->
+                <div class="absolute bottom-4 right-4 bg-[#d4af37] text-white px-3 py-1 rounded-full text-xs font-bold">
+                    FUTURE-PROOF
+                </div>
+                </div>
+                <div class="p-8">
+                <div class="flex items-center mb-4">
+                    <div class="w-14 h-14 rounded-xl bg-[#1e3a8a]/10 text-[#1e3a8a] flex items-center justify-center mr-4">
+                    <i class="fas fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold">AI Sovereignty Program</h3>
+                </div>
+                <p class="text-gray-600 mb-6">
+                    Build Africa's indigenous AI capabilities with world-class machine learning and ethical AI development
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mr-3">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <span>UNESCO-recognized curriculum</span>
+                    </div>
+                    <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mr-3">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <span>Direct pipeline to Google AI & NVIDIA</span>
+                    </div>
+                </div>
+                <a onclick="document.getElementById('disclaimerModal').classList.remove('hidden')" class="block w-full py-4 px-6 bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:from-[#2563eb] hover:to-[#1e3a8a] text-white font-bold rounded-xl text-center transition-all duration-300 group">
+                    <span class="group-hover:translate-x-2 transition-transform duration-300 inline-block">
+                    Claim Your Seat <i class="fas fa-arrow-right ml-2 transition-all duration-300 group-hover:ml-4"></i>
+                    </span>
+                </a>
+                </div>
+            </div>
+
+            <!-- Blockchain Nation Program -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100">
+                <div class="relative h-60 bg-gradient-to-br from-[#10b981] to-[#0d9488] flex items-center justify-center">
+                <div class="absolute inset-0 bg-[url('https://gist.githubusercontent.com/alaister/8032e8287eaa08e5b6a1480f763fb6b6/raw/9eb5f7941023e8b0a5b6c9747cd9a6bf809d5e10/world_map.svg')] bg-center opacity-10"></div>
+                <i class="fa-solid fa-cubes fa-4x" ></i>
+                <!-- <img src="https://illustrations.popsy.co/amber/crypto-wallet.svg" class="h-40 z-10" alt="Blockchain"> -->
+                <div class="absolute bottom-4 right-4 bg-[#d4af37] text-white px-3 py-1 rounded-full text-xs font-bold">
+                    GOVERNMENT-BACKED
+                </div>
+                </div>
+                <div class="p-8">
+                <div class="flex items-center mb-4">
+                    <div class="w-14 h-14 rounded-xl bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mr-4">
+                    <i class="fas fa-link text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold">Digital Economy Architecture</h3>
+                </div>
+                <p class="text-gray-600 mb-6">
+                    Design Africa's blockchain infrastructure and CBDC systems with 5IRE's patented technology
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-[#1e3a8a]/10 text-[#1e3a8a] flex items-center justify-center mr-3">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <span>Used by 3 African central banks</span>
+                    </div>
+                    <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-[#1e3a8a]/10 text-[#1e3a8a] flex items-center justify-center mr-3">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <span>Partnership with Ethereum Foundation</span>
+                    </div>
+                </div>
+                <a  onclick="document.getElementById('disclaimerModal').classList.remove('hidden')" class="block w-full py-4 px-6 bg-gradient-to-r from-[#10b981] to-[#0d9488] hover:from-[#0d9488] hover:to-[#10b981] text-white font-bold rounded-xl text-center transition-all duration-300 group">
+                    <span class="group-hover:translate-x-2 transition-transform duration-300 inline-block">
+                    Build Digital Economy <i class="fas fa-arrow-right ml-2 transition-all duration-300 group-hover:ml-4"></i>
+                    </span>
+                </a>
+                </div>
+            </div>
+            <!-- Digital Governance Mastery -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100">
+                <div class="relative h-60 bg-gradient-to-br from-[#d4af37] to-[#b59b3a] flex items-center justify-center">
+                <div class="absolute inset-0 bg-[url('https://gist.githubusercontent.com/alaister/8032e8287eaa08e5b6a1480f763fb6b6/raw/9eb5f7941023e8b0a5b6c9747cd9a6bf809d5e10/world_map.svg')] bg-center opacity-10"></div>
+                <i class="fa-solid fa-landmark fa-4x"></i>
+                <!-- <img src="https://illustrations.popsy.co/amber/accept-request.svg" class="h-40 z-10" alt="Governance"> -->
+                <div class="absolute bottom-4 right-4 bg-[#1e3a8a] text-white px-3 py-1 rounded-full text-xs font-bold">
+                    EXECUTIVE LEVEL
+                </div>
+                </div>
+                <div class="p-8">
+                <div class="flex items-center mb-4">
+                    <div class="w-14 h-14 rounded-xl bg-[#d4af37]/10 text-[#d4af37] flex items-center justify-center mr-4">
+                    <i class="fas fa-landmark text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold">Digital Governance Mastery</h3>
+                </div>
+                <p class="text-gray-600 mb-6">
+                    Shape national digital policies that will position African nations as global tech leaders
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mr-3">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <span>Case studies from 12 nations</span>
+                    </div>
+                    <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mr-3">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <span>Taught by former ministers</span>
+                    </div>
+                </div>
+                <a onclick="document.getElementById('disclaimerModal').classList.remove('hidden')" class="block w-full py-4 px-6 bg-gradient-to-r from-[#d4af37] to-[#b59b3a] hover:from-[#b59b3a] hover:to-[#d4af37] text-white font-bold rounded-xl text-center transition-all duration-300 group">
+                    <span class="group-hover:translate-x-2 transition-transform duration-300 inline-block">
+                    Lead Digital Transformation <i class="fas fa-arrow-right ml-2 transition-all duration-300 group-hover:ml-4"></i>
+                    </span>
+                </a>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div id="disclaimerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white max-w-lg w-full p-6 rounded-xl shadow-xl text-gray-800">
+                <h2 class="text-xl font-bold text-red-600 mb-2">⚠️ Disclaimer: Page in Development</h2>
+                <p class="mb-2">🚧 This section is a work in progress.</p>
+                <p class="mb-2">Content below is part of our vision draft and currently under legal and institutional review.</p>
+                <p class="mb-2">References to organizations like <strong>UNESCO, Google AI, NVIDIA, and the Ethereum Foundation</strong> are <em>aspirational or pending confirmation</em>.</p>
+                <p class="mb-4">Final partnerships, recognitions, and affiliations will be transparently updated once officially secured.</p>
+
+                <p class="mb-4 text-sm text-gray-600">
+                🔒 <strong>Your Trust Matters:</strong> We are committed to transparency and legal compliance as we build programs to empower Africa’s digital generation.
+                </p>
+
+                <div class="flex justify-end gap-4">
+                <button onclick="document.getElementById('disclaimerModal').classList.add('hidden')" 
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">Close</button>
+                <!-- <button onclick="document.getElementById('disclaimerModal').classList.add('hidden')" 
+                        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">✅ Continue</button> -->
+                </div>
+            </div>
+            </div>
+            </div>
+
+            <!-- Legacy Impact Stats -->
+            <!-- <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 mt-20">
+            <div class="bg-white p-8 rounded-2xl shadow-lg text-center border-t-4 border-[#1e3a8a]">
+                <div class="text-5xl font-bold text-[#1e3a8a] mb-2">15K+</div>
+                <div class="text-gray-600">Legacy Alumni</div>
+                <div class="h-1 bg-gradient-to-r from-[#1e3a8a] to-[#10b981] mt-4 rounded-full"></div>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-lg text-center border-t-4 border-[#10b981]">
+                <div class="text-5xl font-bold text-[#10b981] mb-2">$86M+</div>
+                <div class="text-gray-600">In Graduate Earnings</div>
+                <div class="h-1 bg-gradient-to-r from-[#10b981] to-[#d4af37] mt-4 rounded-full"></div>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-lg text-center border-t-4 border-[#d4af37]">
+                <div class="text-5xl font-bold text-[#d4af37] mb-2">214</div>
+                <div class="text-gray-600">Tech Startups Launched</div>
+                <div class="h-1 bg-gradient-to-r from-[#d4af37] to-[#1e3a8a] mt-4 rounded-full"></div>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-lg text-center border-t-4 border-[#2563eb]">
+                <div class="text-5xl font-bold text-[#2563eb] mb-2">8</div>
+                <div class="text-gray-600">Nations Transformed</div>
+                <div class="h-1 bg-gradient-to-r from-[#2563eb] to-[#10b981] mt-4 rounded-full"></div>
+            </div>
+            </div> -->
+
+                <!-- end -->
+            </div>
+            
+            <div class="text-center mt-12">
+                <a onclick="document.getElementById('advisorModal').classList.remove('hidden')"  class="px-8 py-4 bg-white text-[#1e3a8a] border-2 border-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                💬Speak to Legacy Advisor <i class="fas fa-headset ml-2"></i>
+                </a>
+            </div>
+            <div id="advisorModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg text-gray-800">
+    <h2 class="text-xl font-bold mb-2 text-indigo-600">💬 Speak to a Legacy Advisor</h2>
+    <p class="text-sm mb-4">We're here to support your journey. Choose how you'd like to connect:</p>
+
+    <ul class="space-y-3">
+      <li>
+        <a href="mailto:advisor@5irelegacy.africa" class="text-blue-600 hover:underline font-medium">
+          📧 Send an Email
+        </a>
+      </li>
+      <li>
+        <a href="https://wa.me/2348012345678" target="_blank" class="text-green-600 hover:underline font-medium">
+          💬 Chat on WhatsApp
+        </a>
+      </li>
+      <li>
+        <a href="/book-call" class="text-purple-600 hover:underline font-medium">
+          📅 Book a 15-Min Call
+        </a>
+      </li>
+    </ul>
+
+    <div class="mt-6 text-right">
+      <button onclick="document.getElementById('advisorModal').classList.add('hidden')" 
+              class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+        </div>
+    </section>
+
+
+    <!-- Video Explanation -->
+    <section id="video" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 section-title">
+                    The ULA Experience
+                </h2>
+                <p class="text-gray-600 text-center max-w-3xl mx-auto mb-12">
+                    See how 5IRE is revolutionizing tech education in Africa
+                </p>
+                 <!-- Legacy Learning Journey -->
+<section id="video-legacy" class="py-24 bg-gradient-to-b from-white to-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="max-w-5xl mx-auto text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#1e3a8a] to-[#10b981]">
+          The Legacy Learning Journey
+        </span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Discover how we're building Africa's digital future through transformative education
+      </p>
+    </div>
+
+    <!-- Legacy Pillars -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-4xl mx-auto">
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#1e3a8a]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-users text-[#1e3a8a]"></i>
+        </div>
+        <h4 class="font-bold">Teamwork</h4>
+      </div>
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#10b981]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-search text-[#10b981]"></i>
+        </div>
+        <h4 class="font-bold">Research</h4>
+      </div>
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-tasks text-[#d4af37]"></i>
+        </div>
+        <h4 class="font-bold">Management</h4>
+      </div>
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#2563eb]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-chart-line text-[#2563eb]"></i>
+        </div>
+        <h4 class="font-bold">Investment</h4>
+      </div>
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#9333ea]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-lightbulb text-[#9333ea]"></i>
+        </div>
+        <h4 class="font-bold">Imagination</h4>
+      </div>
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#0d9488]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-handshake text-[#0d9488]"></i>
+        </div>
+        <h4 class="font-bold">Collaboration</h4>
+      </div>
+      <div class="bg-white p-6 rounded-xl text-center shadow-sm border border-gray-100">
+        <div class="w-12 h-12 bg-[#dc2626]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-trophy text-[#dc2626]"></i>
+        </div>
+        <h4 class="font-bold">Accomplishment</h4>
+      </div>
+      <div class="bg-gradient-to-br from-[#1e3a8a] to-[#10b981] p-6 rounded-xl text-center shadow-lg">
+        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fas fa-play text-white"></i>
+        </div>
+        <h4 class="font-bold text-white">MVB Documentary</h4>
+      </div>
+    </div>
+      <div class="mt-8 text-center">
+        <span class="inline-block px-4 py-1 bg-gradient-to-br from-[#1e3a8a] to-[#10b981] backdrop-blur-sm rounded-full text-sm font-medium mb-4">
+                    LEGACY PROOF 📹
+                </span>
+        <p class="text-gray-600">
+          "Witness the transformation as we build Africa's next generation of digital leaders"
+        </p>
+      </div>
+    
+    <div class="video-container rounded-2xl overflow-hidden shadow-2xl relative">
+  <!-- Thumbnail (shown before play) -->
+  <!-- <div id="video-thumbnail" class="absolute inset-0 bg-cover bg-center flex items-center justify-center cursor-pointer z-10">
+    <img src="../imgs/learning.jpg" alt="Video thumbnail" class="absolute inset-0 w-full h-full object-cover">
+    <button class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center hover:scale-110 transition-transform">
+      <i class="fas fa-play text-2xl text-white"></i>
+    </button>
+  </div> -->
+  <div class="w-full h-full bg-gradient-to-br from-[#1e3a8a] to-[#10b981] flex items-center justify-center"  id="video-thumbnail">
+          <div class="absolute inset-0 bg-[url('../imgs/behind_scane.jpg')] bg-cover bg-center opacity-30"></div>
+          <div class="text-center relative z-10 p-8">
+            <button class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center mb-6 mx-auto hover:scale-110 transition-transform">
+              <i class="fas fa-play text-2xl text-white"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-white mb-2">MVB Learning Trail Documentary</h3>
+            <p class="text-white/90 max-w-lg mx-auto">
+              Interviews with SIWES Corpers experiencing the platform firsthand. See innovation in action from the ONDI & NITDA labs.
+            </p>
+          </div>
+        </div>
+  
+  
+  <!-- Video (hidden until play) -->
+  <video id="legacy-video" class="w-full h-full hidden" controls>
+    <source src="../review_buld_to_last.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+  document.getElementById('video-thumbnail').addEventListener('click', function() {
+    this.classList.add('hidden');
+    const video = document.getElementById('legacy-video');
+    video.classList.remove('hidden');
+    video.play();
+  });
+</script>
+  </div>
+</section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legacy Timeline -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-4">
+                    LEGACY TIMELINE
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">
+                    Building a Century-Long Legacy
+                </h2>
+                <p class="text-xl text-gray-600">
+                    How NITDA ULA will shape Africa's digital future for generations
+                </p>
+            </div>
+            
+           <div class="max-w-3xl mx-auto">
+            <!-- PHASE 1: THE IGNITION (2024–2026) -->
+            <div class="timeline-item relative pl-16 pb-16">
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-white border-4 border-indigo-100 text-indigo-600 flex items-center justify-center z-10 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-semibold mb-3">2024–2026</span>
+                <h3 class="text-2xl font-bold mb-3 text-gray-900">The Ignition</h3>
+                <p class="text-gray-600 mb-4">
+                    Forged at NITDA/NCAIR & ASTERIA, ULA begins its ascent. 10,000 African developers certified in blockchain, AI, and quantum computing. <strong>No bootcamps—only war rooms.</strong>
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs rounded-full font-medium">5IRE Alliance</span>
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs rounded-full font-medium">10K Developers</span>
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs rounded-full font-medium">War Room Pedagogy</span>
+                </div>
+                </div>
+            </div>
+
+            <!-- PHASE 2: THE QUANTUM LEAP (2027–2030) -->
+            <div class="timeline-item relative pl-16 pb-16">
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-white border-4 border-blue-100 text-blue-600 flex items-center justify-center z-10 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold mb-3">2027–2030</span>
+                <h3 class="text-2xl font-bold mb-3 text-gray-900">The Quantum Leap</h3>
+                <p class="text-gray-600 mb-4">
+                    ULA’s decentralized learning protocol scales. 100,000 builders trained. African-led AI models dominate global markets. <strong>We stop consuming tech—we define it.</strong>
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-medium">Decentralized Protocol</span>
+                    <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-medium">100K Builders</span>
+                    <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-medium">AI Sovereignty</span>
+                </div>
+                </div>
+            </div>
+
+            <!-- PHASE 3: THE ETERNAL ECHO (2031–∞) -->
+            <div class="timeline-item relative pl-16">
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-white border-4 border-purple-100 text-purple-600 flex items-center justify-center z-10 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <span class="inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-semibold mb-3">2031–∞</span>
+                <h3 class="text-2xl font-bold mb-3 text-gray-900">The Eternal Echo</h3>
+                <p class="text-gray-600 mb-4">
+                    ULA becomes Africa’s digital backbone. 1M+ innovators. $50B+ ecosystem. Global tech giants adopt <strong>our</strong> standards. The world no longer "helps" Africa—it learns from it.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-purple-50 text-purple-600 text-xs rounded-full font-medium">1M Innovators</span>
+                    <span class="px-3 py-1 bg-purple-50 text-purple-600 text-xs rounded-full font-medium">$50B Ecosystem</span>
+                    <span class="px-3 py-1 bg-purple-50 text-purple-600 text-xs rounded-full font-medium">New World Order</span>
+                </div>
+                </div>
+            </div>
+                        <!-- FINAL CALL-TO-ACTION -->
+            <div class="max-w-2xl mx-auto text-center mt-20">
+            <p class="text-lg text-gray-600 mb-6">
+                "This is not a learning platform. This is a <span class="text-indigo-600 font-semibold">galactic engineering project</span> disguised as education."
+            </p>
+            </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Hero Section -->
+<section class="bg-gradient-to-r from-[#1e3a8a] to-[#10b981] text-white py-28 px-6 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto text-center relative z-10">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6">Begin Your Digital Legacy</h1>
+    <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
+      Join Africa's most transformative tech education program and build skills that will shape the continent's future
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#application-form" class="px-8 py-4 bg-white text-[#1e3a8a] font-bold rounded-lg hover:bg-gray-100 transition duration-300">
+        Start Application <i class="fas fa-arrow-down ml-2"></i>
+      </a>
+      <!-- <a href="#programs" class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 font-medium rounded-lg hover:bg-white/20 transition duration-300">
+        Explore Programs <i class="fas fa-search ml-2"></i>
+      </a> -->
+    </div>
+  </div>
+  <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
+</section>
+
+<!-- The 5IRE Advantage Section -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto text-center mb-16">
+      <span class="inline-block px-4 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm font-medium mb-4">
+        THE 5IRE ADVANTAGE
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Why <span class="text-[#10b981]">Visionary Builders</span> Choose 5IRE ULA
+      </h2>
+      <p class="text-xl text-gray-600">
+        Not education. <span class="font-semibold">Civilization engineering.</span>
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <!-- Quantum Curriculum -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-md transition-all">
+        <div class="w-14 h-14 bg-[#1e3a8a]/10 rounded-full flex items-center justify-center mb-6 text-[#1e3a8a] text-2xl">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Quantum Curriculum</h3>
+        <p class="text-gray-600">
+          A revolutionary learning protocol fusing blockchain, AI, and quantum principles. <strong>No outdated theories only frontier knowledge.</strong>
+        </p>
+      </div>
+      
+      <!-- Galactic Opportunities -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-md transition-all">
+        <div class="w-14 h-14 bg-[#10b981]/10 rounded-full flex items-center justify-center mb-6 text-[#10b981] text-2xl">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Galactic Opportunities</h3>
+        <p class="text-gray-600">
+          Top builders gain access to 5IRE's ecosystem <strong>not jobs, but sovereignty</strong> to launch tech empires.
+        </p>
+      </div>
+      
+      <!-- Stellar Network -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-md transition-all">
+        <div class="w-14 h-14 bg-[#d4af37]/10 rounded-full flex items-center justify-center mb-6 text-[#d4af37] text-2xl">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Stellar Network</h3>
+        <p class="text-gray-600">
+          Africa's most powerful alliance of <strong>sovereign builders</strong> across 30+ nations. No alumni just co-founders.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5IRE CTA -->
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-lg text-gray-600 mb-6">
+        "We don't train employees. We <span class="text-[#1e3a8a] font-semibold">forge civilization architects.</span>"
+      </p>
+      <button class="px-8 py-3 bg-gradient-to-r from-[#1e3a8a] to-[#10b981] text-white font-medium rounded-full hover:shadow-lg transition-all">
+        JOIN THE QUANTUM BUILDERS
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Programs Overview -->
+<!-- Quantum Learning Pathways -->
+<section id="programs" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto text-center mb-16">
+      <span class="inline-block px-4 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm font-medium mb-4">
+        QUANTUM LEARNING PATHWAYS
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Forge Your <span class="text-[#10b981]">Tech Sovereignty</span>
+      </h2>
+      <p class="text-xl text-gray-600">
+        Master the skills that will define Africa's digital future
+      </p>
+    </div>
+
+    <!-- Current Achievements -->
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-sm mb-12 border border-gray-200">
+      <h3 class="text-xl font-bold mb-4 text-[#1e3a8a]">🚀 Completed Quantum Modules</h3>
+      <div class="flex flex-wrap gap-3">
+        <span class="px-3 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm">Python Beginner</span>
+        <span class="px-3 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm">Python Advanced</span>
+        <span class="px-3 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm">Data Structures</span>
+        <span class="px-3 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm">Express.js</span>
+        <span class="px-3 py-1 bg-[#1e3a8a]/10 text-[#1e3a8a] rounded-full text-sm">Blockchain Basics</span>
+        <span class="px-3 py-1 bg-[#10b981]/10 text-[#10b981] rounded-full text-sm font-medium">+5 more coming</span>
+      </div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Stellar Builders Track -->
+      <div class="bg-white p-8 rounded-xl shadow-md border-l-4 border-[#1e3a8a] hover:shadow-lg transition-all">
+        <div class="flex items-center mb-4">
+          <div class="w-10 h-10 bg-[#1e3a8a]/10 rounded-full flex items-center justify-center text-[#1e3a8a] mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1e3a8a]">Stellar Builders</h3>
+        </div>
+        <p class="text-gray-600 mb-6">
+          6-month quantum leap for those ready to transcend traditional learning
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#10b981] mr-3" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Core tech mastery (Python, JavaScript, Blockchain)</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#10b981] mr-3" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>War room project sprints</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#10b981] mr-3" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>5IRE Digital Sovereignty Certification</span>
+          </li>
+        </ul>
+        <a href="#application-form" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#1e3a8a] to-[#10b981] text-white font-medium rounded-lg transition-all hover:shadow-lg">
+          Begin Quantum Leap
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+      
+      <!-- Galactic Architects Track -->
+      <div class="bg-white p-8 rounded-xl shadow-md border-l-4 border-[#d4af37] hover:shadow-lg transition-all">
+        <div class="flex items-center mb-4">
+          <div class="w-10 h-10 bg-[#d4af37]/10 rounded-full flex items-center justify-center text-[#d4af37] mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-[#d4af37]">Galactic Architects</h3>
+        </div>
+        <p class="text-gray-600 mb-6">
+          12-month odyssey to design Africa's decentralized future
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#10b981] mr-3" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Advanced blockchain & AI specialization</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#10b981] mr-3" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>5IRE ecosystem mentorship</span>
+          </li>
+          <li class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#10b981] mr-3" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Genesis Builder NFT Certification</span>
+          </li>
+        </ul>
+        <a href="#application-form" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#d4af37] to-[#10b981] text-white font-medium rounded-lg transition-all hover:shadow-lg">
+          Architect the Future
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Future Modules -->
+    <div class="max-w-4xl mx-auto mt-12 text-center">
+      <p class="text-gray-600 mb-4">✨ <span class="font-medium text-[#1e3a8a]">Quantum modules launching 2025:</span> AI Sovereignty • DeFi Engineering • Quantum Computing Basics</p>
+      <button class="px-6 py-2 border-2 border-[#1e3a8a] text-[#1e3a8a] font-medium rounded-full hover:bg-[#1e3a8a] hover:text-white transition-all">
+        Request Early Access
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Application Form Section -->
+<section id="application-form" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+      <div class="bg-gradient-to-r from-[#1e3a8a] to-[#10b981] p-8 text-white">
+        <h2 class="text-3xl font-bold mb-2">Application Form</h2>
+        <p>Complete this form to begin your legacy journey</p>
+      </div>
+      
+      <!-- Formspree Form -->
+      <form action="https://formspree.io/f/mgvzwyjj" method="POST" class="p-8">
+        <!-- Form fields remain the same as before -->
+        
+        <!-- Success Message Container (initially hidden) -->
+        <div id="success-message" class="hidden p-6 mb-6 bg-green-50 border border-green-200 rounded-lg text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-green-800 mb-2">Application Received!</h3>
+          <p class="text-green-700 mb-4">
+            Thank you for applying to NITDA ULA. We've received your application and will review it carefully.
+          </p>
+          <div class="bg-white p-4 rounded-lg border border-green-200 max-w-md mx-auto">
+            <p class="font-medium text-gray-800 mb-1">What's Next?</p>
+            <ul class="text-sm text-gray-600 space-y-1 text-left">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>You'll receive an email confirmation shortly</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Our team will review your application within 3 business days</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>If you don't hear back in 7 days, please contact <a href="mailto:admissions@nitda.gov.ng" class="text-[#1e3a8a] hover:underline">admissions@nitda.gov.ng</a></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Form Fields Container (shown by default) -->
+        <div id="form-fields">
+          <!-- Your existing form fields go here -->
+           <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <label for="fullname" class="block text-gray-700 font-medium mb-2">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent">
+          </div>
+          <div>
+            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent">
+          </div>
+          <div>
+            <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent">
+          </div>
+          <div>
+            <label for="program" class="block text-gray-700 font-medium mb-2">Program Interest</label>
+            <select id="program" name="program" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent">
+              <option value="" disabled selected>Select program</option>
+              <option value="Emerging Innovators">Emerging Innovators</option>
+              <option value="Future Tech Leaders">Future Tech Leaders</option>
+              <option value="Corporate Training">Corporate Training</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="mb-8">
+          <label for="motivation" class="block text-gray-700 font-medium mb-2">Why do you want to join NITDA ULA? (150 words)</label>
+          <textarea id="motivation" name="motivation" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent"></textarea>
+        </div>
+        
+        <!-- <div class="flex items-center mb-8">
+          <input type="checkbox" id="agree" name="agree" required class="w-5 h-5 text-[#1e3a8a] rounded focus:ring-[#1e3a8a]">
+          <label for="agree" class="ml-2 text-gray-700">
+            I agree to the <a href="#" class="text-[#1e3a8a] hover:underline">terms and conditions</a>
+          </label>
+        </div> -->
+        
+        <!-- Hidden honeypot field for spam prevention -->
+        <input type="text" name="_gotcha" style="display:none">
+        
+        <!-- Formspree hidden fields for customization -->
+        <input type="hidden" name="_subject" value="New NITDA ULA Application">
+        <input type="hidden" name="_language" value="en">
+        
+        <!-- <button type="submit" class="w-full py-4 px-6 bg-gradient-to-r from-[#1e3a8a] to-[#10b981] hover:from-[#10b981] hover:to-[#1e3a8a] text-white font-bold rounded-lg transition duration-300">
+          Submit Application <i class="fas fa-paper-plane ml-2"></i>
+        </button> -->
+        
+        <!-- Success/Error Messages (will be shown by Formspree) -->
+        <div id="form-messages" class="mt-4 text-center hidden">
+          <p class="text-green-600 font-medium" id="form-success">Thank you! Your application has been submitted.</p>
+          <p class="text-red-600 font-medium" id="form-error">There was an error submitting your form. Please try again.</p>
+        </div>
+          
+          <div class="flex items-center mb-8">
+            <input type="checkbox" id="acknowledgement" name="acknowledgement" required class="w-5 h-5 text-[#1e3a8a] rounded focus:ring-[#1e3a8a]">
+            <label for="acknowledgement" class="ml-2 text-gray-700">
+              I understand that I'll receive a response within 7 working days, or can contact 
+              <span class="text-[#1e3a8a] font-medium">admissions@nitda.gov.ng</span> for follow-up
+            </label>
+          </div>
+          
+          <button type="submit" class="w-full py-4 px-6 bg-gradient-to-r from-[#1e3a8a] to-[#10b981] hover:from-[#10b981] hover:to-[#1e3a8a] text-white font-bold rounded-lg transition duration-300">
+            Submit Application <i class="fas fa-paper-plane ml-2"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Updated JavaScript for better confirmation handling -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const formFields = document.getElementById('form-fields');
+    const successMessage = document.getElementById('success-message');
+    
+    if(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          if(response.ok) {
+            // Hide form fields, show success message
+            formFields.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset form
+            form.reset();
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(error => {
+          alert('There was an error submitting your form. Please try again or contact admissions@nitda.gov.ng for assistance.');
+        });
+      });
+    }
+    
+    // Check for success message in URL (for page reloads)
+    if(window.location.hash === '#success') {
+      formFields.classList.add('hidden');
+      successMessage.classList.remove('hidden');
+      successMessage.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+
+<!-- Home Button - Add to your education page template -->
+<a href="../index.html" class="fixed bottom-6 left-6 z-40">
+  <button class="flex items-center space-x-2 bg-white border-2 border-[#1e3a8a] text-[#1e3a8a] font-bold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 hover:bg-[#1e3a8a]/10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+    <span>Home Portal</span>
+  </button>
+</a>
+
+    <!-- Footer -->
+<!-- Cosmic 5IRE Footer -->
+<footer class="bg-[#1e3a8a] text-white pt-20 pb-12">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      <!-- 5IRE Identity -->
+      <div class="space-y-6">
+        <div class="flex items-center space-x-3">
+          <div class="relative">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-white to-[#10b981]/80 flex items-center justify-center shadow-lg">
+              <span class="text-[#1e3a8a] font-bold text-xl tracking-tighter">5</span>
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#d4af37] border-2 border-white"></div>
+          </div>
+          <div>
+            <span class="text-2xl font-bold text-white">5IRE</span>
+            <p class="text-xs text-white/70 tracking-widest">BLOCKCHAIN ECOSYSTEM</p>
+          </div>
+        </div>
+        <p class="text-white/80 leading-relaxed">
+          Engineering Africa's quantum future through decentralized education and sovereign technology.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#10b981] transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#10b981] transition">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#10b981] transition">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#10b981] transition">
+            <i class="fab fa-discord"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="space-y-6">
+        <h3 class="text-lg font-bold text-white border-b border-white/20 pb-2">Quantum Leap</h3>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">5IRE Chain</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">ULA Learning Protocol</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Developer Portal</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Research Papers</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Validator Program</a></li>
+        </ul>
+      </div>
+
+      <!-- Ecosystem -->
+      <div class="space-y-6">
+        <h3 class="text-lg font-bold text-white border-b border-white/20 pb-2">Galactic Network</h3>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Builders Alliance</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Node Operators</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Academic Partners</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Government MoUs</a></li>
+          <li><a href="#" class="text-white/80 hover:text-[#10b981] transition">Ecosystem Grants</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="space-y-6">
+        <h3 class="text-lg font-bold text-white border-b border-white/20 pb-2">Warp Communication</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3">
+            <div class="mt-1 text-[#10b981]">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <span class="text-white/80">Lagos | Nairobi | Dubai | Singapore</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="text-[#10b981]">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <a href="mailto:contact@5ire.org" class="text-white/80 hover:text-[#10b981] transition">contact@5ire.org</a>
+          </div>
+          <div class="pt-4">
+            <button class="px-6 py-3 bg-gradient-to-r from-[#10b981] to-[#d4af37] text-white font-medium rounded-lg hover:shadow-lg transition flex items-center">
+              Join the Quantum Leap
+              <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-white/20 my-8"></div>
+
+    <!-- Bottom Footer -->
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="flex space-x-6 mb-4 md:mb-0">
+        <a href="#" class="text-white/70 hover:text-white text-sm">Privacy Protocol</a>
+        <a href="#" class="text-white/70 hover:text-white text-sm">Terms of Sovereignty</a>
+        <a href="#" class="text-white/70 hover:text-white text-sm">Cookie Policy</a>
+      </div>
+      <div class="text-white/50 text-sm">
+        © 2025 5IRE LEGACY. All rights reserved across all dimensions.
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script>
+         // NAV
+         // Mobile menu functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const backdrop = document.getElementById('backdrop');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const body = document.body;
+
+        // Toggle menu function
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            backdrop.classList.toggle('open');
+            body.classList.toggle('menu-open');
+            
+            // Change icon
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', toggleMenu);
+        backdrop.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking on links
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+
+        // Your existing particle effect code
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroSection = document.querySelector('.hero-gradient');
+            if (heroSection) {
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random properties
+                    const size = Math.random() * 5 + 2;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const opacity = Math.random() * 0.5 + 0.1;
+                    const animationDuration = Math.random() * 20 + 10;
+                    const animationDelay = Math.random() * 5;
+                    
+                    // Apply styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.opacity = opacity;
+                    particle.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
+                    
+                    // Add to hero section
+                    heroSection.appendChild(particle);
+                }
+            }
+        });
+        // Floating particles effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroSection = document.querySelector('.hero-gradient');
+            if (heroSection) {
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random properties
+                    const size = Math.random() * 5 + 2;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const opacity = Math.random() * 0.5 + 0.1;
+                    const animationDuration = Math.random() * 20 + 10;
+                    const animationDelay = Math.random() * 5;
+                    
+                    // Apply styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.opacity = opacity;
+                    particle.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
+                    
+                    // Add to hero section
+                    heroSection.appendChild(particle);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

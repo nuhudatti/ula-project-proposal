@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate Tkinter | NITDA Learning Trail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        .tkinter-blue { background-color: #3776ab; }
+        .tkinter-yellow { background-color: #ffd43b; }
+        .tkinter-dark { background-color: #2d2d2d; }
+
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header Section -->
+    <header class="tkinter-blue text-white py-8 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">Intermediate Tkinter GUI Development</h1>
+            <p class="text-xl text-blue-100">Building Functional Desktop Applications with Python</p>
+            <p><span id="typed2"></span></p>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="container mx-auto px-4 py-2">
+        <div class="flex items-center">
+            <a href="./bg.html" class="text-blue-600 hover:underline">Beginner Tkinter</a>
+            <span class="mx-2 text-gray-400">›</span>
+            <span class="text-gray-600">Intermediate Tkinter</span>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Introduction Section -->
+        <section class="mb-12 bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Taking Your Tkinter Skills Further</h2>
+            <p class="mb-4 text-gray-700">Now that you've mastered the basics, let's build professional applications with these intermediate concepts:</p>
+            
+            <div class="grid md:grid-cols-4 gap-4 mt-6">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="w-10 h-10 tkinter-blue rounded-full flex items-center justify-center text-white mb-2">
+                        <span class="text-xl">1</span>
+                    </div>
+                    <h3 class="font-bold text-blue-700">Widget Styling</h3>
+                    <p class="text-sm text-gray-600">Custom fonts, colors, and layouts</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="w-10 h-10 tkinter-blue rounded-full flex items-center justify-center text-white mb-2">
+                        <span class="text-xl">2</span>
+                    </div>
+                    <h3 class="font-bold text-blue-700">Multi-Window Apps</h3>
+                    <p class="text-sm text-gray-600">Dialogs and secondary windows</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="w-10 h-10 tkinter-blue rounded-full flex items-center justify-center text-white mb-2">
+                        <span class="text-xl">3</span>
+                    </div>
+                    <h3 class="font-bold text-blue-700">Data Validation</h3>
+                    <p class="text-sm text-gray-600">Ensure correct user input</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="w-10 h-10 tkinter-blue rounded-full flex items-center justify-center text-white mb-2">
+                        <span class="text-xl">4</span>
+                    </div>
+                    <h3 class="font-bold text-blue-700">Menu Systems</h3>
+                    <p class="text-sm text-gray-600">Professional application menus</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Advanced Widget Configuration -->
+        <section class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="tkinter-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">1. Advanced Widget Configuration</h2>
+            </div>
+            <div class="p-6">
+                <p class="mb-4 text-gray-700">Professional applications need polished interfaces. Tkinter provides extensive styling options:</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Styling Options</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="tkinter-yellow text-gray-800 font-bold px-2 py-1 rounded mr-3 text-sm">font</span>
+                                <span class="text-gray-700">Control font family, size and weight</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="tkinter-yellow text-gray-800 font-bold px-2 py-1 rounded mr-3 text-sm">fg/bg</span>
+                                <span class="text-gray-700">Set foreground (text) and background colors</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="tkinter-yellow text-gray-800 font-bold px-2 py-1 rounded mr-3 text-sm">padx/pady</span>
+                                <span class="text-gray-700">Add padding around widgets</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="tkinter-yellow text-gray-800 font-bold px-2 py-1 rounded mr-3 text-sm">relief</span>
+                                <span class="text-gray-700">Create 3D border effects (flat, raised, sunken)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Styled Widget Example</h4>
+                        <div class="bg-white p-4 rounded border border-gray-300">
+                            <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow">
+                                Click Me
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2">Example of a styled button with hover effects</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                    <div class="flex items-center bg-gray-700 px-4 py-2">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-gray-300 ml-4 text-sm">styled_widgets.py</span>
+                    </div>
+                    <pre><code class="language-python">import tkinter as tk
+
+window = tk.Tk()
+window.title("Styled Widgets")
+
+# Configure widget styling
+button = tk.Button(
+    window,
+    text="Click Me",
+    font=("Helvetica", 12, "bold"),
+    fg="white",
+    bg="#4CAF50",
+    padx=15,
+    pady=5,
+    relief="raised",
+    borderwidth=3
+).pack()
+
+window.mainloop()</code></pre>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-50">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Parameter</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Effect</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">font=("Helvetica", 12, "bold")</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Sets font family, size and weight</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">fg="white"</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Text color (foreground)</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">bg="#4CAF50"</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Background color</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">padx=15, pady=5</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Horizontal and vertical padding</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">relief="raised"</td>
+                                <td class="py-2 px-4 border-b border-gray-200">3D border effect</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Multiple Windows and Dialogs -->
+        <section class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="tkinter-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">2. Multiple Windows and Dialogs</h2>
+            </div>
+            <div class="p-6">
+                <p class="mb-4 text-gray-700">Real applications often need multiple windows for different functions.</p>
+                
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Creating Secondary Windows</h3>
+                <p class="mb-4 text-gray-700">Use <code class="bg-gray-100 px-1 rounded">Toplevel()</code> for additional windows instead of creating new <code class="bg-gray-100 px-1 rounded">Tk()</code> instances.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="flex items-center bg-gray-700 px-4 py-2">
+                            <span class="text-gray-300 text-sm">popup_window.py</span>
+                        </div>
+                        <pre><code class="language-python">import tkinter as tk
+
+def open_popup():
+    popup = tk.Toplevel(window)
+    popup.title("Popup Window")
+    tk.Label(popup, text="This is a secondary window!").pack()
+
+window = tk.Tk()
+window.title("Main Window")
+
+tk.Button(window, text="Open Popup", 
+          command=open_popup).pack()
+
+window.mainloop()</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Key Points</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li><code>Toplevel()</code> creates child windows</li>
+                            <li>Always create widgets with the new window as parent</li>
+                            <li>Child windows close when main window closes</li>
+                            <li>Use <code>grab_set()</code> for modal dialogs</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Common Dialogs</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-50">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Dialog</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Usage</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-bold">messagebox</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Show alerts and confirmations</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">tk.messagebox.showinfo("Title", "Message")</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-bold">filedialog</td>
+                                <td class="py-2 px-4 border-b border-gray-200">File selection dialogs</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">tk.filedialog.askopenfilename()</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-bold">colorchooser</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Color picker dialog</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">tk.colorchooser.askcolor()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Data Validation -->
+        <section class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="tkinter-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">3. Data Validation</h2>
+            </div>
+            <div class="p-6">
+                <p class="mb-4 text-gray-700">Ensure users enter correct data with input validation.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Validation Techniques</h3>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li><strong>Key validation:</strong> Check each keystroke</li>
+                            <li><strong>Focus validation:</strong> Validate when leaving a field</li>
+                            <li><strong>Submit validation:</strong> Check all fields on form submission</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-2">Validation Example</h4>
+                        <div class="bg-white p-4 rounded border border-gray-300">
+                            <label class="block text-gray-700 mb-1">Enter a number:</label>
+                            <input type="text" class="border border-gray-300 px-2 py-1 w-full" id="number-input">
+                            <p class="text-red-500 text-sm mt-1 hidden" id="error-msg">Please enter numbers only!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                    <div class="flex items-center bg-gray-700 px-4 py-2">
+                        <span class="text-gray-300 text-sm">validation.py</span>
+                    </div>
+                    <pre><code class="language-python">import tkinter as tk
+
+def validate_number(input):
+    # Allow empty field or digits only
+    if input.isdigit() or input == "":
+        return True
+    else:
+        return False
+
+window = tk.Tk()
+window.title("Validation Example")
+
+# Register validation function
+validate_cmd = window.register(validate_number)
+
+tk.Label(window, text="Enter a number:").pack()
+entry = tk.Entry(
+    window, 
+    validate="key",  # Validate on each keystroke
+    validatecommand=(validate_cmd, "%P")  # %P = new value
+)
+entry.pack()
+
+window.mainloop()</code></pre>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-50">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Component</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-700">Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">validate="key"</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Triggers validation on each keystroke</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">validatecommand</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Calls our validation function</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono text-sm">%P</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Passes the new input value</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Menu Systems -->
+        <section class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="tkinter-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">4. Menu Systems</h2>
+            </div>
+            <div class="p-6">
+                <p class="mb-4 text-gray-700">Professional applications need menu bars for navigation.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="flex items-center bg-gray-700 px-4 py-2">
+                            <span class="text-gray-300 text-sm">menu_example.py</span>
+                        </div>
+                        <pre><code class="language-python">import tkinter as tk
+from tkinter import messagebox
+
+def file_new():
+    messagebox.showinfo("New", "Creating new file...")
+
+window = tk.Tk()
+window.title("Menu Example")
+
+# Create main menu bar
+menubar = tk.Menu(window)
+
+# File menu
+file_menu = tk.Menu(menubar, tearoff=0)
+file_menu.add_command(label="New", command=file_new)
+file_menu.add_command(label="Open")
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=window.quit)
+menubar.add_cascade(label="File", menu=file_menu)
+
+# Edit menu
+edit_menu = tk.Menu(menubar, tearoff=0)
+edit_menu.add_command(label="Cut")
+edit_menu.add_command(label="Copy")
+edit_menu.add_command(label="Paste")
+menubar.add_cascade(label="Edit", menu=edit_menu)
+
+# Attach menu to window
+window.config(menu=menubar)
+window.mainloop()</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Menu Components</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li><code>Menu()</code> - Creates a menu container</li>
+                            <li><code>add_command()</code> - Adds clickable menu item</li>
+                            <li><code>add_separator()</code> - Adds a dividing line</li>
+                            <li><code>add_cascade()</code> - Creates dropdown section</li>
+                            <li><code>tearoff=0</code> - Disables menu detaching</li>
+                        </ul>
+                        
+                        <div class="mt-6 bg-gray-100 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Expected Output</h4>
+                            <div class="bg-white p-2 border border-gray-300">
+                                <div class="bg-gray-200 p-1 flex">
+                                    <div class="px-3 py-1 font-semibold">File</div>
+                                    <div class="px-3 py-1 font-semibold">Edit</div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Standard menu bar with dropdown menus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Complete Intermediate Example -->
+        <section class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="tkinter-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">5. Complete Intermediate Example</h2>
+            </div>
+            <div class="p-6">
+                <p class="mb-4 text-gray-700">A note-taking application combining all intermediate concepts:</p>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden mb-6">
+                    <div class="flex items-center bg-gray-700 px-4 py-2">
+                        <span class="text-gray-300 text-sm">note_taker.py</span>
+                    </div>
+                    <pre><code class="language-python">import tkinter as tk
+from tkinter import messagebox
+
+def save_note():
+    note_text = text_area.get("1.0", "end-1c")
+    if not note_text.strip():
+        messagebox.showwarning("Empty Note", 
+                             "Please write something before saving!")
+    else:
+        with open("notes.txt", "a") as f:
+            f.write(note_text + "\n---\n")
+        messagebox.showinfo("Success", "Note saved successfully!")
+
+def clear_note():
+    text_area.delete("1.0", "end")
+
+def about_app():
+    about_win = tk.Toplevel(window)
+    about_win.title("About")
+    tk.Label(about_win, 
+            text="Note Taker v1.0\nBuilt with Tkinter").pack()
+
+window = tk.Tk()
+window.title("Note Taker")
+window.geometry("500x400")
+
+# Menu Bar
+menubar = tk.Menu(window)
+
+# File Menu
+file_menu = tk.Menu(menubar, tearoff=0)
+file_menu.add_command(label="Save", command=save_note)
+file_menu.add_command(label="Clear", command=clear_note)
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=window.quit)
+menubar.add_cascade(label="File", menu=file_menu)
+
+# Help Menu
+help_menu = tk.Menu(menubar, tearoff=0)
+help_menu.add_command(label="About", command=about_app)
+menubar.add_cascade(label="Help", menu=help_menu)
+
+window.config(menu=menubar)
+
+# Text Area
+text_area = tk.Text(
+    window,
+    font=("Arial", 12),
+    padx=10,
+    pady=10,
+    wrap="word"  # Wrap at word boundaries
+)
+text_area.pack(fill="both", expand=True)
+
+window.mainloop()</code></pre>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Key Features</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li><strong>Styled text area</strong> with padding and word wrap</li>
+                            <li><strong>Menu bar</strong> with File and Help options</li>
+                            <li><strong>Validation</strong> preventing empty notes</li>
+                            <li><strong>Secondary window</strong> for About dialog</li>
+                            <li><strong>File operations</strong> saving notes to disk</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">How It Works</h4>
+                        <ol class="list-decimal pl-5 text-gray-700 space-y-2">
+                            <li>User writes note in text area</li>
+                            <li>Clicking "Save" validates and saves to file</li>
+                            <li>"Clear" empties the text area</li>
+                            <li>"About" shows program information</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Where To Go From Here</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="border border-blue-100 rounded-lg p-4 bg-blue-50">
+                    <h3 class="font-bold text-blue-700 mb-2">1. Advanced Widgets</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                        <li>Treeview for tabular data</li>
+                        <li>Notebook for tabbed interfaces</li>
+                        <li>Canvas for custom drawings</li>
+                    </ul>
+                </div>
+                <div class="border border-blue-100 rounded-lg p-4 bg-blue-50">
+                    <h3 class="font-bold text-blue-700 mb-2">2. Application Architecture</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                        <li>Model-View-Controller pattern</li>
+                        <li>Separate UI and business logic</li>
+                        <li>Database integration</li>
+                    </ul>
+                </div>
+                <div class="border border-blue-100 rounded-lg p-4 bg-blue-50">
+                    <h3 class="font-bold text-blue-700 mb-2">3. Distribution</h3>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                        <li>Packaging with PyInstaller</li>
+                        <li>Creating executable files</li>
+                        <li>Installers for end users</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="p-6 bg-blue-100 rounded-lg">
+                <h3 class="text-xl font-bold text-blue-800 mb-4">Challenge: Enhance the Note Taker</h3>
+                <p class="text-gray-700 mb-4">Try adding these features to the note-taking app:</p>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-4">
+                    <li>Add an Edit menu with Undo/Redo functionality</li>
+                    <li>Implement a search feature to find text in notes</li>
+                    <li>Add status bar showing line/column position</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+      <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="tkinter-dark text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-xl font-bold mb-2">NITDA Legacy Learning Trail</h3>
+            <p class="mb-4">Empowering developers through quality education</p>
+            <p class="text-blue-200">© 2025 Intermediate Tkinter GUI Development</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+        // Interactive validation example
+        const numberInput = document.getElementById('number-input');
+        const errorMsg = document.getElementById('error-msg');
+
+        numberInput.addEventListener('input', function() {
+            if (!this.value.match(/^\d*$/)) {
+                errorMsg.classList.remove('hidden');
+                this.classList.add('border-red-500');
+            } else {
+                errorMsg.classList.add('hidden');
+                this.classList.remove('border-red-500');
+            }
+        });
+
+        // Copy button functionality
+        document.querySelectorAll('pre').forEach(pre => {
+            const button = document.createElement('button');
+            button.className = 'copy-btn absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-xs';
+            button.textContent = 'Copy';
+            
+            const div = document.createElement('div');
+            div.className = 'relative';
+            pre.parentNode.insertBefore(div, pre);
+            div.appendChild(pre);
+            div.appendChild(button);
+            
+            button.addEventListener('click', () => {
+                const code = pre.querySelector('code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+        const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+         AOS.init();
+    </script>
+</body>
+</html>

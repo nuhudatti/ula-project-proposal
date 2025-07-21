@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5IRE Certificate Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+     .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="max-w-xl w-full space-y-4 text-center">
+    <h1 class="text-3xl font-bold text-blue-900">🎓 Group 5 Certificate of Mastery</h1>
+    <p class="text-gray-600">Enter your name below to generate your personalized certificate of completion.</p>
+    <input id="nameInput" type="text" placeholder="Your Full Name" class="w-full p-3 border border-blue-300 rounded shadow" />
+    <button onclick="generateCertificate()" class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition">📜 Generate Certificate</button>
+  </div>
+
+  <!-- Certificate Design -->
+  <div id="certificate" class="mt-10 p-10 bg-white shadow-xl rounded-lg border border-blue-300 w-[1024px] h-[720px] hidden relative">
+    <div class="text-center m-5">
+      <h2 class="text-4xl font-extrabold text-blue-800 mb-2">🎓 GROUP 5</span></h2>
+      <h3 class="text-2xl font-semibold text-gray-700">Certificate of Mastery</h3>
+      <p class="mt-4 text-lg text-gray-500">This certifies that</p>
+      <h1 id="certName" class="text-3xl font-bold text-green-600 my-2">__________</h1>
+      <p class="text-lg text-gray-600">has successfully completed the course:</p>
+      <p class="italic text-lg mt-1 text-gray-800">"ADVANCED-LEVEL PROJECT SMART RECEIP ANALYZER & EXPENSE DASHBOARD"</p>
+      <p class="mt-6 text-sm text-gray-500">Awarded on <span id="date"></span></p>
+      <h2 class="italic text-lg mt-20 text-gray-800">This certificate is awarded as a testament to their clarity, consistency, and courage in mastering Advanced-level Project Smart Receipt Analyzer & Expense Dashboard - a legacy that echoes beyond time.
+      </h3>
+    </div>
+
+    <div class="absolute bottom-10 left-10 text-left ml-5">
+      <p class="text-sm font-semibold">Authorized by:</p>
+      <p class="font-bold text-blue-700">Fatima Muhammad Alkali</p>
+      <p class="text-sm italic">Build To Last</p>
+    </div>
+
+    <div class="absolute bottom-10 right-10 text-center mr-5">
+      <div class="w-24 h-24 border-4 border-blue-700 rounded-full flex items-center justify-center text-xs text-blue-700 font-bold">
+        Elona Sign
+      </div>
+    </div>
+  </div>
+
+  <button id="downloadBtn" onclick="downloadImage()" class="mt-6 hidden bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition">⬇️ Download Certificate</button>
+  <a href="../index.html">
+      <div class="nav-floating bg-blue-600 hover:bg-blue-700" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+  
+
+  <script>
+    function generateCertificate() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) return alert("Please enter your full name.");
+
+      document.getElementById("certName").innerText = name;
+      document.getElementById("date").innerText = new Date().toLocaleDateString();
+      document.getElementById("certificate").classList.remove("hidden");
+      document.getElementById("downloadBtn").classList.remove("hidden");
+
+      setTimeout(() => {
+        document.getElementById("certificate").scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+
+    function downloadImage() {
+      const cert = document.getElementById("certificate");
+      html2canvas(cert).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "5IRE_Certificate.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
+    AOS.init();
+  </script>
+</body>
+</html>

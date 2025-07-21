@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ULA Legacy Project – Phase 1: Upload | Smart Receipt Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      pre {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+      }
+      code {
+        font-family: 'Fira Code', monospace;
+      }
+        .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <header class="bg-green-900 text-white py-8 px-6">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-extrabold leading-tight">ULA Legacy Project: Smart Receipt Analyzer & Expense Dashboard</h1>
+        <p class="text-lg mt-2">Designed to inspire Africa’s next generation. Powered by NITDA & NCAIR — built to replace textbooks and empower learners with real-world skills.</p>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 space-y-16">
+      <!-- Project Overview -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">📌 Project Title</h2>
+        <p class="text-lg font-semibold">Smart Receipt Analyzer & Expense Dashboard</p>
+        <p class="mt-4 text-base">An advanced Python project that combines <strong>OCR</strong>, <strong>data processing</strong>, <strong>categorization</strong>, and <strong>dashboard visualization</strong> to automate expense tracking from printed receipts.</p>
+      </section>
+
+      <!-- Problem Statement -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">🚨 Problem Statement</h2>
+        <p class="text-base">People often get printed receipts but lose or ignore them, missing the chance to track expenses. Manually recording items is tedious. This project offers an automation solution using Python and OCR.</p>
+      </section>
+
+      <!-- Solution Breakdown -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">🛠️ Solution Breakdown</h2>
+        <ol class="list-decimal list-inside space-y-1">
+          <li>Upload image of receipt</li>
+          <li>Extract text using OCR</li>
+          <li>Clean and parse item names and prices</li>
+          <li>Categorize items (Food, Toiletries, etc.)</li>
+          <li>Store results in CSV/Excel/SQLite</li>
+          <li>Generate interactive expense dashboard</li>
+          <li>Optional: Print summary invoice</li>
+        </ol>
+      </section>
+
+      <!-- Tech Stack -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">🧰 Tools & Technologies</h2>
+        <div class="overflow-x-auto">
+          <table class="table-auto w-full border border-collapse text-sm">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="border px-4 py-2 text-left">Component</th>
+                <th class="border px-4 py-2 text-left">Library/Tool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border px-4 py-2">OCR</td><td class="border px-4 py-2">pytesseract, opencv</td></tr>
+              <tr><td class="border px-4 py-2">Image Handling</td><td class="border px-4 py-2">PIL</td></tr>
+              <tr><td class="border px-4 py-2">Data Handling</td><td class="border px-4 py-2">pandas</td></tr>
+              <tr><td class="border px-4 py-2">Categorization</td><td class="border px-4 py-2">Rule-based/keyword logic</td></tr>
+              <tr><td class="border px-4 py-2">Visualization</td><td class="border px-4 py-2">matplotlib, seaborn, plotly</td></tr>
+              <tr><td class="border px-4 py-2">Dashboard</td><td class="border px-4 py-2">streamlit or tkinter</td></tr>
+              <tr><td class="border px-4 py-2">Storage</td><td class="border px-4 py-2">CSV, Excel, SQLite</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Example Scenario -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">📷 Example Scenario</h2>
+        <p class="text-base">Uploaded receipt:</p>
+        <pre><code>Sunlight Detergent     2,000
+Indomie Noodles        3,500
+Coca-Cola              1,200
+Toothpaste               850
+USB Cable              1,500</code></pre>
+        <p class="mt-4 font-semibold">Categorized Output:</p>
+        <pre><code>| Item               | Price | Category         |
+|--------------------|--------|------------------|
+| Sunlight Detergent| 2000   | Toiletries       |
+| Indomie Noodles   | 3500   | Food & Beverage  |
+| Coca-Cola         | 1200   | Food & Beverage  |
+| Toothpaste        | 850    | Toiletries       |
+| USB Cable         | 1500   | Electronics      |</code></pre>
+        <p class="mt-4 font-semibold">Dashboard Summary:</p>
+        <ul class="list-disc list-inside">
+          <li>Total Expenses: ₦9,050</li>
+          <li>Toiletries: ₦2,850</li>
+          <li>Food & Beverages: ₦4,700</li>
+          <li>Electronics: ₦1,500</li>
+        </ul>
+      </section>
+
+      <!-- Bonus Section -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">✨ Bonus Ideas (Optional)</h2>
+        <ul class="list-disc list-inside">
+          <li>Voice summary of expenses with pyttsx3</li>
+          <li>Cloud access & storage</li>
+          <li>Set expense limits with alerts</li>
+          <li>Compare monthly expense trends</li>
+        </ul>
+      </section>
+
+      <!-- Action Plan -->
+      <section>
+        <h2 class="text-2xl font-bold mb-4">🗂 Next Steps</h2>
+        <ul class="list-disc list-inside">
+          <li>Assign team roles</li>
+          <li>Set up environment (VS Code or Jupyter)</li>
+          <li>Install required libraries</li>
+          <li>Start with OCR → Parsing → Categorizing → Visualizing</li>
+        </ul>
+      </section>
+
+    <a href="../index.html">
+      <div class="nav-floating bg-green-900 onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+      <!-- Footer -->
+      <footer class="pt-12 border-t border-gray-300">
+        <p class="text-center text-sm text-gray-600">© 2025 ULA Legacy – Phase 1 | Built by Nuhu Muhammad Datti | Powered by NITDA/NCAIR | Designed to Echo Eternity 🚀</p>
+      </footer>
+    </main>
+    <script>
+      AOS.init();
+
+    </script>
+  </body>
+</html>

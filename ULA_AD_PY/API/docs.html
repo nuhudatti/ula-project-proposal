@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA/NCAIR ULA Python API Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        .sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1e293b;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #3b82f6;
+            border-radius: 4px;
+        }
+        .code-block {
+            background-color: #282c34;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .nav-item:hover .nav-indicator {
+            opacity: 1;
+            width: 4px;
+        }
+        .method-get {
+            background-color: #10B981;
+        }
+        .method-post {
+            background-color: #3B82F6;
+        }
+        .method-put {
+            background-color: #F59E0B;
+        }
+        .method-delete {
+            background-color: #EF4444;
+        }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #3b82f6;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 flex">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar w-64 h-screen bg-slate-800 overflow-y-auto sticky top-0 hidden md:block">
+        <div class="p-6">
+            <div class="flex items-center space-x-2 mb-8">
+                 <img src="../img/nitda.jpeg" alt="NITDA Logo" class="w-8 h-8">
+                <img src="../img/ncair.jpeg" alt="NITDA Logo" class="w-8 h-8">
+                <h1 class="text-xl font-bold text-blue-400">ULA API</h1>
+            </div>
+            
+            <div class="space-y-2">
+                <a href="#introduction" class="block nav-item py-2 px-4 rounded hover:bg-slate-700 flex items-center">
+                    <span class="nav-indicator h-6 w-0 bg-blue-500 rounded-full mr-3 opacity-0 transition-all duration-200"></span>
+                    Introduction
+                </a>
+                
+                <a href="#api-overview" class="block nav-item py-2 px-4 rounded hover:bg-slate-700 flex items-center">
+                    <span class="nav-indicator h-6 w-0 bg-blue-500 rounded-full mr-3 opacity-0 transition-all duration-200"></span>
+                    API Overview
+                </a>
+                
+                <a href="#authentication" class="block nav-item py-2 px-4 rounded hover:bg-slate-700 flex items-center">
+                    <span class="nav-indicator h-6 w-0 bg-blue-500 rounded-full mr-3 opacity-0 transition-all duration-200"></span>
+                    Authentication
+                </a>
+                
+                <div class="ml-8 mt-2 space-y-1">
+                    <a href="#obtaining-credentials" class="block nav-item py-1 px-4 rounded hover:bg-slate-700 text-sm">
+                        Obtaining Credentials
+                    </a>
+                    <a href="#auth-flow" class="block nav-item py-1 px-4 rounded hover:bg-slate-700 text-sm">
+                        Authentication Flow
+                    </a>
+                </div>
+                
+                <a href="#endpoints" class="block nav-item py-2 px-4 rounded hover:bg-slate-700 flex items-center">
+                    <span class="nav-indicator h-6 w-0 bg-blue-500 rounded-full mr-3 opacity-0 transition-all duration-200"></span>
+                    Endpoints
+                </a>
+                
+                <div class="ml-8 mt-2 space-y-1">
+                    <a href="#content-management" class="block nav-item py-1 px-4 rounded hover:bg-slate-700 text-sm">
+                        Content Management
+                    </a>
+                    <a href="#user-management" class="block nav-item py-1 px-4 rounded hover:bg-slate-700 text-sm">
+                        User Management
+                    </a>
+                    <a href="#analytics" class="block nav-item py-1 px-4 rounded hover:bg-slate-700 text-sm">
+                        Analytics
+                    </a>
+                    <a href="#administration" class="block nav-item py-1 px-4 rounded hover:bg-slate-700 text-sm">
+                        Administration
+                    </a>
+                </div>
+                
+                <!-- Continue with other sections -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 md:p-10 max-w-5xl">
+                <!-- BIG DISCLAIMER BANNER -->
+        <div class="bg-red-900/50 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg">
+            <div class="flex items-start">
+                <svg class="w-6 h-6 text-red-300 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+                    <div>
+                        <h3 class="font-bold text-red-100">EDUCATIONAL DEMONSTRATION ONLY</h3>
+                        <p class="text-sm text-red-200">This is a simulated API documentation created by a SIWES student at NITDA/NCAIR. No real API endpoints exist - this is purely for learning purposes.</p>
+                    </div>
+            </div>
+        </div>
+        <!-- Header -->
+        <header class="mb-10">
+            <div class="flex items-center space-x-4 mb-4">
+                <img src="../img/nitda.jpeg" alt="NITDA Logo" class="w-12 h-12">
+                <img src="../img/ncair.jpeg" alt="NITDA Logo" class="w-12 h-12">
+                <div>
+                    <h1 class="text-3xl font-bold text-blue-400">NITDA/NCAIR ULA Python API</h1>
+                    <p class="text-slate-400">Revolutionizing digital education in Nigeria and beyond</p>
+                </div>
+            </div>
+            
+            <div class="bg-slate-800 rounded-lg p-6 border-l-4 border-blue-500">
+                <p class="text-lg">Welcome to this <strong>educational API documentation</strong> created as part of my SIWES program at NITDA/NCAIR. This demonstrates how API documentation might be structured for a hypothetical learning platform. This comprehensive resource is designed to provide developers, educators, and students with everything needed to integrate with our advanced learning platform.</p>
+            </div>
+        </header>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-16 scroll-mt-20">
+
+            <h2 class="text-2xl font-bold mb-6 text-blue-300 flex items-center">
+                <span class="bg-blue-500 w-2 h-6 rounded-full mr-3"></span>
+                Learning Objectives
+            </h2>
+            <div class="space-y-4">
+                <p>This documentation demonstrates my understanding of:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li>REST API documentation structure and conventions</li>
+                    <li>Authentication patterns in web APIs</li>
+                    <li>Endpoint organization and versioning</li>
+                    <li>Technical writing for developer audiences</li>
+                    <li>Interactive documentation best practices</li>
+                </ul>
+                
+                <div class="bg-yellow-900/30 border-l-4 border-yellow-500 p-4 mt-6 rounded-r-lg">
+                    <p class="text-sm"><strong>Note:</strong> All examples are fictional and created solely for educational purposes. No real NITDA systems are represented here.</p>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-6 text-blue-300 flex items-center">
+                <span class="bg-blue-500 w-2 h-6 rounded-full mr-3"></span>
+                Introduction
+            </h2>
+            <div class="space-y-4">
+                <p>The ULA Python API provides programmatic access to educationla purpose cutting-edge learning platform, enabling seamless integration with existing educational systems and access to premium, locally-relevant educational content.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+                        <h3 class="font-semibold text-blue-300 mb-2">For Developers</h3>
+                        <p class="text-sm text-slate-300">Build applications that integrate with Africa's most advanced learning platform using our comprehensive API.</p>
+                    </div>
+                    <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+                        <h3 class="font-semibold text-blue-300 mb-2">For Educators</h3>
+                        <p class="text-sm text-slate-300">Contribute content and manage educational resources programmatically through our secure API.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Overview Section -->
+        <section id="api-overview" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold mb-6 text-blue-300 flex items-center">
+                <span class="bg-blue-500 w-2 h-6 rounded-full mr-3"></span>
+                API Overview
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-slate-800 rounded-lg p-6 code-block">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-slate-400">API Details</span>
+                    </div>
+                    <pre><code class="language-json">{
+    "base_url": "https://api.ula.nitda.gov.ng/v1",
+    "version": "1.0.0",
+    "type": "RESTful",
+    "documentation": "https://docs.ula.nitda.gov.ng"
+}</code></pre>
+                </div>
+                
+                <h3 class="text-xl font-semibold mt-8 mb-4 text-blue-200">Key Features</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-4 rounded-lg border border-blue-500/20">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                            <h4 class="font-medium">Secure Authentication</h4>
+                        </div>
+                        <p class="text-sm text-slate-300">JWT-based authentication with military-grade encryption.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800 p-4 rounded-lg border border-blue-500/20">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <h4 class="font-medium">Blazing Fast</h4>
+                        </div>
+                        <p class="text-sm text-slate-300">Optimized endpoints with response times under 100ms.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800 p-4 rounded-lg border border-blue-500/20">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                            </svg>
+                            <h4 class="font-medium">African Focused</h4>
+                        </div>
+                        <p class="text-sm text-slate-300">Content tailored for Nigerian and African learning contexts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentication Section -->
+        <section id="authentication" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold mb-6 text-blue-300 flex items-center">
+                <span class="bg-blue-500 w-2 h-6 rounded-full mr-3"></span>
+                Authentication
+            </h2>
+            
+            <div class="space-y-6">
+                <div id="obtaining-credentials" class="space-y-4">
+                    <h3 class="text-xl font-semibold text-blue-200">Obtaining API Credentials</h3>
+                    <p>All API requests require authentication using JWT (JSON Web Tokens). To get started:</p>
+                    
+                    <div class="bg-slate-800 rounded-lg p-6">
+                        <ol class="list-decimal list-inside space-y-3">
+                            <li>Register your application through the <a href="#" class="text-blue-400 hover:underline">NITDA Developer Portal</a></li>
+                            <li>Receive your API keys (Client ID and Client Secret)</li>
+                            <li>Generate access tokens using the authentication endpoint</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div id="auth-flow" class="space-y-4">
+                    <h3 class="text-xl font-semibold text-blue-200">Authentication Flow</h3>
+                    <p>Here's how to authenticate with the ULA API using Python:</p>
+                    
+                    <div class="bg-slate-800 rounded-lg p-6 code-block">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <span class="text-sm text-slate-400">Python Example</span>
+                        </div>
+                        <pre><code class="language-python">import requests
+
+auth_url = "https://api.ula.nitda.gov.ng/v1/auth/token"
+headers = {
+    "Content-Type": "application/json"
+}
+data = {
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "grant_type": "client_credentials"
+}
+
+response = requests.post(auth_url, headers=headers, json=data)
+access_token = response.json()["access_token"]</code></pre>
+                    </div>
+                    
+                    <div class="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                            <p class="text-sm"><strong>Note:</strong> Access tokens expire after 1 hour. Use the refresh token to obtain new ones. Store your credentials securely and never expose them in client-side code.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Endpoints Section -->
+        <section id="endpoints" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold mb-6 text-blue-300 flex items-center">
+                <span class="bg-blue-500 w-2 h-6 rounded-full mr-3"></span>
+                Endpoints
+            </h2>
+            
+            <div class="space-y-12">
+                <!-- Content Management -->
+                <div id="content-management" class="space-y-6">
+                    <h3 class="text-xl font-semibold text-blue-200">Content Management</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Get All Courses -->
+                        <div class="bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+                            <div class="flex items-center justify-between bg-slate-900 px-6 py-3">
+                                <div class="flex items-center">
+                                    <span class="method-get text-white text-xs font-bold px-2 py-1 rounded mr-3">GET</span>
+                                    <span class="font-mono text-blue-300">/courses</span>
+                                </div>
+                                <span class="text-sm text-slate-400">Retrieve all available courses</span>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="font-medium mb-3">Parameters</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full divide-y divide-slate-700">
+                                        <thead class="bg-slate-900/50">
+                                            <tr>
+                                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Name</th>
+                                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Type</th>
+                                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Required</th>
+                                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-800">
+                                            <tr>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">page</td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">integer</td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">No</td>
+                                                <td class="px-4 py-2 text-sm text-slate-300">Page number</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">per_page</td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">integer</td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">No</td>
+                                                <td class="px-4 py-2 text-sm text-slate-300">Items per page (default: 20)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <h4 class="font-medium mt-6 mb-3">Example Request</h4>
+                                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                                    <pre><code class="language-python">headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+response = requests.get(
+    "https://api.ula.nitda.gov.ng/v1/courses",
+    headers=headers,
+    params={"page": 1, "per_page": 10}
+)</code></pre>
+                                </div>
+                                
+                                <h4 class="font-medium mt-6 mb-3">Example Response</h4>
+                                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                                    <pre><code class="language-json">{
+    "status": "success",
+    "data": [
+        {
+            "id": "course_123",
+            "title": "Python for Beginners",
+            "description": "Learn Python from scratch...",
+            "category": "programming",
+            "level": "beginner",
+            "created_at": "2023-05-15T10:30:00Z"
+        }
+    ],
+    "meta": {
+        "page": 1,
+        "per_page": 10,
+        "total_pages": 5,
+        "total_items": 48
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- More endpoints would follow the same pattern -->
+                    </div>
+                </div>
+                
+                <!-- Continue with other endpoint categories -->
+                 <!-- After the Content Management section in the Endpoints section -->
+<!-- User Management -->
+<div id="user-management" class="space-y-6 mt-12">
+    <h3 class="text-xl font-semibold text-blue-200">User Management</h3>
+    
+    <div class="space-y-4">
+        <!-- Get User Profile -->
+        <div class="bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+            <div class="flex items-center justify-between bg-slate-900 px-6 py-3">
+                <div class="flex items-center">
+                    <span class="method-get text-white text-xs font-bold px-2 py-1 rounded mr-3">GET</span>
+                    <span class="font-mono text-blue-300">/users/{id}</span>
+                </div>
+                <span class="text-sm text-slate-400">Retrieve user profile</span>
+            </div>
+            <div class="p-6">
+                <h4 class="font-medium mb-3">Parameters</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-700">
+                        <thead class="bg-slate-900/50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Type</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Required</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">id</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">string</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">Yes</td>
+                                <td class="px-4 py-2 text-sm text-slate-300">User ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Request</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-python">headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+response = requests.get(
+    "https://api.ula.nitda.gov.ng/v1/users/user_123",
+    headers=headers
+)</code></pre>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Response</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-json">{
+    "status": "success",
+    "data": {
+        "id": "user_123",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "role": "student",
+        "created_at": "2023-01-15T08:30:00Z",
+        "last_login": "2023-06-20T14:25:00Z"
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Update User -->
+        <div class="bg-slate-800 rounded-lg overflow-hidden border border-slate-700 mt-8">
+            <div class="flex items-center justify-between bg-slate-900 px-6 py-3">
+                <div class="flex items-center">
+                    <span class="method-put text-white text-xs font-bold px-2 py-1 rounded mr-3">PUT</span>
+                    <span class="font-mono text-blue-300">/users/{id}</span>
+                </div>
+                <span class="text-sm text-slate-400">Update user profile</span>
+            </div>
+            <div class="p-6">
+                <h4 class="font-medium mb-3">Request Body</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-json">{
+    "name": "Updated Name",
+    "email": "updated.email@example.com"
+}</code></pre>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Request</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-python">headers = {
+    "Authorization": f"Bearer {access_token}",
+    "Content-Type": "application/json"
+}
+data = {
+    "name": "Updated Name"
+}
+response = requests.put(
+    "https://api.ula.nitda.gov.ng/v1/users/user_123",
+    headers=headers,
+    json=data
+)</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Analytics -->
+<div id="analytics" class="space-y-6 mt-12">
+    <h3 class="text-xl font-semibold text-blue-200">Analytics</h3>
+    
+    <div class="space-y-4">
+        <!-- Get Course Analytics -->
+        <div class="bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+            <div class="flex items-center justify-between bg-slate-900 px-6 py-3">
+                <div class="flex items-center">
+                    <span class="method-get text-white text-xs font-bold px-2 py-1 rounded mr-3">GET</span>
+                    <span class="font-mono text-blue-300">/analytics/courses/{id}</span>
+                </div>
+                <span class="text-sm text-slate-400">Get course analytics</span>
+            </div>
+            <div class="p-6">
+                <h4 class="font-medium mb-3">Parameters</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-700">
+                        <thead class="bg-slate-900/50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Type</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Required</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">id</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">string</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">Yes</td>
+                                <td class="px-4 py-2 text-sm text-slate-300">Course ID</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">period</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">string</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">No</td>
+                                <td class="px-4 py-2 text-sm text-slate-300">Time period (week, month, year)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Request</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-python">headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+response = requests.get(
+    "https://api.ula.nitda.gov.ng/v1/analytics/courses/course_123",
+    headers=headers,
+    params={"period": "month"}
+)</code></pre>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Response</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-json">{
+    "status": "success",
+    "data": {
+        "course_id": "course_123",
+        "title": "Python for Beginners",
+        "enrollments": 245,
+        "completion_rate": 68.5,
+        "average_score": 82.3,
+        "activity": [
+            {
+                "date": "2023-06-01",
+                "views": 45,
+                "completions": 12
+            },
+            {
+                "date": "2023-06-02",
+                "views": 52,
+                "completions": 18
+            }
+        ]
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Administration -->
+<div id="administration" class="space-y-6 mt-12">
+    <h3 class="text-xl font-semibold text-blue-200">Administration</h3>
+    
+    <div class="space-y-4">
+        <!-- Get System Status -->
+        <div class="bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+            <div class="flex items-center justify-between bg-slate-900 px-6 py-3">
+                <div class="flex items-center">
+                    <span class="method-get text-white text-xs font-bold px-2 py-1 rounded mr-3">GET</span>
+                    <span class="font-mono text-blue-300">/admin/status</span>
+                </div>
+                <span class="text-sm text-slate-400">Get system status</span>
+            </div>
+            <div class="p-6">
+                <h4 class="font-medium mb-3">Headers</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-700">
+                        <thead class="bg-slate-900/50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Type</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Required</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">Authorization</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">string</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm text-slate-300">Yes</td>
+                                <td class="px-4 py-2 text-sm text-slate-300">Bearer token with admin privileges</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Request</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-python">headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+response = requests.get(
+    "https://api.ula.nitda.gov.ng/v1/admin/status",
+    headers=headers
+)</code></pre>
+                </div>
+                
+                <h4 class="font-medium mt-6 mb-3">Example Response</h4>
+                <div class="bg-slate-900 rounded-lg p-4 code-block">
+                    <pre><code class="language-json">{
+    "status": "success",
+    "data": {
+        "system": "operational",
+        "version": "1.2.3",
+        "uptime": "12 days, 4 hours",
+        "database": {
+            "status": "connected",
+            "latency": "12ms"
+        },
+        "last_updated": "2023-06-20T14:30:00Z"
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                 
+            </div>
+            
+        </section>
+
+        <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+        
+        <!-- Footer -->
+        <footer class="mt-10 pt-10 border-t border-slate-800">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-10 rounded">
+  <p class="text-sm text-yellow-700">
+    ⚠️ <strong>Note:</strong> This is a simulated API guide built by a student intern at NITDA/NCAIR for educational purposes. No real API calls are being made.
+  </p>
+</div>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA Logo" class="w-8 h-8">
+                    <span class="text-lg font-bold text-blue-400">NITDA/NCAIR ULA API</span>
+                </div>
+                <div class="text-sm text-slate-400">
+                    © 2025 National Information Technology Development Agency. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

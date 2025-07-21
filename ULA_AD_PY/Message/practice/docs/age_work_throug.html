@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📘 Age Guess Game – Full Walkthrough</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+    }
+    code {
+      background-color: #1e293b;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body class="px-6 py-10 max-w-4xl mx-auto">
+
+  <header class="mb-12 text-center">
+    <h1 class="text-3xl font-bold text-cyan-400 mb-2">📘 Age Guess Game – Walkthrough</h1>
+    <p class="text-gray-400 text-lg">Step-by-step guide with Python logic</p>
+  </header>
+
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold text-white mb-4">📌 What’s This Project?</h2>
+    <p>This project lets a user enter their birth year and instantly calculates their age using JavaScript (and Python in the backend version). It teaches:</p>
+    <ul class="list-disc pl-5 mt-2 text-gray-300">
+      <li>User input via forms</li>
+      <li>Calculations using date/time</li>
+      <li>Frontend logic using JavaScript</li>
+      <li>Basic Python logic for age calculation</li>
+    </ul>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-white mb-3">🧠 How the HTML + JS Works</h2>
+
+    <p class="mb-2"><strong>HTML Form</strong> – This is the input form:</p>
+    <pre class="bg-gray-800 p-4 rounded"><code>&lt;input type="number" id="birthYear" /&gt;</code></pre>
+
+    <p class="mt-4"><strong>JS Logic</strong> – This calculates the age:</p>
+    <pre class="bg-gray-800 p-4 rounded"><code>
+const birthYear = parseInt(document.getElementById("birthYear").value);
+const currentYear = new Date().getFullYear();
+const age = currentYear - birthYear;
+    </code></pre>
+
+    <p class="mt-2">Then we display it back inside the result element.</p>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-white mb-3">🐍 Python Version</h2>
+    <p class="mb-2">Try this in your local Python file or console:</p>
+
+    <pre class="bg-gray-800 p-4 rounded"><code>
+from datetime import datetime
+
+birth_year = int(input("Enter your birth year: "))
+current_year = datetime.now().year
+age = current_year - birth_year
+
+if birth_year &lt; 1900 or birth_year &gt; current_year:
+    print("🚫 Invalid year entered!")
+else:
+    print(f"🎉 You are approximately {age} years old!")
+    </code></pre>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-white mb-3">🧪 Practice Challenges</h2>
+    <ul class="list-disc pl-5 text-gray-300">
+      <li>Modify it to tell how many years until you're 100</li>
+      <li>Use `input()` to take a user's name and print: “Hey [name], you’re [age]!”</li>
+      <li>Turn this into a birthday countdown</li>
+    </ul>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold text-white mb-3">🌍 Connect With EvoLearn</h2>
+    <p class="text-gray-300 mb-2">Built with ❤️ for African digital minds. Join the movement:</p>
+  </section>
+
+      <section>
+      <h2 class="text-2xl font-semibold text-indigo-300 mb-2">🔗 Project Links</h2>
+      <ul class="text-blue-400 underline">
+        <li><a href="../project/age-guess.html">🔙 Back to Age Guess Game</a></li>
+        <li><a href="../index.html">📚 Back to Practice Projects</a></li>
+      </ul>
+    </section>
+
+  <footer class="text-center mt-12 text-sm text-gray-500">
+    <p>&copy; 2025 EvoLearn Africa | Made for Dreamers & Builders</p>
+  </footer>
+
+</body>
+</html>

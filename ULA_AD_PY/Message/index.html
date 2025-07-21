@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo of a Tech Giant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+    }
+    body {
+      color: #fff;
+      background-color: #0a0a0a;
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
+    .hero-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+     .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #00ffb3;
+      animation: glow 3s infinite alternate;
+    }
+
+    .tech {
+      display: inline-block;
+      color: #00c2ff;
+      animation: shake 2s infinite ease-in-out;
+    }
+
+    .giant {
+      background: linear-gradient(to right, #ffffff, #00f7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffb3;
+      }
+      to {
+        text-shadow: 0 0 25px #00ffb3;
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+    }
+     .cta {
+      margin-top: 2rem;
+    }
+    .cta a {
+      text-decoration: none;
+      color: #0a0a0a;
+      background: #00ff99;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .cta a:hover {
+      background: #00cc77;
+    }
+    .chapters {
+      padding: 5rem 2rem;
+      background: #111;
+    }
+    .chapter {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 2rem;
+      transition: transform 0.3s ease;
+    }
+    .chapter:hover {
+      transform: translateY(-5px);
+    }
+    .chapter h2 {
+      margin-bottom: 1rem;
+    }
+    .promise {
+      background: #0d0d0d;
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ccc;
+    }
+    .back-home-btn:active {
+  transform: scale(0.98);
+}
+.nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    .nav-floating a{
+      text-decoration: none;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+     
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #000;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body> 
+  <audio id="narration" preload="auto">
+  <source src="./VoiceOver/5IRE.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+
+  <section class="hero">
+    <video autoplay loop muted>
+      <source src="#" type="video/mp4">
+    </video>
+    <div class="hero-content">
+     <h1>
+      <span class="highlight">Echo</span> of the <span class="tech">Tech</span> <span class="giant">Giants</span>
+    </h1>
+      <p>Welcome to the living digital journey of a visionarie building Africa’s tech destiny through story, code, and impact.</p>
+      <div class="cta">
+        <a href="echo3.html">Continue the Story</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapters" id="chapters">
+    <div class="chapter">
+      <h2>Chapter 1: The Dream Begins</h2>
+      <p>Discover the early sparks that ignited my passion for technology and impact.</p>
+    </div>
+    <div class="chapter">
+      <h2>Chapter 2: Movement of Minds</h2>
+      <p>How 5IRE became a movement of purpose, youth, and innovation.</p>
+    </div>
+    <div class="chapter">
+      <h2>Chapter 3: Meeting NCAIR</h2>
+      <p>The spark that turned insight into infrastructure. The birth of Echo of a Tech Giant.</p>
+    </div>
+    <div class="chapter">
+      <h2>Chapter 4: From Vision to V1.0</h2>
+      <p>The Minimum Viable Product that became a Maximum Valuable Platform.</p>
+    </div>
+  </section>
+
+  <section class="promise">
+    <p>"Even if we don’t solve every problem today, we are building the minds that will finish the work tomorrow."</p>
+  </section>
+
+  <div class="nav-floating" onclick="window.scrollTo({ behavior: 'smooth' })">
+    <a href="../index.html">Back To Home </a>
+  </div>
+  
+  <footer>
+    <p>Built by Nuhu Muhammad Datti · Echo of a Tech Giant · 5IRE Movement</p>
+  </footer>
+
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('narration');
+
+    // Try playing immediately
+    audio.play().catch(() => {
+      // If blocked, play on first user interaction
+      const unlockAudio = () => {
+        audio.play();
+        document.body.removeEventListener('click', unlockAudio);
+      };
+      document.body.addEventListener('click', unlockAudio);
+    });
+  });
+
+
+   AOS.init();
+</script>
+
+
+
+</body>
+</html>

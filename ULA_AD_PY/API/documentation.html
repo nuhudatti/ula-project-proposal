@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULA Learning API - NITDA SIWES Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        .nav-item.active {
+            border-left: 3px solid #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .method-get { color: #10b981; }
+        .method-post { color: #f59e0b; }
+        .method-put { color: #3b82f6; }
+        .method-delete { color: #ef4444; }
+        .hljs { background: #1e293b; border-radius: 0.5rem; }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="bg-blue-800 text-white p-4 shadow-md">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="../img/nitda.jpeg" alt="NITDA Logo" class="h-12">
+                 <img src="../img/ncair.jpeg" alt="NITDA Logo" class="h-12">
+                <div>
+                    <h1 class="text-2xl font-bold">ULA Learning API</h1>
+                    <p class="text-blue-200">SIWES Student Project | Cohort 26</p>
+                </div>
+            </div>
+            <div class="bg-yellow-500 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold">
+                EDUCATIONAL DEMONSTRATION ONLY
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto flex flex-col md:flex-row mt-8 px-4">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-white shadow-md rounded-lg p-4 mb-8 md:mb-0 md:mr-8 md:sticky md:top-8 md:h-fit">
+            <div class="mb-6">
+                <h2 class="font-bold text-lg mb-2 text-blue-800">Documentation</h2>
+                <ul class="space-y-1">
+                    <li><a href="#introduction" class="nav-item block px-3 py-2 rounded hover:bg-blue-50">Introduction</a></li>
+                    <li><a href="#learning-objectives" class="nav-item block px-3 py-2 rounded hover:bg-blue-50">Learning Objectives</a></li>
+                    <li><a href="#api-overview" class="nav-item block px-3 py-2 rounded hover:bg-blue-50">API Overview</a></li>
+                    <li><a href="#authentication" class="nav-item block px-3 py-2 rounded hover:bg-blue-50">Authentication</a></li>
+                    <li>
+                        <span class="block px-3 py-2 font-medium">Endpoints</span>
+                        <ul class="ml-4 space-y-1">
+                            <li><a href="#content-management" class="nav-item block px-3 py-1 rounded hover:bg-blue-50">Content Management</a></li>
+                            <li><a href="#user-management" class="nav-item block px-3 py-1 rounded hover:bg-blue-50">User Management</a></li>
+                            <li><a href="#analytics" class="nav-item block px-3 py-1 rounded hover:bg-blue-50">Analytics</a></li>
+                            <li><a href="#administration" class="nav-item block px-3 py-1 rounded hover:bg-blue-50">Administration</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="border-t pt-4">
+                <p class="text-sm text-gray-500">
+                    <i class="fas fa-exclamation-triangle text-yellow-500 mr-1"></i>
+                    Simulated documentation for learning purposes
+                </p>
+            </div>
+        </aside>
+
+        <!-- Documentation Content -->
+        <main class="flex-1">
+            <!-- Introduction -->
+            <section id="introduction" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Introduction</h2>
+                <p class="mb-4">
+                    Welcome to this educational API documentation created as part of my SIWES program at NITDA/NCAIR. 
+                    This demonstrates API documentation structure for a hypothetical learning platform.
+                </p>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                    <p class="font-semibold">Note:</p>
+                    <p>All examples are fictional and created solely for educational purposes. No real NITDA systems are represented here.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-semibold mb-2">About This Project</h3>
+                    <p>This documentation showcases my understanding of:</p>
+                    <ul class="list-disc pl-6 mt-2">
+                        <li>API design principles</li>
+                        <li>Technical documentation standards</li>
+                        <li>Developer experience considerations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Learning Objectives -->
+            <section id="learning-objectives" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Learning Objectives</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Technical Skills</h3>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>REST API documentation structure</li>
+                            <li>Authentication patterns</li>
+                            <li>Endpoint organization</li>
+                            <li>Error handling documentation</li>
+                        </ul>
+                    </div>
+                    <div class="border p-4 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Professional Skills</h3>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Technical writing for developers</li>
+                            <li>Interactive documentation</li>
+                            <li>Version control for docs</li>
+                            <li>Collaborative documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Overview -->
+            <section id="api-overview" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">API Overview</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2">Base URL</h3>
+                    <div class="bg-gray-800 text-green-400 p-4 rounded-lg overflow-x-auto">
+                        <code>https://api.learning-platform.example.com/v1</code>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="border p-4 rounded-lg">
+                        <h4 class="font-bold mb-2"><i class="fas fa-key text-blue-500 mr-2"></i>Authentication</h4>
+                        <p>JWT Bearer tokens with OAuth 2.0 flow</p>
+                        <p class="text-sm text-gray-500 mt-1">(Conceptual implementation)</p>
+                    </div>
+                    <div class="border p-4 rounded-lg">
+                        <h4 class="font-bold mb-2"><i class="fas fa-exchange-alt text-blue-500 mr-2"></i>HTTP Methods</h4>
+                        <p>Standard REST methods supported</p>
+                        <p class="text-sm text-gray-500 mt-1">GET, POST, PUT, DELETE</p>
+                    </div>
+                    <div class="border p-4 rounded-lg">
+                        <h4 class="font-bold mb-2"><i class="fas fa-code text-blue-500 mr-2"></i>Response Format</h4>
+                        <p>JSON responses with consistent structure</p>
+                        <p class="text-sm text-gray-500 mt-1">status, data, meta</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-2">Example API Response Structure</h3>
+                <pre><code class="language-json">{
+    "status": "success",
+    "data": {
+        "id": "res_123",
+        "type": "course",
+        "attributes": {
+            "title": "API Documentation",
+            "description": "Learn API documentation best practices",
+            "created_at": "2023-06-01T00:00:00Z"
+        }
+    },
+    "meta": {
+        "copyright": "NITDA SIWES Project",
+        "api_version": "v1"
+    }
+}</code></pre>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Authentication</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2">Authentication Flow</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Register your application to get credentials</li>
+                            <li>Request access token using client credentials</li>
+                            <li>Use token in Authorization header</li>
+                            <li>Refresh token before expiration</li>
+                        </ol>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-2">Python Example</h4>
+                    <pre><code class="language-python">import requests
+
+# Step 1: Get access token
+auth_url = "https://api.learning-platform.example.com/oauth/token"
+auth_data = {
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "grant_type": "client_credentials"
+}
+
+response = requests.post(auth_url, json=auth_data)
+access_token = response.json()["access_token"]
+
+# Step 2: Make authenticated request
+api_url = "https://api.learning-platform.example.com/v1/courses"
+headers = {
+    "Authorization": f"Bearer {access_token}",
+    "Content-Type": "application/json"
+}
+
+response = requests.get(api_url, headers=headers)
+print(response.json())</code></pre>
+                </div>
+                
+                <div class="bg-red-50 border-l-4 border-red-500 p-4">
+                    <h4 class="font-semibold mb-2">Security Notes</h4>
+                    <ul class="list-disc pl-6">
+                        <li>Never expose client secrets in client-side code</li>
+                        <li>Always use HTTPS for API requests</li>
+                        <li>Implement proper token storage and rotation</li>
+                        <li>This is a conceptual example only</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Content Management -->
+            <section id="content-management" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Content Management</h2>
+                
+                <div class="mb-6">
+                    <div class="flex items-start mb-4">
+                        <span class="method-get font-mono font-bold mr-4 mt-1">GET</span>
+                        <div class="flex-1">
+                            <h3 class="font-mono text-lg">/courses</h3>
+                            <p class="text-gray-600">Retrieve paginated list of courses</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-2">Parameters</h4>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="min-w-full border">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left border">Parameter</th>
+                                    <th class="px-4 py-2 text-left border">Type</th>
+                                    <th class="px-4 py-2 text-left border">Required</th>
+                                    <th class="px-4 py-2 text-left border">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-2 border">page</td>
+                                    <td class="px-4 py-2 border">integer</td>
+                                    <td class="px-4 py-2 border">No</td>
+                                    <td class="px-4 py-2 border">Page number (default: 1)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border">per_page</td>
+                                    <td class="px-4 py-2 border">integer</td>
+                                    <td class="px-4 py-2 border">No</td>
+                                    <td class="px-4 py-2 border">Items per page (default: 20)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border">filter[category]</td>
+                                    <td class="px-4 py-2 border">string</td>
+                                    <td class="px-4 py-2 border">No</td>
+                                    <td class="px-4 py-2 border">Filter by category</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-2">Example Request</h4>
+                    <pre><code class="language-bash">curl -X GET \
+  'https://api.learning-platform.example.com/v1/courses?page=2&per_page=5' \
+  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'</code></pre>
+                    
+                    <h4 class="font-semibold mb-2">Example Response</h4>
+                    <pre><code class="language-json">{
+    "status": "success",
+    "data": [
+        {
+            "id": "course_001",
+            "type": "course",
+            "attributes": {
+                "title": "Advanced Python",
+                "description": "Deep dive into Python features",
+                "duration": "8 hours",
+                "level": "intermediate"
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "current_page": 2,
+            "per_page": 5,
+            "total_entries": 23,
+            "total_pages": 5
+        }
+    }
+}</code></pre>
+                </div>
+                
+                <div class="mt-8">
+                    <div class="flex items-start mb-4">
+                        <span class="method-post font-mono font-bold mr-4 mt-1">POST</span>
+                        <div class="flex-1">
+                            <h3 class="font-mono text-lg">/courses</h3>
+                            <p class="text-gray-600">Create a new course</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-2">Request Body</h4>
+                    <pre><code class="language-json">{
+    "data": {
+        "type": "course",
+        "attributes": {
+            "title": "New Course Title",
+            "description": "Course description...",
+            "category": "programming",
+            "level": "beginner"
+        }
+    }
+}</code></pre>
+                    
+                    <h4 class="font-semibold mb-2">Response Codes</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left border">Code</th>
+                                    <th class="px-4 py-2 text-left border">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-2 border">201 Created</td>
+                                    <td class="px-4 py-2 border">Course successfully created</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border">400 Bad Request</td>
+                                    <td class="px-4 py-2 border">Invalid input data</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border">401 Unauthorized</td>
+                                    <td class="px-4 py-2 border">Missing or invalid token</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- User Management -->
+            <section id="user-management" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">User Management</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">User Endpoints</h3>
+                        
+                        <div class="border rounded-lg overflow-hidden mb-4">
+                            <div class="bg-gray-100 px-4 py-2 border-b flex items-center">
+                                <span class="method-get font-mono font-bold mr-2">GET</span>
+                                <span class="font-mono">/users/{id}</span>
+                            </div>
+                            <div class="p-4">
+                                <p class="mb-2">Retrieve user details by ID</p>
+                                <pre class="text-sm"><code class="language-json">{
+    "data": {
+        "id": "usr_123",
+        "name": "John Doe",
+        "email": "john@example.com",
+        "role": "student"
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg overflow-hidden">
+                            <div class="bg-gray-100 px-4 py-2 border-b flex items-center">
+                                <span class="method-post font-mono font-bold mr-2">POST</span>
+                                <span class="font-mono">/users</span>
+                            </div>
+                            <div class="p-4">
+                                <p class="mb-2">Create new user</p>
+                                <pre class="text-sm"><code class="language-json">{
+    "name": "New User",
+    "email": "new@example.com",
+    "password": "securepassword123"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">User Roles</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th class="text-left py-2">Role</th>
+                                        <th class="text-left py-2">Permissions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-2">student</td>
+                                        <td class="py-2">View courses, submit assignments</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-2">instructor</td>
+                                        <td class="py-2">Create/manage courses</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2">admin</td>
+                                        <td class="py-2">Full system access</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h4 class="font-semibold mb-2">Password Requirements</h4>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Minimum 12 characters</li>
+                            <li>At least 1 uppercase letter</li>
+                            <li>At least 1 number</li>
+                            <li>At least 1 special character</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics -->
+            <section id="analytics" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Analytics</h2>
+                
+                <div class="mb-6">
+                    <div class="flex items-start mb-4">
+                        <span class="method-get font-mono font-bold mr-4 mt-1">GET</span>
+                        <div class="flex-1">
+                            <h3 class="font-mono text-lg">/analytics/course/{id}</h3>
+                            <p class="text-gray-600">Get course engagement metrics</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-2">Parameters</h4>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="min-w-full border">
+                            <tr>
+                                <td class="px-4 py-2 border">period</td>
+                                <td class="px-4 py-2 border">string</td>
+                                <td class="px-4 py-2 border">No</td>
+                                <td class="px-4 py-2 border">day, week, month, year</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <h4 class="font-semibold mb-2">Example Response</h4>
+                    <pre><code class="language-json">{
+    "data": {
+        "course_id": "course_123",
+        "enrollments": 245,
+        "completion_rate": 68.5,
+        "activity": {
+            "2023-06-01": 45,
+            "2023-06-02": 52
+        }
+    }
+}</code></pre>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Available Metrics</h3>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Course enrollments</li>
+                            <li>Completion rates</li>
+                            <li>Time spent</li>
+                            <li>Assessment scores</li>
+                            <li>User engagement</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Data Retention</h3>
+                        <ul class="list-disc pl-6 space-y-1">
+                            <li>Real-time data: 30 days</li>
+                            <li>Aggregated data: 2 years</li>
+                            <li>Export available for long-term storage</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Administration -->
+            <section id="administration" class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Administration</h2>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+                    <h4 class="font-semibold">Important Note:</h4>
+                    <p>Admin endpoints require elevated privileges. Always follow principle of least privilege.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">System Management</h3>
+                        
+                        <div class="border rounded-lg overflow-hidden mb-4">
+                            <div class="bg-gray-100 px-4 py-2 border-b flex items-center">
+                                <span class="method-get font-mono font-bold mr-2">GET</span>
+                                <span class="font-mono">/admin/system-status</span>
+                            </div>
+                            <div class="p-4">
+                                <p>Check system health and metrics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg overflow-hidden">
+                            <div class="bg-gray-100 px-4 py-2 border-b flex items-center">
+                                <span class="method-post font-mono font-bold mr-2">POST</span>
+                                <span class="font-mono">/admin/maintenance</span>
+                            </div>
+                            <div class="p-4">
+                                <p>Put system in maintenance mode</p>
+                                <pre class="text-sm mt-2"><code class="language-json">{
+    "message": "System maintenance",
+    "duration": "2 hours"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">User Management</h3>
+                        
+                        <div class="border rounded-lg overflow-hidden mb-4">
+                            <div class="bg-gray-100 px-4 py-2 border-b flex items-center">
+                                <span class="method-get font-mono font-bold mr-2">GET</span>
+                                <span class="font-mono">/admin/users</span>
+                            </div>
+                            <div class="p-4">
+                                <p>List all users (paginated)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg overflow-hidden">
+                            <div class="bg-gray-100 px-4 py-2 border-b flex items-center">
+                                <span class="method-put font-mono font-bold mr-2">PUT</span>
+                                <span class="font-mono">/admin/users/{id}/role</span>
+                            </div>
+                            <div class="p-4">
+                                <p>Update user role</p>
+                                <pre class="text-sm mt-2"><code class="language-json">{
+    "role": "instructor"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold mb-2">Admin Best Practices</h4>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Always use audit logging for admin actions</li>
+                        <li>Implement two-factor authentication for admin accounts</li>
+                        <li>Regularly review admin access privileges</li>
+                        <li>Follow change management procedures</li>
+                    </ul>
+                </div>
+            </section>
+
+            <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+
+            <!-- Footer -->
+            <footer class="bg-white shadow-md rounded-lg p-6 text-center">
+                <div class="mb-4">
+                    <!-- <img src="../img/nitda.jpeg" alt="NCAIR Logo" class="h-10 mx-auto">
+                    <img src="../ReceiptAnalyzer/oop/img/ncair.jpeg" alt="NITDA Logo" class="h-10 mx-auto"> -->
+                    <div class="flex items-center space-x-4">
+  <img src="../img/ncair.jpeg" alt="NITDA Logo" class="h-10">
+  <img src="../img/nitda.jpeg" alt="NCAIR Logo" class="h-10">
+   <p class="text-sm text-gray-500 mt-1">
+    SIWES Student Project | NITDA/NCAIR | Cohort 26  
+  </p>
+</div>
+
+                </div>
+                <p class="text-gray-600">© 2025 SIWES Project - NITDA/NCAIR | Cohort 26</p>
+                <p class="text-sm text-gray-500 mt-2">This is a learning exercise - not an official NITDA system</p>
+                <div class="flex justify-center space-x-4 mt-4">
+                    <a href="#" class="text-blue-600 hover:text-blue-800">GitHub</a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">Portfolio</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Navigation highlighting
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Set first nav item as active by default
+        if (window.location.hash === '') {
+            document.querySelector('.nav-item').classList.add('active');
+        } else {
+            document.querySelector(`a[href="${window.location.hash}"]`).classList.add('active');
+        }
+        AOS.init();
+    </script>
+</body>
+</html>

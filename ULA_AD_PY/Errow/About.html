@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+       background: linear-gradient(135deg, #0f2027, #203a43);
+    }
+     .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+   
+  </style>
+</head>
+<body>
+  <!-- ⚡ Lamborghini About Section -->
+<section id="about" style="padding: 80px 20px; background: linear-gradient(135deg, #0f2027, #203a43); color: #fff; text-align: center; position: relative; overflow: hidden;">
+  <div style="max-width: 900px; margin: auto; padding: 40px; border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 20px; backdrop-filter: blur(20px); background: rgba(255,255,255,0.05); box-shadow: 0 0 20px rgba(0,255,204,0.1);">
+    
+    <h2 style="font-size: 2.5rem; margin-bottom: 10px; color: #00ffcc;">🌍 The NITDA Innovation Project</h2>
+    <p style="font-size: 1.2rem; color: #aaa;">Born from Africa. Built for the world.</p>
+
+    <div style="margin: 40px 0; text-align: left;">
+      <p style="font-size: 1.1rem; line-height: 1.7;">
+        <strong>Team 5IRE</strong> developed this initiative during their Advanced Python SIWES at <strong>NITDA/NCAIR</strong> to bridge learning with real impact. It's not just code — it's a vision.
+      </p>
+      <ul style="list-style: none; padding: 0; margin: 30px 0;">
+        <li style="margin: 10px 0;">✅ Translate Python errors into globally recognized learning tools.</li>
+        <li style="margin: 10px 0;">📚 Provide intuitive platforms for SIWES, NYSC, and future NITDA trainees.</li>
+        <li style="margin: 10px 0;">🚀 Showcase Nigerian tech brilliance that inspires global innovation.</li>
+        <li style="margin: 10px 0;">🔁 Store learning outcomes for national upskilling and global collaboration.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 30px;">
+      <p style="font-size: 1rem; line-height: 1.6; color: #ccc;">
+        <strong>Why It Matters:</strong><br>
+        In a world shaped by AI and innovation, local solutions with global excellence are game-changers. This project turns errors into breakthroughs — proof of what’s possible when youth meets opportunity.
+      </p>
+      <p style="margin-top: 20px; font-size: 1.2rem; color: #00ffcc; font-weight: bold;">
+        This is more than a project — it’s a movement. From NITDA to the world. From learners to leaders.
+      </p>
+    </div>
+  </div>
+</section>
+ <a href="index.html">
+    <div class="nav-floating" onclick="window.scrollTo({  behavior: 'smooth' })">
+    Back 
+  </div>
+   </a>
+<script>
+  AOS.init();
+</script>
+</body>
+</html> 

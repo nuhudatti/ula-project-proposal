@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Python Projects – EvoLearn Practice App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #3f3fac;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(47, 90, 155, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <!-- Header -->
+  <header class="bg-indigo-800 py-16 text-center">
+    <h1 class="text-4xl font-bold">🎯 Mini Python Project Practice App</h1>
+    <p class="mt-4 text-lg text-gray-300">Choose a fun beginner project to sharpen your skills!</p>
+  </header>
+
+  <!-- Project Options -->
+  <section class="max-w-5xl mx-auto py-20 px-6 grid md:grid-cols-3 gap-10" id="projects">
+    <!-- BMI Calculator -->
+    <div class="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-indigo-500 transition" data-aos="fade-up">
+      <h2 class="text-2xl font-semibold mb-2">⚖️ BMI Calculator</h2>
+      <p class="text-gray-400 mb-4">Enter your height and weight to calculate your Body Mass Index.</p>
+      <a href="./project/bmical.html" class="inline-block mt-2 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">Try It</a>
+    </div>
+
+    <!-- Age Guessing Game -->
+    <div class="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-indigo-500 transition" data-aos="fade-up" data-aos-delay="100">
+      <h2 class="text-2xl font-semibold mb-2">🎲 Age Guessing Game</h2>
+      <p class="text-gray-400 mb-4">Let the computer try to guess your age with a few clever tricks!</p>
+      <a href="./project/age-guess.html" class="inline-block mt-2 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">Play Now</a>
+    </div>
+
+    <!-- Result Grader -->
+    <div class="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-indigo-500 transition" data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-2xl font-semibold mb-2">📚 Result Grader</h2>
+      <p class="text-gray-400 mb-4">Input scores to see grades (A–F). Great for learning conditionals!</p>
+      <a href="./project/result_grader/result-grader.html" class="inline-block mt-2 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">Test It</a>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="bg-indigo-700 py-16 text-center text-white">
+    <h2 class="text-3xl font-bold mb-2">💡 Personalized Projects Coming Soon!</h2>
+    <p class="text-lg">Want us to suggest a project based on your Q1–Q50 skills? Stay tuned or tell us your interests.</p>
+     <a href="mailto:nuhumuhammaddatti@gmail.com" class="text-pink-500 hover:text-pink-700 font-bold text-lg">
+        Request Custom Project
+      </a>
+  </section>
+
+   <a href="../echo3.html">
+      <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+  <!-- Footer -->
+  <footer class="px-6 py-10 bg-black text-center text-gray-400">
+    <p>© 2025 EvoLearn Africa. Learn by building.</p>
+  </footer>
+
+  <!-- AOS (Optional Animations) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>AOS.init();</script>
+</body>
+</html>

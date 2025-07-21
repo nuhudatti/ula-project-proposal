@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced API Guide | NITDA/NCAIR ULA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>hljs.highlightAll();</script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+        }
+        .security-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .security-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .threat-card {
+            border-top: 4px solid;
+        }
+        .threat-critical { border-top-color: #EF4444; }
+        .threat-high { border-top-color: #F59E0B; }
+        .threat-medium { border-top-color: #3B82F6; }
+        .method-get { background-color: #10B981; }
+        .method-post { background-color: #3B82F6; }
+        .method-put { background-color: #F59E0B; }
+        .method-delete { background-color: #EF4444; }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="../img/nitda.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <img src="../img/ncair.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <div>
+                        <h1 class="text-2xl font-bold">NITDA/NCAIR ULA</h1>
+                        <p class="text-blue-100">Advanced API Guide</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 max-w-3xl">
+                <h2 class="text-4xl font-bold mb-4">Advanced API Concepts</h2>
+                <p class="text-xl text-blue-100">Security, rate limiting, webhooks and performance optimization</p>
+                               
+    <p class="text-sm text-blue-100 italic">
+⚠️ This API endpoint is part of a learning demonstration and may not be actively available. Content provided is for educational purposes only as part of the NITDA/NCAIR SIWES Cohort 26 program.
+</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Navigation -->
+    <div class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex overflow-x-auto py-4 space-x-6">
+                <a href="#api-security" class="whitespace-nowrap px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600">API Security</a>
+                <a href="#rate-limiting" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Rate Limiting</a>
+                <a href="#webhooks" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Webhooks</a>
+                <a href="#performance" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Performance</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- API Security -->
+        <section id="api-security" class="mb-20 scroll-mt-24">
+             <div class="mb-8 bg-white p-4 rounded-lg border border-gray-200">
+        <h4 class="font-bold mb-2">Your Progress</h4>
+        <div class="flex items-center">
+            <div class="relative w-12 h-12 mr-4">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                      fill="none"
+                      stroke="#e6e6e6"
+                      stroke-width="3"
+                      stroke-dasharray="100, 100"
+                    />
+                    <path d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                      fill="none"
+                      stroke="#3b82f6"
+                      stroke-width="3"
+                      stroke-dasharray="75, 100"
+                      class="progress-ring__circle"
+                    />
+                </svg>
+                <span class="absolute inset-0 flex items-center justify-center text-xs font-bold">75%</span>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">3 of 4 modules you're on the best track!</p>
+                <p>You're almost there!</p>
+            </div>
+        </div>
+    </div>
+   
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">1</span>
+                </div>
+                <h2 class="text-3xl font-bold">API Security</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div>
+                    <p class="text-lg mb-6">NITDA enforces <strong>military-grade security standards</strong> for all API communications. Understanding these security measures is essential for building secure applications.</p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+                        <p class="font-medium text-blue-800">Security First:</p>
+                        <p>All ULA API communications use AES-256 encryption and require proper authentication to protect Nigeria's digital education infrastructure.</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4">Key Security Measures</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>HTTPS Everywhere:</strong> All endpoints require encrypted connections</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>JWT Authentication:</strong> Token-based access with expiration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Input Validation:</strong> Strict validation of all request data</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                            <span><strong>Rate Limiting:</strong> Protection against brute force attacks</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Secure API Implementation</span>
+                    </div>
+                    <pre><code class="language-python hljs">from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+import secrets
+
+app = FastAPI()
+
+# NITDA Standard JWT Authentication
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+def verify_token(token: str = Depends(oauth2_scheme)):
+    # In production, use proper JWT validation library
+    if not validate_jwt(token):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return token
+
+@app.get("/secure-data/")
+async def read_secure_data(token: str = Depends(verify_token)):
+    # Military-grade encryption for sensitive data
+    encrypted_data = encrypt_data(
+        data={"message": "Secure NITDA content"},
+        key=settings.ENCRYPTION_KEY
+    )
+    return {"data": encrypted_data}</code></pre>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-6">Common API Security Threats</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="threat-card threat-critical bg-white p-5 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-red-700 mb-3">❶ Injection Attacks</h4>
+                    <p class="text-sm mb-3">SQL, NoSQL, OS or LDAP injection through malicious input.</p>
+                    <div class="bg-red-50 p-3 rounded">
+                        <p class="text-xs font-mono">SELECT * FROM users WHERE id = '1' OR '1'='1'</p>
+                    </div>
+                    <p class="text-xs mt-3 text-red-700">Prevention: Input validation, parameterized queries</p>
+                </div>
+                
+                <div class="threat-card threat-high bg-white p-5 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-orange-700 mb-3">❷ Broken Authentication</h4>
+                    <p class="text-sm mb-3">Weak credentials, improper session management, or token handling.</p>
+                    <div class="bg-orange-50 p-3 rounded">
+                        <p class="text-xs font-mono">Brute force attacks on login endpoints</p>
+                    </div>
+                    <p class="text-xs mt-3 text-orange-700">Prevention: Strong JWT implementation, rate limiting</p>
+                </div>
+                
+                <div class="threat-card threat-medium bg-white p-5 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-blue-700 mb-3">❸ Sensitive Data Exposure</h4>
+                    <p class="text-sm mb-3">APIs exposing sensitive data without proper protection.</p>
+                    <div class="bg-blue-50 p-3 rounded">
+                        <p class="text-xs font-mono">Exposing PII in API responses</p>
+                    </div>
+                    <p class="text-xs mt-3 text-blue-700">Prevention: Encryption, data masking, proper access controls</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">NITDA Security Checklist</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-3">✅ Mandatory Practices</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Use HTTPS for all API communications</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Implement proper JWT validation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Validate and sanitize all input data</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">🔒 Recommended Practices</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Implement IP whitelisting for sensitive endpoints</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Regular security audits and penetration testing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Monitor and log all API access attempts</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Limiting -->
+        <section id="rate-limiting" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">2</span>
+                </div>
+                <h2 class="text-3xl font-bold">Rate Limiting</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">NITDA APIs implement rate limiting to prevent abuse and ensure fair usage. The standard limit is <strong>100 requests per minute</strong> per client.</p>
+                    
+                    <h3 class="text-xl font-bold mb-4">Rate Limit Headers</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                        <div class="flex items-center text-sm mb-2">
+                            <span class="font-mono bg-gray-200 px-2 py-1 rounded mr-2">X-RateLimit-Limit</span>
+                            <span>Total requests allowed in period</span>
+                        </div>
+                        <div class="flex items-center text-sm mb-2">
+                            <span class="font-mono bg-gray-200 px-2 py-1 rounded mr-2">X-RateLimit-Remaining</span>
+                            <span>Requests remaining in current window</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="font-mono bg-gray-200 px-2 py-1 rounded mr-2">X-RateLimit-Reset</span>
+                            <span>Seconds until limit resets</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4">Handling Rate Limits</h3>
+                    <ol class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span>Check rate limit headers in responses</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span>Implement exponential backoff for retries</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span>Cache responses to reduce API calls</span>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Python Implementation</span>
+                    </div>
+                    <pre><code class="language-python hljs">import requests
+import time
+
+class NITDAAPIClient:
+    def __init__(self):
+        self.base_url = "https://api.ula.nitda.gov.ng/v1"
+        self.retry_wait = 1  # Start with 1 second wait
+        
+    def make_request(self, endpoint):
+        try:
+            response = requests.get(f"{self.base_url}/{endpoint}")
+            
+            # Check rate limits
+            remaining = int(response.headers.get('X-RateLimit-Remaining', 100))
+            reset_time = int(response.headers.get('X-RateLimit-Reset', 60))
+            
+            if remaining < 10:  # Getting close to limit
+                time.sleep(self.retry_wait)  # Slow down
+                
+            if response.status_code == 429:  # Too Many Requests
+                retry_after = int(response.headers.get('Retry-After', 5))
+                time.sleep(retry_after)
+                self.retry_wait *= 2  # Exponential backoff
+                return self.make_request(endpoint)
+                
+            self.retry_wait = max(1, self.retry_wait / 2)  # Reset backoff
+            return response.json()
+            
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            return None
+
+# Usage
+client = NITDAAPIClient()
+data = client.make_request("educational-content")</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                <p class="font-medium text-blue-800">NITDA Enterprise Access:</p>
+                <p>Educational institutions can request higher rate limits by contacting <a href="mailto:api-support@nitda.gov.ng" class="text-blue-600 underline">api-support@nitda.gov.ng</a> with their use case details.</p>
+            </div>
+        </section>
+
+        <!-- Webhooks -->
+        <section id="webhooks" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">3</span>
+                </div>
+                <h2 class="text-3xl font-bold">Webhooks</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">Webhooks allow the NITDA ULA API to send real-time notifications to your application when events occur, rather than polling for changes.</p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+                        <p class="font-medium text-blue-800">Real-world example:</p>
+                        <p>When a student completes a course, ULA can instantly notify your system via webhook rather than you checking repeatedly.</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4">Common Webhook Events</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>course.completed</strong> - Student finished a course</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>payment.processed</strong> - Successful payment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>content.updated</strong> - Learning materials updated</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Python Webhook Listener</span>
+                    </div>
+                    <pre><code class="language-python hljs">from fastapi import FastAPI, Request, Header
+import hmac
+import hashlib
+
+app = FastAPI()
+
+# Your secret from NITDA webhook settings
+WEBHOOK_SECRET = "your_webhook_secret"
+
+@app.post("/webhook")
+async def handle_webhook(
+    request: Request,
+    x_nitda_signature: str = Header(None)
+):
+    # Verify the webhook signature
+    body = await request.body()
+    computed_signature = hmac.new(
+        WEBHOOK_SECRET.encode(),
+        body,
+        hashlib.sha256
+    ).hexdigest()
+    
+    if not hmac.compare_digest(computed_signature, x_nitda_signature):
+        return {"status": "error", "message": "Invalid signature"}
+    
+    # Process the webhook event
+    event = await request.json()
+    event_type = event["type"]
+    data = event["data"]
+    
+    if event_type == "course.completed":
+        # Update your database
+        update_student_progress(
+            student_id=data["student_id"],
+            course_id=data["course_id"]
+        )
+    elif event_type == "payment.processed":
+        # Process payment confirmation
+        handle_payment_confirmation(data["payment_id"])
+    
+    return {"status": "success"}</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">Webhook Security</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-3">Webhook Payload Example</h4>
+                        <div class="bg-gray-800 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                                <div class="flex items-center">
+                                    <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                </div>
+                                <span class="text-sm text-gray-400">JSON Payload</span>
+                            </div>
+                            <pre><code class="language-json hljs">{
+    "type": "course.completed",
+    "data": {
+        "student_id": "stu_123",
+        "course_id": "course_456",
+        "completed_at": "2023-07-15T10:30:00Z",
+        "score": 85
+    },
+    "event_id": "evt_789"
+}</code></pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">Security Measures</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                                <span><strong>Signature Verification:</strong> HMAC-SHA256 signatures</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                                <span><strong>HTTPS Required:</strong> Webhook endpoints must use HTTPS</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                                <span><strong>Idempotency:</strong> Handle duplicate events safely</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold mt-6 mb-3">Headers</h4>
+                        <div class="bg-gray-100 p-3 rounded">
+                            <p class="text-xs font-mono">X-NITDA-Signature: sha256=abc123...</p>
+                            <p class="text-xs font-mono">X-NITDA-Event-Type: course.completed</p>
+                            <p class="text-xs font-mono">X-NITDA-Delivery: evt_789</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance -->
+        <section id="performance" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">4</span>
+                </div>
+                <h2 class="text-3xl font-bold">API Performance</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">Optimizing API performance is critical for delivering responsive applications. Follow these NITDA-recommended practices.</p>
+                    
+                    <h3 class="text-xl font-bold mb-4">Key Optimization Strategies</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>Caching:</strong> Implement Redis or Memcached for frequent requests</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>Pagination:</strong> Use limit/offset or cursor-based pagination</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Compression:</strong> Enable gzip for large responses</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                            <span><strong>Connection Pooling:</strong> Reuse HTTP connections</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Optimized Python Client</span>
+                    </div>
+                    <pre><code class="language-python hljs">import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+import redis
+
+# Configure connection pooling
+session = requests.Session()
+retries = Retry(
+    total=3,
+    backoff_factor=1,
+    status_forcelist=[500, 502, 503, 504]
+)
+session.mount('https://', HTTPAdapter(max_retries=retries, pool_connections=10, pool_maxsize=100))
+
+# Redis cache setup
+cache = redis.Redis(host='localhost', port=6379, db=0)
+
+def get_course_data(course_id):
+    # Check cache first
+    cache_key = f"course:{course_id}"
+    cached_data = cache.get(cache_key)
+    if cached_data:
+        return json.loads(cached_data)
+    
+    # Make API request if not in cache
+    response = session.get(
+        f"https://api.ula.nitda.gov.ng/v1/courses/{course_id}",
+        headers={"Accept-Encoding": "gzip"}
+    )
+    response.raise_for_status()
+    data = response.json()
+    
+    # Cache for 1 hour (3600 seconds)
+    cache.setex(cache_key, 3600, json.dumps(data))
+    return data
+
+# Usage
+course = get_course_data("course_123")</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">Performance Metrics</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-blue-700 mb-2">Response Times</h4>
+                        <p class="text-3xl font-bold mb-2">< 200ms</p>
+                        <p class="text-sm text-gray-600">NITDA ULA API target for 95% of requests</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-blue-700 mb-2">Uptime</h4>
+                        <p class="text-3xl font-bold mb-2">99.95%</p>
+                        <p class="text-sm text-gray-600">Service level agreement</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-blue-700 mb-2">Throughput</h4>
+                        <p class="text-3xl font-bold mb-2">10,000 RPM</p>
+                        <p class="text-sm text-gray-600">Per-instance capacity</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-20 px-6 md:px-16 border-t border-gray-200">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-bold text-blue-900 mb-2">Expert</h2>
+    <p class="text-xl text-gray-700 mb-6">Build and deploy your own production-ready APIs</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mt-10">
+      <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold text-blue-800 mb-2">📐 API Design</h3>
+        <p class="text-gray-700">Learn best practices for structuring endpoints, versioning, and building scalable API architecture.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold text-blue-800 mb-2">🛠️ Building APIs</h3>
+        <p class="text-gray-700">Use Python with Flask/FastAPI to create fully functional APIs with authentication and real database support.</p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold text-blue-800 mb-2">🚀 Deployment</h3>
+        <p class="text-gray-700">Deploy your API to cloud platforms like Render, Vercel, or Heroku — making your work accessible worldwide.</p>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <a href="#expert-course-start" class="inline-block bg-blue-800 hover:bg-blue-900 text-white text-lg font-semibold px-6 py-3 rounded-full transition">
+        Continue →
+      </a>
+    </div>
+  </div>
+</section>
+    </main>
+
+    <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-0 rounded">
+  <p class="text-sm text-yellow-700">
+    ⚠️ <strong>Note:</strong> This is a simulated API guide built by a student intern at NITDA/NCAIR for educational purposes. No real API calls are being made.
+  </p>
+</div>
+   <footer class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white py-10 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
+    <!-- About -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-code mr-2"></i> About the Project</h4>
+      <p class="text-sm opacity-80">
+        A legacy initiative built during SIWES at NITDA/NCAIR — empowering the next generation through code, APIs, and innovation.
+      </p>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-user-circle mr-2"></i> Facilitator</h4>
+      <p class="text-sm opacity-80">Mr. Mubaraq<br><i class="fas fa-phone-alt mr-1"></i> +234 811 9122778</p>
+      <p class="text-sm opacity-80 mt-2">Ms. Cynthia<br><i class="fas fa-phone-alt mr-1"></i> +234 814 494 5146</p>
+    </div>
+
+    <!-- Social / Credit -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-globe mr-2"></i> Stay Connected</h4>
+      <div class="flex justify-center md:justify-start gap-4 mt-2 text-lg">
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-github"></i></a>
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p class="text-xs text-gray-300 mt-4">
+        <i class="fas fa-copyright"></i> 2025 NITDA | Built with 💻 by <strong>Nuhu Muhammad Datti</strong>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Update active navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sticky a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-600', 'border-blue-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-blue-600', 'border-blue-600');
+                }
+            });
+        });
+        AOS.init();
+    </script>
+</body>
+</html>

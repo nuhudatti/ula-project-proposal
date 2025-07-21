@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete API Masterclass | NITDA/NCAIR ULA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+        }
+        .nav-pill {
+            position: relative;
+        }
+        .nav-pill::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-pill:hover::after {
+            width: 100%;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="../img/nitda.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <img src="../img/ncair.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <div>
+                        <h1 class="text-2xl font-bold">NITDA/NCAIR ULA</h1>
+                        <p class="text-blue-100">Universal Learning Archive</p>
+                          <p class="text-sm text-blue-10 mt-1">
+    SIWES Student Project | NITDA/NCAIR | Cohort 26  
+  </p>
+                    </div>
+                </div>
+                <nav class=" md:flex items-center space-x-8">
+                <a href="./documentation.html" class="flex items-center space-x-2 text-white hover:text-blue-300 transition font-medium">
+                <i class="fas fa-book"></i>
+                <span>API Docs</span>
+                </a>
+            </div>
+            
+            <div class="mt-16 max-w-3xl">
+                <h2 class="text-4xl font-bold mb-4">The Complete API Masterclass</h2>
+                <p class="text-xl text-blue-100 mb-8">From absolute beginner to API expert - learn everything you need to know about APIs with our structured, African-focused curriculum.</p>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#learn" class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber- px-8 py-3 rounded-full font-bold text-center hover:bg-yellow-300 transition">Start Learning</a>
+                    <!-- <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-full font-bold text-center hover:bg-white hover:text-blue-900 transition">Watch Intro Video</a> -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="m-4">
+    <p class="text-sm text-gray-500 italic m-4">
+          <p class="m4"><i>This project was created by a SIWES intern at NITDA/NCAIR purely for educational demonstration purposes. It does not represent an official NITDA or NCAIR product or service.</i></p>
+      <p class="text-sm text-gray-500 mt-1">
+    Logos used respectfully under educational fair use to indicate internship affiliation.  
+  </p>
+⚠️ This API endpoint is part of a learning demonstration and may not be actively available. Content provided is for educational purposes only as part of the NITDA/NCAIR SIWES Cohort 26 program.
+</p>
+</div>
+
+
+    <!-- Learning Path Overview -->
+    <section class="py-16 bg-white" id="learn">
+        <div class="container mx-auto px-6">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Your API Learning Journey</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Structured curriculum designed by NITDA experts to take you from zero to professional API developer</p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Beginner -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-blue-800 text-2xl font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Beginner</h3>
+                    <p class="text-gray-600 mb-4">Understand what APIs are and make your first API calls</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            What is an API?
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            REST API Basics
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            First API Call
+                        </li>
+                    </ul>
+                    <a href="./beginner.html" class="mt-4 inline-block text-blue-600 font-medium hover:text-blue-800">Start Section →</a>
+                </div>
+                
+                <!-- Intermediate -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-blue-800 text-2xl font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Intermediate</h3>
+                    <p class="text-gray-600 mb-4">Work with authentication, error handling and real-world APIs</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            API Authentication
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Error Handling
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Working with JSON
+                        </li>
+                    </ul>
+                    <a href="./inter.html" class="mt-4 inline-block text-blue-600 font-medium hover:text-blue-800">Continue →</a>
+                </div>
+                
+                <!-- Advanced -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-blue-800 text-2xl font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Advanced</h3>
+                    <p class="text-gray-600 mb-4">Master API security, rate limiting and performance</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            API Security
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Rate Limiting
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Webhooks
+                        </li>
+                    </ul>
+                    <a href="./advance.html" class="mt-4 inline-block text-blue-600 font-medium hover:text-blue-800">Continue →</a>
+                </div>
+                
+                <!-- Expert -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                        <span class="text-blue-800 text-2xl font-bold">4</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Expert</h3>
+                    <p class="text-gray-600 mb-4">Build and deploy your own production-ready APIs</p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            API Design
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Building APIs
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Deployment
+                        </li>
+                    </ul>
+                    <a href="./expert.html" class="mt-4 inline-block text-blue-600 font-medium hover:text-blue-800">Continue →</a>
+                </div>
+
+                <!-- DOCS -->
+                 <!-- Concepts & Explanations -->
+<div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+        <span class="text-yellow-800 text-2xl font-bold">1</span>
+    </div>
+    <h3 class="text-xl font-bold mb-3">Concepts & Explanations</h3>
+    <p class="text-gray-600 mb-4">Understand REST principles, authentication theory, and admin logic</p>
+    <ul class="space-y-2 text-sm text-gray-600">
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            REST API Structure
+        </li>
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Auth Theory & Tokens
+        </li>
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Admin Endpoint Logic
+        </li>
+    </ul>
+    <a href="./docs2.html" class="mt-4 inline-block text-yellow-600 font-medium hover:text-yellow-800">Continue →</a>
+</div>
+
+
+                <!-- API Simulation -->
+<div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+        <span class="text-blue-800 text-2xl font-bold">2</span>
+    </div>
+    <h3 class="text-xl font-bold mb-3">API Simulation</h3>
+    <p class="text-gray-600 mb-4">Simulated REST API with endpoints, auth flow, and Python examples</p>
+    <ul class="space-y-2 text-sm text-gray-600">
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Base URL & Endpoints
+        </li>
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Authentication Flow
+        </li>
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Python Integration
+        </li>
+    </ul>
+    <a href="./docs.html" class="mt-4 inline-block text-blue-600 font-medium hover:text-blue-800">Continue →</a>
+</div>
+
+
+
+                <!-- DOCS -->
+                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+  <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+    <i class="fas fa-book text-blue-800 text-2xl"></i>
+  </div>
+  <h3 class="text-xl font-bold mb-3">API Documentation</h3>
+  <p class="text-gray-600 mb-4">Explore the NITDA ULA API, how it works, and how to use it in your projects.</p>
+  <ul class="space-y-2 text-sm text-gray-600">
+    <li class="flex items-center">
+      <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+      Authentication Flow
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+      Making API Calls
+    </li>
+    <li class="flex items-center">
+      <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+      JSON Responses
+    </li>
+  </ul>
+  <a href="./documentation.html" class="mt-4 inline-block text-blue-600 font-medium hover:text-blue-800">Explore Docs →</a>
+</div>
+
+        <!-- Q&A Levels -->
+<div class="bg-gray-50 p-6 rounded-xl border border-gray-200 interactive-card transition">
+    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+        <span class="text-yellow-800 text-2xl font-bold">Q&A</span>
+    </div>
+    <h3 class="text-xl font-bold mb-3">API Q&A – Beginner to Expert</h3>
+    <p class="text-gray-600 mb-4">Test your knowledge with top 40 questions across all API levels.</p>
+    <ul class="space-y-2 text-sm text-gray-600">
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Beginner to Expert Levels
+        </li>
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Covers 40 real-world API questions
+        </li>
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Helps prep for projects and interviews
+        </li>
+    </ul>
+    <a href="./q&a.html" class="mt-4 inline-block text-yellow-600 font-medium hover:text-yellow-800">View Q&A →</a>
+</div>
+
+
+            </div>
+        </div>
+
+        <!-- Q & A -->
+         
+         
+
+
+    </section>
+     <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back To Home
+    </div>
+    </a>
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-0 rounded">
+  <p class="text-sm text-yellow-700">
+    ⚠️ <strong>Note:</strong> This is a simulated API guide built by a student intern at NITDA/NCAIR for educational purposes. No real API calls are being made.
+  </p>
+</div>
+
+   <!-- Footer -->
+   <footer class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500  text-white py-10 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
+    <!-- About -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-code mr-2"></i> About the Project</h4>
+      <p class="text-sm opacity-80">
+        A legacy initiative built during SIWES at NITDA/NCAIR — empowering the next generation through code, APIs, and innovation.
+      </p>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-user-circle mr-2"></i> Facilitator</h4>
+      <p class="text-sm opacity-80">Mr. Mubaraq<br><i class="fas fa-phone-alt mr-1"></i> +234 811 9122778</p>
+      <p class="text-sm opacity-80 mt-2">Ms. Cynthia<br><i class="fas fa-phone-alt mr-1"></i> +234 814 494 5146</p>
+    </div>
+
+    <!-- Social / Credit -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-globe mr-2"></i> Stay Connected</h4>
+      <div class="flex justify-center md:justify-start gap-4 mt-2 text-lg">
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-github"></i></a>
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p class="text-xs text-gray-300 mt-4">
+        <i class="fas fa-copyright"></i> 2025 NITDA | Built with 💻 by <strong>Nuhu Muhammad Datti</strong>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+    <script>
+        // Simple script to handle module navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5IRE Innovation Sprint</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Manrope', sans-serif;
+    }
+    body {
+      background-color: #0a0a0a;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+    header {
+      height: 100vh;
+      background: url('https://cdn.pixabay.com/photo/2016/11/29/05/08/adult-1867757_1280.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;  
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #fff;
+      z-index: 1;
+      position: relative;
+      animation: fadeInDown 2s ease-in-out;
+    }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
+    .hero-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+     .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #00ffb3;
+      animation: glow 3s infinite alternate;
+    }
+
+    .tech {
+      display: inline-block;
+      color: #00c2ff;
+      animation: shake 2s infinite ease-in-out;
+    }
+
+    .giant {
+      background: linear-gradient(to right, #ffffff, #00f7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffb3;
+      }
+      to {
+        text-shadow: 0 0 25px #00ffb3;
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+    }
+     .cta {
+      margin-top: 2rem;
+    }
+    .cta a {
+      text-decoration: none;
+      color: #0a0a0a;
+      background: #00ff99;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .cta a:hover {
+      background: #00cc77;
+    }
+    .container {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .problem-card {
+      background: linear-gradient(135deg, #1f1f1f, #282828);
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .problem-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 255, 200, 0.3);
+    }
+    .problem-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #00ffc8;
+    }
+    .problem-card p {
+      color: #ccc;
+      line-height: 1.6;
+    }
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    .nav-floating a{
+      text-decoration: none;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      background-color: #111;
+    }
+  </style>
+</head>
+<body>
+  <audio id="narration" autoplay>
+  <source src="./VoiceOver/EDU.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+  <header>
+    <h1>Building Solutions That Echo to Eternity  <br><span>The Giant in Me Walks with Millions</span></h1> 
+     
+
+  </header>
+  
+  <div class="container">
+    <div class="problem-card" data-aos="fade-up" onclick="alert('Selected: Problem 1')">
+      <h2><i class="fas fa-book-reader"></i> Learning Archive for All</h2>
+      <p>Centralized platform for handouts, guides, assessment patterns, and materials — a reliable source to empower every learner.</p>
+    </div>
+
+    <div class="problem-card" data-aos="fade-up" data-aos-delay="400" onclick="alert('Selected: 5IRE-SIDAS – Smart ID for Secondary Schools')">
+        <h2><i class="fas fa-user-shield"></i> SIDAS – Smart ID for Secondary Schools</h2>
+        <p>
+        QR/NFC student ID cards for daily attendance scans, real-time parent alerts, teacher dashboards, and full admin reporting — reducing truancy and restoring trust between schools and families.
+        </p>
+</div>
+
+
+    <div class="problem-card" data-aos="fade-up" data-aos-delay="300" onclick="alert('Selected: DSIAS – Digital Student Identity & Attendance System')">
+  <h2><i class="fas fa-id-badge"></i> DSIAS – Digital Student Identity System</h2>
+  <p>
+    A smart attendance and ID verification system. QR/NFC student IDs, real-time lecturer dashboards, secure cloud records — building trust, saving time, and protecting identity.
+  </p>
+</div>
+
+
+    <div class="problem-card" data-aos="fade-up" data-aos-delay="100" onclick="alert('Selected: Problem 2')">
+      <h2><i class="fas fa-brain"></i> Smarter Course Decisions</h2>
+      <p>Data-driven system to guide students towards courses that align with their strengths, passion, and long-term goals.</p>
+    </div>
+
+    <div class="problem-card" data-aos="fade-up" data-aos-delay="200" onclick="alert('Selected: Problem 3')">
+      <h2><i class="fas fa-laptop-code"></i> Bridge the Digital Gap</h2>
+      <p>Improve digital literacy across all departments: Microsoft tools, communication skills, and real-world digital competence.</p>
+    </div>
+  </div>
+
+  <div class="nav-floating" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+    <a href="echo3.html">Back</a>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 Team 5IRE — Innovation for Impact. Inspired by NITDA/NCAIR Standards.
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+   <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('narration');
+
+    // Try playing audio immediately
+    const playAudio = () => {
+      audio.play().catch(() => {
+        // If blocked, wait for first user interaction
+        const unlockAudio = () => {
+          audio.play();
+          document.body.removeEventListener('click', unlockAudio);
+        };
+        document.body.addEventListener('click', unlockAudio);
+      });
+    };
+
+    playAudio();
+  });
+   AOS.init();
+</script>
+</body>
+</html>

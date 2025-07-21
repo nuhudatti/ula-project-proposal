@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 4 – Final Receipt Reader Script | ULA Legacy Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css">
+  <style>
+    pre {
+      position: relative;
+    }
+    .copy-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: #10b981;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .hljs {
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+      .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-green-900 text-white py-8 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-4xl font-extrabold">Phase 4 – Final Smart Receipt Reader (Python)</h1>
+      <p class="text-lg mt-2">🔥 Clean, precise, and built like a tech legend. Everything in one place. No confusion.</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-12 space-y-12">
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">✅ Final Script: receipt_reader.py</h2>
+      <pre><code class="hljs language-python">import pytesseract
+import cv2
+import csv
+import re
+from PIL import Image
+
+# Set the path to Tesseract OCR (adjust if needed)
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+
+# === PHASE 1: Load image and extract raw text ===
+img = cv2.imread('receipt.jpg')  # Load receipt image
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+raw_text = pytesseract.image_to_string(gray)  # Extract raw text
+
+lines = raw_text.split('\n')  # Split into lines
+lines = [line.strip() for line in lines if line.strip() != '']  # Clean empty lines
+
+print("Cleaned Lines:")
+for line in lines:
+    print(f"-> {line}")
+
+# === PHASE 2: Extract item names and prices ===
+expenses = []
+for line in lines:
+    line = line.strip()
+    if any(word in line.lower() for word in ['total', 'cash', 'change', 'receipt', 'thank', 'approval', 'code']):
+        continue
+
+    match = re.search(r'(.+?)\s+([₦N]?\s?[\d.,]+)[\)]?$', line)
+    if match:
+        item = match.group(1).strip()
+        price_str = match.group(2).strip().replace('₦', '').replace('N', '').replace(',', '.').strip()
+        try:
+            price = round(float(price_str))
+            expenses.append({'item': item, 'price': price})
+        except ValueError:
+            continue
+
+# === Show the results ===
+print("\nStructured Data:")
+for e in expenses:
+    print(f"{e['item']} - ₦{e['price']}")
+
+# === Save to CSV file ===
+with open('expenses.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Item', 'Price'])
+    for e in expenses:
+        writer.writerow([e['item'], e['price']])</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    <section>
+      <h3 class="text-xl font-bold">✅ Your Folder Should Look Like</h3>
+      <pre><code class="hljs">receipt_reader.py       ← your Python file
+receipt.jpg             ← image you want to scan
+expenses.csv            ← auto-created after running script</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+    </section>
+
+    <section>
+      <h3 class="text-xl font-bold">✅ How to Run It</h3>
+      <pre><code class="hljs language-bash">python receipt_reader.py</code><button class="copy-button" onclick="copyText(this)">Copy</button></pre>
+      <p class="mt-2">You should see cleaned items printed in your terminal + expenses.csv saved in the folder.</p>
+    </section>
+
+        <a href="../index.html">
+      <div class="nav-floating bg-green-900 onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+
+    <footer class="mt-16 border-t py-4 text-center text-sm text-gray-600">
+      Phase 4 – Final Script | ULA Legacy Project |Built by Nuhu Muhammad Datti | Powered by NITDA/NCAIR 
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    function copyText(btn) {
+      const codeBlock = btn.previousElementSibling;
+      const text = codeBlock.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+    AOS.init();
+  </script>
+</body>
+</html>

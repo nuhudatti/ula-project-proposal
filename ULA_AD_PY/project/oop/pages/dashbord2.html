@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA/NCAIR ULA - Expense Dashboard Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+    .quiz-card {
+        transition: all 0.3s ease;
+    }
+    .quiz-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .question-header:hover {
+        color: #047857;
+    }
+    input[type="radio"]:checked {
+        border-color: #047857;
+        background-color: #047857;
+    }
+    .toggle-icon {
+        transition: transform 0.3s ease;
+    }
+    .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+</style>
+
+    <style>
+        .code-container {
+            position: relative;
+            background: #1e1e1e;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .code-container:hover .copy-btn {
+            opacity: 1;
+        }
+        .explanation-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #059669;
+        }
+        .explanation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header Section -->
+    <header class="bg-green-800 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-16">
+                </div>
+                <div class="text-center md:text-right">
+                    <h1 class="text-3xl font-bold">Unified Learning Archive</h1>
+                    <p class="text-green-200">Python Expense Dashboard Tutorial</p>
+                    <p class="text-sm text-green-300 mt-1">"A legacy that will echo till eternity"</p>
+                    <p class="text-sm text-green-300 mt-1">Built by Group 5 • Powered by Elona • Honoring NITDA/NCAIR 🇳🇬</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-700 to-green-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">Expense Dashboard Visualization</h1>
+            <p class="text-xl text-green-100 max-w-3xl mx-auto">
+                Transform your receipt data into insightful visualizations with Python and Matplotlib
+            </p>
+            <div class="mt-8">
+                <div class="inline-flex rounded-md shadow">
+                    <a href="#tutorial" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-green-800 bg-white hover:bg-green-50">
+                        Start Learning
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorial Section -->
+    <section id="tutorial" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Complete Dashboard Tutorial</h2>
+                
+                <!-- Introduction -->
+                <div class="mb-12 bg-green-50 p-6 rounded-lg border border-green-100">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">What You'll Build</h3>
+                    <p class="mb-4">This tutorial will teach you how to create an automated expense dashboard that:</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>Reads data from the <code class="bg-green-100 px-1 rounded">expenses.csv</code> file generated by the Receipt Manager</li>
+                        <li>Calculates total spending by category</li>
+                        <li>Generates professional visualizations with Matplotlib</li>
+                        <li>Follows NITDA/NCAIR coding standards for maintainability</li>
+                    </ul>
+                </div>
+
+                <!-- Complete Code Section -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">Complete Dashboard Implementation</h3>
+                    <div class="code-container mb-6">
+                        <button class="copy-btn" data-clipboard-target="#dashboard-code">
+                            Copy Code
+                        </button>
+                        <pre id="dashboard-code"><code class="language-python">import csv
+from collections import defaultdict
+import matplotlib.pyplot as plt
+
+
+class ExpenseDataLoader:
+    """
+    📊 This class loads and organizes data from the expenses.csv file.
+    """
+
+    def __init__(self, csv_file='expenses.csv'):
+        self.csv_file = csv_file
+        self.category_totals = defaultdict(float)
+
+    def load_data(self):
+        """
+        Reads the CSV and calculates the total price for each category.
+        """
+        try:
+            with open(self.csv_file, 'r') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    category = row['Category']
+                    price = float(row['Price'])
+                    self.category_totals[category] += price
+        except FileNotFoundError:
+            print(f"❌ File not found: {self.csv_file}")
+        except Exception as e:
+            print(f"⚠ Error reading file: {e}")
+
+        return self.category_totals
+
+
+class ExpenseDashboard:
+    """
+    📈 This class handles chart creation and display.
+    """
+
+    def __init__(self, category_totals):
+        self.categories = list(category_totals.keys())
+        self.totals = list(category_totals.values())
+
+    def show_bar_chart(self):
+        """
+        Creates and shows a bar chart of expenses per category.
+        """
+        plt.figure(figsize=(10, 6))
+        bars = plt.bar(self.categories, self.totals, color='skyblue')
+        plt.title('Total Expenses by Category')
+        plt.xlabel('Category')
+        plt.ylabel('Total (₦)')
+        plt.xticks(rotation=30)
+        plt.grid(axis='y')
+
+        # Add labels on top of each bar
+        for bar in bars:
+            yval = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2, yval + 5, f"₦{int(yval)}", 
+                    ha='center', fontsize=9)
+
+        plt.tight_layout()
+        plt.show()
+
+
+def main():
+    print("📊 DASHBOARD VIEWER")
+    print("🔁 Designed by Nuhu @ NITDA/NCAIR\n")
+
+    # Step 1: Load data
+    data_loader = ExpenseDataLoader()
+    totals = data_loader.load_data()
+
+    if totals:
+        # Step 2: Create chart
+        dashboard = ExpenseDashboard(totals)
+        dashboard.show_bar_chart()
+    else:
+        print("⚠ No data to display.")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                        <h4 class="text-xl font-semibold text-blue-800 mb-3">How to Use This Dashboard</h4>
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>First run <code class="bg-blue-100 px-1 rounded">receipt_manager.py</code> to process your receipts</li>
+                            <li>Save this code as <code class="bg-blue-100 px-1 rounded">dashboard.py</code> in the same folder</li>
+                            <li>Run <code class="bg-blue-100 px-1 rounded">python dashboard.py</code></li>
+                            <li>View your expense visualization popup</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Component Breakdown -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-6">Component Breakdown</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- ExpenseDataLoader Card -->
+                        <div class="explanation-card bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-green-700 mb-3">ExpenseDataLoader Class</h4>
+                            <p class="mb-4">Responsible for loading and preparing the expense data from CSV.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">__init__ method</h5>
+                                    <p class="text-sm text-gray-600">Sets up the CSV file path and prepares a dictionary to store category totals.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">load_data method</h5>
+                                    <p class="text-sm text-gray-600">Reads the CSV file line by line, sums up prices by category, and handles potential file errors gracefully.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ExpenseDashboard Card -->
+                        <div class="explanation-card bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-green-700 mb-3">ExpenseDashboard Class</h4>
+                            <p class="mb-4">Handles the visualization of expense data.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">__init__ method</h5>
+                                    <p class="text-sm text-gray-600">Prepares the category names and totals for visualization.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">show_bar_chart method</h5>
+                                    <p class="text-sm text-gray-600">Creates a professional bar chart with labeled bars, proper formatting, and Naira currency symbols.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step-by-Step Explanation -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-6">Step-by-Step Execution Flow</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-green-600 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-4">1</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Program Starts</h4>
+                                <p class="text-gray-600">The <code class="bg-gray-100 px-1 rounded">main()</code> function runs when you execute the script.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-green-600 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-4">2</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Data Loading</h4>
+                                <p class="text-gray-600">An <code class="bg-gray-100 px-1 rounded">ExpenseDataLoader</code> instance reads and processes the CSV file.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-green-600 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-4">3</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Data Preparation</h4>
+                                <p class="text-gray-600">Category totals are calculated and returned as a dictionary.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-green-600 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-4">4</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Visualization</h4>
+                                <p class="text-gray-600">The <code class="bg-gray-100 px-1 rounded">ExpenseDashboard</code> creates and displays the bar chart.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-green-600 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold mr-4">5</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Result Display</h4>
+                                <p class="text-gray-600">A window pops up showing your categorized expenses in a professional chart.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Features -->
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-6">NITDA/NCAIR Standards Implemented</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                            <h4 class="text-lg font-semibold text-purple-800 mb-3">Professional Visualization</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Clean, labeled bar chart with Naira amounts</li>
+                                <li>Proper axis labels and title</li>
+                                <li>Responsive design that works for any category count</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-semibold text-blue-800 mb-3">Robust Error Handling</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Graceful handling of missing files</li>
+                                <li>Clear error messages for troubleshooting</li>
+                                <li>Data validation before processing</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                            <h4 class="text-lg font-semibold text-yellow-800 mb-3">Modular Design</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Separate classes for data loading and visualization</li>
+                                <li>Clear separation of concerns</li>
+                                <li>Easy to extend with new features</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-semibold text-green-800 mb-3">User Experience</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Clear console output at each step</li>
+                                <li>Professional chart formatting</li>
+                                <li>Intuitive workflow from data to visualization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Output Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Expected Output</h2>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Sample Expense Visualization</h3>
+                    <p class="mb-4">When you run the dashboard with sample receipt data, you'll see a professional chart like this:</p>
+                    
+                    <div class="bg-gray-100 p-4 rounded-lg flex justify-center">
+                        <div class="text-center">
+                            <img src="https://matplotlib.org/stable/_images/sphx_glr_bar_label_demo_001.png" alt="Sample bar chart" class="mx-auto mb-4 rounded-lg shadow-md max-w-full h-auto">
+                            <p class="text-sm text-gray-600">Example of a professional bar chart generated by Matplotlib</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h4 class="font-semibold text-blue-800 mb-2">Chart Features:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Clear category labels on x-axis</li>
+                            <li>Naira amounts displayed on each bar</li>
+                            <li>Proper title and axis labels</li>
+                            <li>Clean grid lines for easy reading</li>
+                            <li>Responsive design that works with any data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Explanations Section -->
+<section class="py-12 bg-white border-t border-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-green-800 mb-2 text-center">Simple Explanations for Everyone</h2>
+            <p class="text-center mb-8 text-gray-600">Two-line explanations so <strong>any Group 5 member</strong> can understand and explain confidently</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Data Loader Card -->
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">📊 ExpenseDataLoader</h3>
+                    <p class="text-lg"><em>Reads and organizes your expense data from the CSV file.</em><br>
+                    It adds up all purchases in each category (Food, Personal Care, etc.) automatically.</p>
+                    
+                    <div class="mt-4 space-y-4">
+                        <div class="bg-white p-4 rounded shadow-sm">
+                            <h4 class="font-semibold text-blue-700">__init__ method</h4>
+                            <p>Prepares the system to read your expense file.<br>
+                            Creates an empty "calculator" to track category totals.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded shadow-sm">
+                            <h4 class="font-semibold text-blue-700">load_data method</h4>
+                            <p>Goes through each purchase in the file line by line.<br>
+                            Adds each item's price to its category's running total.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Card -->
+                <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">📈 ExpenseDashboard</h3>
+                    <p class="text-lg"><em>Turns numbers into visual charts you can understand at a glance.</em><br>
+                    Creates professional bar charts showing where your money went.</p>
+                    
+                    <div class="mt-4 space-y-4">
+                        <div class="bg-white p-4 rounded shadow-sm">
+                            <h4 class="font-semibold text-purple-700">__init__ method</h4>
+                            <p>Organizes the data for charting.<br>
+                            Separates category names from their total amounts.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded shadow-sm">
+                            <h4 class="font-semibold text-purple-700">show_bar_chart method</h4>
+                            <p>Draws the actual bar chart with colored bars.<br>
+                            Adds labels, titles, and Naira amounts for clarity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Function -->
+            <div class="mt-8 bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                <h3 class="text-xl font-bold text-green-800 mb-3">🖥️ Main Function</h3>
+                <p class="text-lg"><em>The "conductor" that runs everything in the right order.</em><br>
+                First loads data, then creates the chart, just like following a recipe.</p>
+                
+                <div class="mt-4 bg-white p-4 rounded shadow-sm">
+                    <h4 class="font-semibold text-green-700">if __name__ block</h4>
+                    <p>This is where the program starts when you run it.<br>
+                    Like pressing the "ON" button to begin the whole process.</p>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="mt-8 bg-gradient-to-r from-green-600 to-green-800 text-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-4">💡 How It All Works Together</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                        <h4 class="font-bold mb-2">Data Flow</h4>
+                        <ol class="list-decimal pl-5 space-y-1">
+                            <li>CSV file → DataLoader → Category Totals</li>
+                            <li>Totals → Dashboard → Visual Chart</li>
+                        </ol>
+                    </div>
+                    <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                        <h4 class="font-bold mb-2">Key Benefits</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>See spending patterns instantly</li>
+                            <li>No manual calculations needed</li>
+                            <li>Professional results automatically</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 text-center">
+                    <p class="text-lg">Now you can explain this dashboard like a pro! 🎤</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Line-by-Line Code Breakdown -->
+<section class="py-12 bg-gray-50 border-t border-gray-200">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-green-800 mb-2 text-center">Line-by-Line Code Breakdown</h2>
+      <p class="text-center mb-8 text-gray-600">Complete explanation in plain English for absolute beginners</p>
+
+      <!-- Import Section -->
+      <div class="mb-10 bg-white p-6 rounded-lg shadow-sm">
+        <div class="code-container bg-gray-800 rounded-lg mb-4">
+          <button class="copy-btn" data-clipboard-target="#imports-code">Copy</button>
+          <pre id="imports-code"><code class="language-python">import csv
+from collections import defaultdict
+import matplotlib.pyplot as plt</code></pre>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <h4 class="font-bold text-blue-800 mb-2">What These Imports Do:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>csv</strong> - Lets Python read spreadsheet files (like your expenses.csv)</li>
+            <li><strong>defaultdict</strong> - Creates automatic category totals without errors</li>
+            <li><strong>matplotlib</strong> - The tool that draws the colorful bar charts</li>
+          </ul>
+          <p class="mt-2 text-sm text-blue-700">Think of these like kitchen tools - each has a special job for our recipe.</p>
+        </div>
+      </div>
+
+      <!-- DataLoader Class -->
+      <div class="mb-10">
+        <h3 class="text-2xl font-bold text-purple-700 mb-4 flex items-center">
+          <span class="bg-purple-100 text-purple-800 p-2 rounded-full mr-3">1</span>
+          The DataLoader Class
+        </h3>
+        
+        <!-- __init__ -->
+        <div class="mb-6 bg-white p-4 rounded-lg border-l-4 border-purple-300">
+          <div class="code-container bg-gray-800 rounded-lg mb-2">
+            <pre><code class="language-python">def __init__(self, csv_file='expenses.csv'):
+    self.csv_file = csv_file
+    self.category_totals = defaultdict(float)</code></pre>
+          </div>
+          <div class="bg-purple-50 p-3 rounded-lg">
+            <p><strong>In Simple Terms:</strong> This sets up our "data calculator":</p>
+            <ol class="list-decimal pl-5 mt-1 space-y-1">
+              <li>Remembers your expenses file name</li>
+              <li>Creates an empty tally sheet for categories</li>
+            </ol>
+            <p class="mt-2 text-sm text-purple-700">Like preparing a blank notebook before taking inventory.</p>
+          </div>
+        </div>
+
+        <!-- load_data -->
+        <div class="mb-6 bg-white p-4 rounded-lg border-l-4 border-purple-300">
+          <div class="code-container bg-gray-800 rounded-lg mb-2">
+            <pre><code class="language-python">def load_data(self):
+    try:
+        with open(self.csv_file, 'r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                category = row['Category']
+                price = float(row['Price'])
+                self.category_totals[category] += price</code></pre>
+          </div>
+          <div class="bg-purple-50 p-3 rounded-lg">
+            <p><strong>Step-by-Step:</strong></p>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>Opens your expenses file carefully (try)</li>
+              <li>Reads each purchase line by line</li>
+              <li>Adds each item's price to its category's total</li>
+            </ol>
+            <div class="mt-2 p-2 bg-white rounded border-l-4 border-purple-500">
+              <p class="text-sm"><strong>Real-world example:</strong> Like sorting receipts into piles (Food, Toiletries) and adding each pile's total.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Class -->
+      <div class="mb-10">
+        <h3 class="text-2xl font-bold text-green-700 mb-4 flex items-center">
+          <span class="bg-green-100 text-green-800 p-2 rounded-full mr-3">2</span>
+          The Dashboard Class
+        </h3>
+        
+        <!-- __init__ -->
+        <div class="mb-6 bg-white p-4 rounded-lg border-l-4 border-green-300">
+          <div class="code-container bg-gray-800 rounded-lg mb-2">
+            <pre><code class="language-python">def __init__(self, category_totals):
+    self.categories = list(category_totals.keys())
+    self.totals = list(category_totals.values())</code></pre>
+          </div>
+          <div class="bg-green-50 p-3 rounded-lg">
+            <p><strong>What Happens:</strong></p>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>Takes the calculated category totals</li>
+              <li>Prepares two separate lists:
+                <ul class="list-disc pl-5 mt-1">
+                  <li>Category names (Food, Toiletries)</li>
+                  <li>Their total amounts (₦3500, ₦2800)</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- show_bar_chart -->
+        <div class="mb-6 bg-white p-4 rounded-lg border-l-4 border-green-300">
+          <div class="code-container bg-gray-800 rounded-lg mb-2">
+            <pre><code class="language-python">def show_bar_chart(self):
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(self.categories, self.totals, color='skyblue')
+    plt.title('Total Expenses by Category')
+    plt.xlabel('Category')
+    plt.ylabel('Total (₦)')
+    plt.xticks(rotation=30)
+    plt.grid(axis='y')
+    
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, height + 5, 
+                f"₦{int(height)}", ha='center')</code></pre>
+          </div>
+          <div class="bg-green-50 p-3 rounded-lg">
+            <p><strong>Chart Creation Steps:</strong></p>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>Sets up the canvas size (10x6 inches)</li>
+              <li>Draws blue bars for each category</li>
+              <li>Adds titles and rotates labels for readability</li>
+              <li>Puts exact Naira amounts on each bar</li>
+              <li>Adds subtle grid lines for easier comparison</li>
+            </ol>
+            <p class="mt-2 text-sm text-green-700">Like an artist carefully labeling a graph for a school project.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Function -->
+      <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
+        <h3 class="text-xl font-bold text-yellow-800 mb-3">🚀 The Main Function</h3>
+        <div class="code-container bg-gray-800 rounded-lg mb-4">
+          <pre><code class="language-python">def main():
+    print("📊 DASHBOARD VIEWER")
+    print("🔁 Designed by Nuhu @ NITDA/NCAIR\n")
+    
+    data_loader = ExpenseDataLoader()
+    totals = data_loader.load_data()
+    
+    if totals:
+        dashboard = ExpenseDashboard(totals)
+        dashboard.show_bar_chart()
+    else:
+        print("⚠ No data to display.")</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded-lg">
+          <p><strong>How Everything Connects:</strong></p>
+          <ol class="list-decimal pl-5 space-y-1">
+            <li>Shows a friendly welcome message</li>
+            <li>Creates the data loader to read your file</li>
+            <li>If data exists, makes and shows the chart</li>
+            <li>If no data, gives a helpful warning</li>
+          </ol>
+          <div class="mt-3 p-3 bg-yellow-100 rounded-lg">
+            <p class="text-sm"><strong>Pro Tip:</strong> This is like the "start button" that runs the whole process in the right order.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Q&A Challenge Section -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-green-800 mb-2">Dashboard Q&A Challenge</h2>
+        <p class="text-center text-gray-600 mb-8">Test your knowledge with these 30 essential visualization questions</p>
+        
+        <div class="max-w-4xl mx-auto">
+            <!-- Score Display -->
+            <div id="score-display-2" class="hidden bg-white p-4 rounded-lg shadow-md mb-8 text-center">
+                <h3 class="text-2xl font-bold mb-2">Your Results</h3>
+                <p id="score-text-2" class="text-xl mb-4"></p>
+                <div id="incorrect-answers-2" class="text-left"></div>
+                <button onclick="resetQuiz(2)" class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">Try Again</button>
+            </div>
+
+            <!-- Quiz Form -->
+            <form id="quiz-form-2" class="space-y-6">
+                <!-- Question 1 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(1, 2)">
+                        <h3 class="text-xl font-semibold">1. What is the purpose of defaultdict in ExpenseDataLoader?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) To create spreadsheet files</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) To automatically handle new categories without errors</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) To draw bar charts</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q1" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) To rotate text labels</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(2, 2)">
+                        <h3 class="text-xl font-semibold">2. Why does show_bar_chart() rotate x-axis labels by 30 degrees?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) To make the chart look artistic</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) To prevent long category names from overlapping</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) Because matplotlib requires it</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q2" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) To match NITDA design standards</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions 3-29 would follow the same pattern -->
+                
+                <!-- Sample Question 3 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(3, 2)">
+                        <h3 class="text-xl font-semibold">3. What happens if expenses.csv is empty when running the dashboard?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) The program crashes with an error</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) It shows a blank chart</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) It displays a helpful warning message</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q3" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) It creates sample data automatically</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions 4-29 (completing the full set of 30) -->
+
+<!-- Question 4 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(4, 2)">
+        <h3 class="text-xl font-semibold">4. What does csv.DictReader do in the ExpenseDataLoader?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Reads each row as a dictionary with column headers as keys</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Converts the CSV to JSON format</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Creates a spreadsheet from the data</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q4" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Encrypts the CSV file</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 5 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(5, 2)">
+        <h3 class="text-xl font-semibold">5. Why is there a try/except block in load_data()?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To make the code run faster</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To handle potential file errors gracefully</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Because CSV files require it</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q5" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To validate the chart output</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 6 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(6, 2)">
+        <h3 class="text-xl font-semibold">6. What color are the bars in the default chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Green</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Red</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Skyblue</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q6" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Yellow</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 7 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(7, 2)">
+        <h3 class="text-xl font-semibold">7. What does plt.grid(axis='y') add to the chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Vertical reference lines for easier value reading</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="B" class="h-5 w-5 text-green-600">
+                <span>B) A border around the entire chart</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Diagonal pattern fills for the bars</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q7" value="D" class="h-5 w-5 text-green-600">
+                <span>D) A background image</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 8 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(8, 2)">
+        <h3 class="text-xl font-semibold">8. What does bar.get_height() return?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The width of the bar</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The numeric value the bar represents</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The color of the bar</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q8" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The category name</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 9 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(9, 2)">
+        <h3 class="text-xl font-semibold">9. Why convert row['Price'] to float?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To enable mathematical operations on the values</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Because CSV only stores text</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To reduce memory usage</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q9" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Both A and B</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 10 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(10, 2)">
+        <h3 class="text-xl font-semibold">10. What is the purpose of plt.tight_layout()?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To compress the image file size</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To automatically adjust spacing to prevent label clipping</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To make the chart load faster</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q10" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To convert the chart to grayscale</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Questions 11-29 would follow the same pattern with appropriate content -->
+
+<!-- Question 11 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(11, 2)">
+        <h3 class="text-xl font-semibold">11. What is the first thing the main() function does?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Creates the chart</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Loads the data</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Prints a welcome message</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q11" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Checks for errors</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 12 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(12, 2)">
+        <h3 class="text-xl font-semibold">12. How are the category totals stored in ExpenseDashboard?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="A" class="h-5 w-5 text-green-600">
+                <span>A) As a list of numbers</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="B" class="h-5 w-5 text-green-600">
+                <span>B) As a dictionary</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="C" class="h-5 w-5 text-green-600">
+                <span>C) As a tuple</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q12" value="D" class="h-5 w-5 text-green-600">
+                <span>D) As a set</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 13 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(13, 2)">
+        <h3 class="text-xl font-semibold">13. What appears on the y-axis of the chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Category names</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Naira amounts</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Dates of purchases</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q13" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Receipt filenames</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 14 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(14, 2)">
+        <h3 class="text-xl font-semibold">14. What size is the chart set to create?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="A" class="h-5 w-5 text-green-600">
+                <span>A) 10x6 inches</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="B" class="h-5 w-5 text-green-600">
+                <span>B) 800x600 pixels</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Full screen</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q14" value="D" class="h-5 w-5 text-green-600">
+                <span>D) 5x3 inches</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 15 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(15, 2)">
+        <h3 class="text-xl font-semibold">15. What does ha='center' do in plt.text()?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Makes text bold</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Changes text color</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Center-aligns the bar labels</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q15" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Hides the text</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 16 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(16, 2)">
+        <h3 class="text-xl font-semibold">16. What is the best use of this dashboard?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Editing receipt images</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Visualizing spending patterns</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Creating new CSV files</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q16" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Connecting to databases</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 17 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(17, 2)">
+        <h3 class="text-xl font-semibold">17. What does plt.xlabel() configure?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The label below the categories</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The chart title</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The bar colors</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q17" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The grid lines</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 18 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(18, 2)">
+        <h3 class="text-xl font-semibold">18. Why use defaultdict(float) instead of a regular dictionary?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="A" class="h-5 w-5 text-green-600">
+                <span>A) It automatically initializes new keys with 0.0</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="B" class="h-5 w-5 text-green-600">
+                <span>B) It's faster for small datasets</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="C" class="h-5 w-5 text-green-600">
+                <span>C) It sorts the categories alphabetically</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q18" value="D" class="h-5 w-5 text-green-600">
+                <span>D) It uses less memory</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 19 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(19, 2)">
+        <h3 class="text-xl font-semibold">19. Which of these is NOT shown in the chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Category names</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Naira amounts</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Individual receipt items</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q19" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Grid lines</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 20 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(20, 2)">
+        <h3 class="text-xl font-semibold">20. How are categories sorted in the chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="A" class="h-5 w-5 text-green-600">
+                <span>A) In the order they appear in the CSV</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Alphabetically</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="C" class="h-5 w-5 text-green-600">
+                <span>C) By amount from highest to lowest</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q20" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Randomly</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 21 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(21, 2)">
+        <h3 class="text-xl font-semibold">21. What handles the case when there's no data to display?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The try/except block</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The if totals: check</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The defaultdict</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q21" value="D" class="h-5 w-5 text-green-600">
+                <span>D) plt.show()</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 22 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(22, 2)">
+        <h3 class="text-xl font-semibold">22. Where does the ₦ symbol come from in the chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Automatic currency detection</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The f"₦{int(height)}" formatting</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="C" class="h-5 w-5 text-green-600">
+                <span>C) matplotlib's default settings</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q22" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The CSV file</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 23 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(23, 2)">
+        <h3 class="text-xl font-semibold">23. What does plt.ylabel() configure?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The label on the left side</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The chart title</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The bar colors</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q23" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The legend</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 24 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(24, 2)">
+        <h3 class="text-xl font-semibold">24. Why convert height to int in the bar labels?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="A" class="h-5 w-5 text-green-600">
+                <span>A) To show whole Naira amounts</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="B" class="h-5 w-5 text-green-600">
+                <span>B) To make the text smaller</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="C" class="h-5 w-5 text-green-600">
+                <span>C) To enable mathematical operations</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q24" value="D" class="h-5 w-5 text-green-600">
+                <span>D) To match CSV formatting</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 25 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(25, 2)">
+        <h3 class="text-xl font-semibold">25. What is the default title of the chart?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="A" class="h-5 w-5 text-green-600">
+                <span>A) 'Expense Report'</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="B" class="h-5 w-5 text-green-600">
+                <span>B) 'Spending Visualization'</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="C" class="h-5 w-5 text-green-600">
+                <span>C) 'Total Expenses by Category'</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q25" value="D" class="h-5 w-5 text-green-600">
+                <span>D) 'NITDA Expense Chart'</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 26 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(26, 2)">
+        <h3 class="text-xl font-semibold">26. What does the += operator do in category_totals[category] += price?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q26" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Adds the price to the category's running total</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q26" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Creates a new category</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q26" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Compares prices</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q26" value="D" class="h-5 w-5 text-green-600">
+                <span>D) Rounds the price</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 27 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(27, 2)">
+        <h3 class="text-xl font-semibold">27. Where are the value labels placed on the bars?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q27" value="A" class="h-5 w-5 text-green-600">
+                <span>A) Below each bar</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q27" value="B" class="h-5 w-5 text-green-600">
+                <span>B) Above each bar</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q27" value="C" class="h-5 w-5 text-green-600">
+                <span>C) Inside each bar</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q27" value="D" class="h-5 w-5 text-green-600">
+                <span>D) In the legend</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 28 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(28, 2)">
+        <h3 class="text-xl font-semibold">28. What Python feature opens and automatically closes the CSV file?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q28" value="A" class="h-5 w-5 text-green-600">
+                <span>A) The with open() statement</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q28" value="B" class="h-5 w-5 text-green-600">
+                <span>B) The try/except block</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q28" value="C" class="h-5 w-5 text-green-600">
+                <span>C) The defaultdict</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q28" value="D" class="h-5 w-5 text-green-600">
+                <span>D) The csv module</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 29 -->
+<div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(29, 2)">
+        <h3 class="text-xl font-semibold">29. What is the 'reader' variable in load_data()?</h3>
+        <span class="toggle-icon text-green-600">+</span>
+    </div>
+    <div class="question-body hidden mt-4 pl-2">
+        <div class="space-y-2">
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q29" value="A" class="h-5 w-5 text-green-600">
+                <span>A) A file writer</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q29" value="B" class="h-5 w-5 text-green-600">
+                <span>B) An object that yields CSV rows as dictionaries</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q29" value="C" class="h-5 w-5 text-green-600">
+                <span>C) A list of all data</span>
+            </label>
+            <label class="flex items-center space-x-3">
+                <input type="radio" name="q29" value="D" class="h-5 w-5 text-green-600">
+                <span>D) A connection to the database</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+                <!-- Question 30 -->
+                <div class="quiz-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="question-header flex justify-between items-center cursor-pointer" onclick="toggleQuestion(30, 2)">
+                        <h3 class="text-xl font-semibold">30. What does plt.tight_layout() do in the chart?</h3>
+                        <span class="toggle-icon text-green-600">+</span>
+                    </div>
+                    <div class="question-body hidden mt-4 pl-2">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="A" class="h-5 w-5 text-green-600">
+                                <span>A) Compresses the image file size</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="B" class="h-5 w-5 text-green-600">
+                                <span>B) Automatically adjusts spacing to prevent label clipping</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="C" class="h-5 w-5 text-green-600">
+                                <span>C) Makes the chart load faster</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="q30" value="D" class="h-5 w-5 text-green-600">
+                                <span>D) Converts the chart to grayscale</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-8">
+                    <button type="button" onclick="checkAnswers(2)" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                        Submit Answers
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+   <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+    <!-- Footer -->
+    <footer class="bg-green-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-12">
+                    <p class="mt-2 text-green-200">National Information Technology Development Agency</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-green-300">UnifiedLearning Archive</p>
+                    <p class="text-green-200">"A legacy that will outshine globally"</p>
+                    <p class="mt-2 text-sm text-green-400">© 2023 NITDA/NCAIR. All rights reserved.</p>
+                </div>
+            </div>
+              <div class="flex space-x-4">
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
+        </div>
+    </footer>
+
+    <script>
+        
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Initialize clipboard.js
+        new ClipboardJS('.copy-btn');
+        
+        // Show feedback when code is copied
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            });
+        });
+        // Initialize syntax highlighting and clipboard functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    hljs.highlightAll();
+    new ClipboardJS('.copy-btn');
+    
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    });
+  });
+  // Quiz functionality for page 2
+    const correctAnswers2 = {
+        q1: "B", q2: "B", q3: "C", q4: "A", q5: "B", q6: "C", q7: "A", q8: "B", q9: "A", q10: "B", q11: "C", q12: "A", q13: "B", q14: "A", q15: "C", q16: "B", q17: "A", q18: "B", q19: "D", q20: "A", q21: "C", q22: "B", q23: "A", q24: "B", q25: "C", q26: "A", q27: "B", q28: "A", q29: "B", q30: "A"
+    };
+
+    const answerExplanations2 = {
+        q1: "defaultdict automatically creates new categories when encountered, preventing KeyErrors.",
+        q2: "Rotation prevents overlapping text when category names are long.",
+        q3: "The code checks if totals exist before creating a chart.",
+        q4: "What does csv.DictReader do? (A - Reads rows as dictionaries)",
+        q5: "Why use try/except in load_data? (B - Handle file errors gracefully)",
+        q6: "What color are the bars? (C - Skyblue)",
+        q7: "Purpose of plt.grid()? (A - Add reference lines for y-axis)",
+        q8: "What does get_height() get? (B - Bar's vertical value)",
+        q9: "Why convert price to float? (A - Ensure proper math operations)",
+        q10: "What does tight_layout() do? (B - Prevent label clipping)",
+        q11: "First thing main() does? (C - Prints welcome message)",
+        q12: "How are totals stored? (A - As list of numbers)",
+        q13: "What's on the y-axis? (B - Naira amounts)",
+        q14: "Chart size setting? (A - 10x6 inches)",
+        q15: "Ha='center' in text() means? (C - Center-aligns bar labels)",
+        q16: "Best use of this dashboard? (B - Visualize spending patterns)",
+        q17: "What's plt.xlabel() for? (A - Label the x-axis)",
+        q18: "Why defaultdict(float)? (B - Initialize totals as 0.0)",
+        q19: "What's not in the chart? (D - Pie slices)",
+        q20: "How are categories sorted? (A - Original CSV order)",
+        q21: "What handles missing data? (C - if totals: check)",
+        q22: 'Naira symbol comes from? (B - f"₦{int(height)}")',
+        q23: "What's plt.ylabel() for? (A - Label the y-axis)",
+        q24: "Why int(height)? (B - Show whole Naira amounts)",
+        q25: "What's the chart title? (C - 'Total Expenses by Category')",
+        q26: "What's += doing? (A - Adding to category totals)",
+        q27: "Where are labels placed? (B - Above each bar)",
+        q28: "What opens the CSV? (A - with open() statement)",
+        q29: "What's reader variable? (B - CSV row iterator)",
+        q30: "tight_layout() automatically adjusts subplot params so labels don't get cut off."
+    };
+
+    function checkAnswers(quizNum) {
+        const formId = `quiz-form-${quizNum}`;
+        const scoreId = `score-text-${quizNum}`;
+        const incorrectId = `incorrect-answers-${quizNum}`;
+        const displayId = `score-display-${quizNum}`;
+        
+        let score = 0;
+        const form = document.getElementById(formId);
+        const results = [];
+        const correctAnswers = quizNum === 2 ? correctAnswers2 : correctAnswers1;
+        const explanations = quizNum === 2 ? answerExplanations2 : answerExplanations1;
+
+        for (let i = 1; i <= 30; i++) {
+            const questionName = `q${i}`;
+            const selectedOption = form.elements[questionName]?.value;
+            
+            if (selectedOption === correctAnswers[questionName]) {
+                score++;
+            } else if (selectedOption) {
+                results.push({
+                    question: i,
+                    correct: correctAnswers[questionName],
+                    explanation: explanations[questionName]
+                });
+            }
+        }
+
+        // Display results
+        document.getElementById(scoreId).innerHTML = 
+            `You scored <span class="font-bold">${score}/30</span> (${Math.round((score/30)*100)}%)`;
+        
+        const incorrectEl = document.getElementById(incorrectId);
+        incorrectEl.innerHTML = '';
+        
+        if (results.length > 0) {
+            incorrectEl.innerHTML += '<h4 class="font-semibold mt-4">Questions to review:</h4>';
+            results.forEach(item => {
+                incorrectEl.innerHTML += `
+                    <div class="mt-3 p-3 bg-red-50 rounded-lg">
+                        <p><strong>Question ${item.question}:</strong> Correct answer is <span class="font-bold">${item.correct}</span></p>
+                        <p class="text-sm mt-1">${item.explanation}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Show results
+        document.getElementById(formId).classList.add('hidden');
+        document.getElementById(displayId).classList.remove('hidden');
+    }
+
+    function resetQuiz(quizNum) {
+        const formId = `quiz-form-${quizNum}`;
+        const displayId = `score-display-${quizNum}`;
+        
+        document.getElementById(formId).classList.remove('hidden');
+        document.getElementById(displayId).classList.add('hidden');
+        
+        // Clear selections
+        const radioButtons = document.querySelectorAll(`#${formId} input[type="radio"]`);
+        radioButtons.forEach(radio => radio.checked = false);
+        
+        // Close all questions
+        document.querySelectorAll(`#${formId} .question-body`).forEach(body => {
+            body.classList.add('hidden');
+        });
+        document.querySelectorAll(`#${formId} .toggle-icon`).forEach(icon => {
+            icon.textContent = '+';
+        });
+    }
+
+    function toggleQuestion(questionNum, quizNum) {
+        const formId = `quiz-form-${quizNum}`;
+        const question = document.querySelector(`#${formId} .quiz-card:nth-child(${questionNum}) .question-body`);
+        const icon = document.querySelector(`#${formId} .quiz-card:nth-child(${questionNum}) .toggle-icon`);
+        
+        // Close previously opened question in this quiz
+        document.querySelectorAll(`#${formId} .question-body`).forEach(body => {
+            if (body !== question) body.classList.add('hidden');
+        });
+        document.querySelectorAll(`#${formId} .toggle-icon`).forEach(i => {
+            if (i !== icon) i.textContent = '+';
+        });
+        
+        // Toggle current question
+        question.classList.toggle('hidden');
+        icon.textContent = question.classList.contains('hidden') ? '+' : '-';
+    };
+      AOS.init();
+    </script>
+  
+</body>
+</html>

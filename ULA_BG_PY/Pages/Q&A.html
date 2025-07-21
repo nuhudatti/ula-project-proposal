@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Mastery Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        .feedback {
+            transition: all 0.3s ease;
+        }
+        [x-cloak] { display: none !important; }
+        .rotate-0 { transform: rotate(0deg); }
+        .rotate-180 { transform: rotate(180deg); }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-4xl" x-data="quizApp()" x-init="initQuiz()" x-cloak>
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Python Mastery Challenge</h1>
+            <p class="text-gray-600">Test your knowledge across all 10 sections</p>
+            <div class="text-sm text-gray-600 italic font-medium">
+              <p><span id="typed2"></span></p>
+            </div>
+        </header>
+
+        <!-- Progress Indicator -->
+        <div class="mb-6 bg-white p-4 rounded-lg shadow-sm">
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-medium">Your Progress</span>
+                <span x-text="`${answeredCount}/${totalQuestions}`"></span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-blue-600 h-3 rounded-full" 
+                     :style="`width: ${(answeredCount/totalQuestions)*100}%`"></div>
+            </div>
+        </div>
+
+        <!-- Section Accordions -->
+        <div class="space-y-4 mb-8">
+            <template x-for="(section, index) in sections" :key="index">
+                <div class="border rounded-lg overflow-hidden bg-white">
+                    <button 
+                        class="w-full flex justify-between items-center p-4 hover:bg-gray-50 transition"
+                        @click="toggleSection(index)"
+                        :class="{ 'bg-blue-50': openSections[index] }">
+                        <h3 class="text-lg font-semibold" x-text="`Section ${index+1}: ${section.title}`"></h3>
+                        <svg class="w-5 h-5 transition-transform" 
+                             :class="openSections[index] ? 'rotate-180' : 'rotate-0'"
+                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div x-show="openSections[index]" x-collapse class="px-4 pb-4 space-y-4">
+                        <template x-for="(question, qIndex) in section.questions" :key="qIndex">
+                            <div class="question-card p-4 border rounded-lg"
+                                 :class="{
+                                    'border-green-200 bg-green-50': isAnswered(index, qIndex) && isCorrect(index, qIndex),
+                                    'border-red-200 bg-red-50': isAnswered(index, qIndex) && !isCorrect(index, qIndex)
+                                 }">
+                                <p class="font-medium mb-3" x-text="`${qIndex+1}. ${question.question}`"></p>
+                                <div class="space-y-2">
+                                    <template x-for="(option, oIndex) in question.options" :key="oIndex">
+                                        <label class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <input type="radio" 
+                                                   :name="`section${index}-q${qIndex}`" 
+                                                   :value="oIndex"
+                                                   @change="selectAnswer(index, qIndex, oIndex)"
+                                                   class="h-4 w-4">
+                                            <span x-text="option"></span>
+                                        </label>
+                                    </template>
+                                </div>
+                                <div x-show="showResults && !isCorrect(index, qIndex)" 
+                                     class="feedback mt-3 p-3 bg-white rounded border">
+                                    <p class="text-sm font-medium">Your answer: <span x-text="getUserAnswer(index, qIndex)"></span></p>
+                                    <p class="text-sm font-medium">Correct answer: <span x-text="question.options[question.answer]"></span></p>
+                                    <p class="text-sm mt-1" x-text="question.explanation"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Results Panel -->
+        <div x-show="showResults" class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 class="text-xl font-bold mb-4">Quiz Results</h3>
+            <div class="space-y-4 mb-4">
+                <div class="flex items-center justify-between">
+                    <span class="font-medium">Total Questions:</span>
+                    <span x-text="totalQuestions"></span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-medium">Correct Answers:</span>
+                    <span class="text-green-600 font-bold" x-text="score"></span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-medium">Your Score:</span>
+                    <span class="text-blue-600 font-bold" x-text="`${Math.round((score/totalQuestions)*100)}%`"></span>
+                </div>
+            </div>
+            <div class="p-4 rounded-lg" 
+                 :class="{
+                    'bg-green-100 text-green-800': (score/totalQuestions) >= 0.8,
+                    'bg-yellow-100 text-yellow-800': (score/totalQuestions) >= 0.5 && (score/totalQuestions) < 0.8,
+                    'bg-red-100 text-red-800': (score/totalQuestions) < 0.5
+                 }">
+                <p class="font-medium" x-text="getPerformanceComment()"></p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex space-x-4">
+            <button @click="submitQuiz" 
+                    class="flex-1 py-3 px-6 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition"
+                    x-show="!showResults">
+                Submit Quiz
+            </button>
+            <button @click="resetQuiz" 
+                    class="flex-1 py-3 px-6 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition"
+                    x-show="showResults">
+                Try Again
+            </button>
+        </div>
+    </div>
+     <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quizApp', () => ({
+                // Quiz state
+                showResults: false,
+                score: 0,
+                answeredCount: 0,
+                openSections: Array(10).fill(false),
+                userAnswers: Array(10).fill().map(() => []),
+                
+                // All sections with questions
+                sections: [
+                    {
+  title: "Introduction to Python",
+  questions: [
+    {
+      question: "Python was first released in which year?",
+      options: ["1989", "1991", "1995", "2000"],
+      answer: 1, // 1991
+      explanation: "Guido van Rossum released Python 0.9.0 in February 1991."
+    },
+    {
+      question: "What is Python's philosophy summarized in the Zen of Python?",
+      options: ["Fast is better than slow", "Beautiful is better than ugly", "Complex is better than simple", "Short is better than long"],
+      answer: 1, // Beautiful is better than ugly
+      explanation: "The Zen of Python emphasizes readability and simplicity."
+    },
+    {
+      question: "Which of these is NOT a Python data type?",
+      options: ["list", "tuple", "array", "dict"],
+      answer: 2, // array
+      explanation: "Python has lists (not arrays) as built-in types. Arrays require the 'array' module."
+    },
+    {
+      question: "What makes Python an interpreted language?",
+      options: ["It compiles to machine code", "It executes line-by-line without compilation", "It only runs in browsers", "It requires a virtual machine"],
+      answer: 1, // Executes line-by-line
+      explanation: "Python code is executed by the interpreter without separate compilation."
+    },
+    {
+      question: "Which company maintains Python?",
+      options: ["Python Foundation", "Google", "Python Software Foundation", "Microsoft"],
+      answer: 2, // Python Software Foundation
+      explanation: "The PSF is a non-profit that oversees Python development."
+    },
+    {
+      question: "What is the correct extension for Python files?",
+      options: [".pt", ".py", ".python", ".pyth"],
+      answer: 1, // .py
+      explanation: "All Python source files use the .py extension."
+    },
+    {
+      question: "Which symbol is used for comments in Python?",
+      options: ["//", "#", "--", "/*"],
+      answer: 1, // #
+      explanation: "Python uses # for single-line comments."
+    },
+    {
+      question: "What is the output of `print(type(5))`?",
+      options: ["<class 'number'>", "<class 'int'>", "<class 'float'>", "<class 'digit'>"],
+      answer: 1, // <class 'int'>
+      explanation: "Whole numbers without decimals are of type 'int' in Python."
+    },
+    {
+      question: "Which tool helps manage Python packages?",
+      options: ["npm", "pip", "python-pkg", "pkgman"],
+      answer: 1, // pip
+      explanation: "pip is Python's standard package installer."
+    },
+    {
+      question: "What does REPL stand for in Python?",
+      options: ["Read-Eval-Print Loop", "Run-Execute-Print Loop", "Read-Execute-Process Loop", "Repeat-Evaluate-Print Loop"],
+      answer: 0, // Read-Eval-Print Loop
+      explanation: "REPL is an interactive Python shell that Reads, Evaluates, Prints, and Loops."
+    }
+  ]
+},
+                    {
+  title: "Python Setup & Environment",
+  questions: [
+    {
+      question: "Which command checks your Python version?",
+      options: ["python --check", "python --version", "python -v", "check-python"],
+      answer: 1, // python --version
+      explanation: "`python --version` or `python -V` shows the installed version."
+    },
+    {
+      question: "What is the correct way to install a package using pip?",
+      options: ["pip get package", "pip install package", "python install package", "python -m pip package"],
+      answer: 1, // pip install package
+      explanation: "The standard syntax is `pip install package_name`."
+    },
+    {
+      question: "Which file lists dependencies for a Python project?",
+      options: ["requirements.txt", "dependencies.py", "packages.txt", "pipfile.config"],
+      answer: 0, // requirements.txt
+      explanation: "requirements.txt is the conventional file for listing dependencies."
+    },
+    {
+      question: "What does `python -m venv myenv` do?",
+      options: ["Creates a virtual environment", "Installs a package named 'venv'", "Runs a module called 'myenv'", "Checks memory usage"],
+      answer: 0, // Creates a virtual environment
+      explanation: "This command creates a new virtual environment named 'myenv'."
+    },
+    {
+      question: "How do you activate a virtual environment on Windows?",
+      options: ["./venv/activate", "source venv/bin/activate", "venv\\Scripts\\activate", "python activate venv"],
+      answer: 2, // venv\Scripts\activate
+      explanation: "Windows uses backslashes and the Scripts folder for activation."
+    },
+    {
+      question: "Which IDE comes bundled with Python by default?",
+      options: ["PyCharm", "IDLE", "VS Code", "Spyder"],
+      answer: 1, // IDLE
+      explanation: "IDLE (Integrated Development and Learning Environment) is Python's built-in IDE."
+    },
+    {
+      question: "What is the purpose of `__pycache__` folders?",
+      options: ["Stores cached Python packages", "Contains compiled bytecode", "Holds backup files", "Stores documentation"],
+      answer: 1, // Contains compiled bytecode
+      explanation: "Python stores compiled .pyc files here for faster execution."
+    },
+    {
+      question: "Which command upgrades pip to the latest version?",
+      options: ["pip upgrade", "pip --upgrade", "python -m pip install --upgrade pip", "update pip"],
+      answer: 2, // python -m pip install --upgrade pip
+      explanation: "This is the recommended way to upgrade pip itself."
+    },
+    {
+      question: "What does `if __name__ == '__main__':` do?",
+      options: ["Checks if the script is imported", "Makes the script run faster", "Enables special Python features", "Prevents syntax errors"],
+      answer: 0, // Checks if the script is imported
+      explanation: "This idiom lets code run only when executed directly (not imported)."
+    },
+    {
+      question: "Which Python implementation is written in Java?",
+      options: ["CPython", "Jython", "IronPython", "PyPy"],
+      answer: 1, // Jython
+      explanation: "Jython runs on the Java Virtual Machine (JVM)."
+    }
+  ]
+},
+
+    // SECTION 1: INTRODUCTION (Already provided above)
+    // SECTION 2: SETUP (Already provided above)
+
+    // SECTION 3: SYNTAX & FIRST PROGRAM
+    {
+      title: "Basic Syntax",
+      questions: [
+        {
+          question: "What symbol is used for exponentiation in Python?",
+          options: ["^", "**", "^^", "↑"],
+          answer: 1,
+          explanation: "** is Python's exponentiation operator (e.g., 2**3 = 8)"
+        },
+        {
+          question: "Which of these prints 'Hello' in Python 3?",
+          options: ["print 'Hello'", "print(Hello)", "print('Hello')", "echo 'Hello'"],
+          answer: 2,
+          explanation: "Python 3 requires parentheses for print()"
+        },
+        {
+          question: "What is the output of `print(10//3)`?",
+          options: ["3", "3.333", "3.0", "1"],
+          answer: 0,
+          explanation: "// performs floor division (rounds down)"
+        },
+        {
+          question: "Which is a valid variable name?",
+          options: ["2nd_var", "_myVar", "break", "var-name"],
+          answer: 1,
+          explanation: "Variables can start with _ but not numbers or keywords"
+        },
+        {
+          question: "What does this code output?<br><code>print('Hi' * 3)</code>",
+          options: ["HiHiHi", "Hi*3", "Error", "Hi Hi Hi"],
+          answer: 0,
+          img: "https://i.imgur.com/JQ0y5Z0.png",
+          explanation: "Strings can be multiplied to repeat them"
+        },
+        {
+          question: "Which escape sequence represents a newline?",
+          options: ["\\n", "\\r", "\\t", "\\b"],
+          answer: 0,
+          explanation: "\\n creates a new line in strings"
+        },
+        {
+          question: "What is the type of `3.14`?",
+          options: ["int", "float", "double", "decimal"],
+          answer: 1,
+          explanation: "Numbers with decimals are float type"
+        },
+        {
+          question: "Which operator checks equality?",
+          options: ["=", "==", "===", "!=="],
+          answer: 1,
+          explanation: "== compares values, = is for assignment"
+        },
+        {
+          question: "What does `len('Python')` return?",
+          options: ["5", "6", "7", "Error"],
+          answer: 1,
+          explanation: "len() counts characters (P-y-t-h-o-n)"
+        },
+        {
+          question: "Which is NOT a Python keyword?",
+          options: ["lambda", "async", "yield", "function"],
+          answer: 3,
+          explanation: "Python uses 'def' not 'function'"
+        }
+      ]
+    },
+
+    // SECTION 4: VARIABLES & DATA TYPES
+    {
+      title: "Variables & Types",
+      questions: [
+        {
+          question: "What is the output?<br><code>x = 5<br>y = x<br>x = 10<br>print(y)</code>",
+          options: ["5", "10", "Error", "None"],
+          answer: 0,
+          img: "https://i.imgur.com/vWX3JzG.png",
+          explanation: "y gets a copy of x's original value"
+        },
+        {
+          question: "Which converts a string to an integer?",
+          options: ["int()", "str()", "float()", "chr()"],
+          answer: 0,
+          explanation: "int('5') converts string '5' to number 5"
+        },
+        {
+          question: "What is the type of `True`?",
+          options: ["bool", "int", "flag", "bit"],
+          answer: 0,
+          explanation: "True/False are boolean values"
+        },
+        {
+          question: "Which is immutable?",
+          options: ["list", "dict", "tuple", "set"],
+          answer: 2,
+          explanation: "Tuples cannot be changed after creation"
+        },
+        {
+          question: "What does `bool('False')` evaluate to?",
+          options: ["False", "True", "Error", "None"],
+          answer: 1,
+          explanation: "Non-empty strings are always True"
+        },
+        {
+          question: "Which creates a complex number?",
+          options: ["3 + 4i", "3 + 4j", "complex(3,4)", "Both 2 & 3"],
+          answer: 3,
+          explanation: "Python uses j for imaginary numbers"
+        },
+        {
+          question: "What is the output?<br><code>print(type(3) == type(3.0))</code>",
+          options: ["True", "False", "Error", "None"],
+          answer: 1,
+          explanation: "3 is int, 3.0 is float"
+        },
+        {
+          question: "Which is a valid string literal?",
+          options: [`'It's python'`, `"It's python"`, `'''It's python'''`, "All of these"],
+          answer: 3,
+          explanation: "Python supports multiple string delimiters"
+        },
+        {
+          question: "What does `None` represent?",
+          options: ["False", "Null value", "Zero", "Empty string"],
+          answer: 1,
+          explanation: "None is Python's null value"
+        },
+        {
+          question: "Which creates a multi-line string?",
+          options: [`"Line1\nLine2"`, `'''Line1\nLine2'''`, `"Line1 Line2"`, "Both 1 & 2"],
+          answer: 3,
+          img: "https://i.imgur.com/5X9wWtB.png"
+        }
+      ]
+    },
+
+    // SECTION 5: OPERATORS & EXPRESSIONS
+    {
+      title: "Operators",
+      questions: [
+        {
+          question: "What is `10 % 3`?",
+          options: ["3", "1", "0.333", "Error"],
+          answer: 1,
+          explanation: "% is the modulo (remainder) operator"
+        },
+        {
+          question: "Which has highest precedence?",
+          options: ["+", "*", "**", "//"],
+          answer: 2,
+          img: "https://i.imgur.com/PythonPrecedence.png",
+          explanation: "Exponentiation comes first"
+        },
+        {
+          question: "What is `not (True or False)`?",
+          options: ["True", "False", "Error", "None"],
+          answer: 1,
+          explanation: "Inner OR evaluates first, then NOT flips it"
+        },
+        {
+          question: "What does `x += 5` do?",
+          options: ["Adds 5 to x", "Checks equality", "Compares values", "Raises error"],
+          answer: 0,
+          explanation: "Shorthand for x = x + 5"
+        },
+        {
+          question: "Which is the identity operator?",
+          options: ["==", "=", "is", "in"],
+          answer: 2,
+          explanation: "`is` checks if objects are identical (same memory)"
+        },
+        {
+          question: "What is `'a' in 'banana'`?",
+          options: ["True", "False", "Error", "None"],
+          answer: 0,
+          explanation: "Checks if substring exists"
+        },
+        {
+          question: "What is `8 >> 1`?",
+          options: ["4", "8", "16", "Error"],
+          answer: 0,
+          explanation: "Right shift divides by 2 (binary 1000 → 0100)"
+        },
+        {
+          question: "Which returns the absolute value?",
+          options: ["abs()", "absolute()", "fabs()", "mod()"],
+          answer: 0,
+          explanation: "abs(-5) returns 5"
+        },
+        {
+          question: "What does `round(3.75, 1)` return?",
+          options: ["3.7", "3.8", "4.0", "3.750"],
+          answer: 1,
+          explanation: "Rounds to 1 decimal place (3.75 → 3.8)"
+        },
+        {
+          question: "Which operator is overloaded for string concatenation?",
+          options: ["+", "&", "|", "++"],
+          answer: 0,
+          img: "https://i.imgur.com/StringConcatenation.png"
+        }
+      ]
+    },
+
+    // SECTION 6: CONTROL FLOW
+    {
+      title: "Control Flow",
+      questions: [
+        {
+          question: "What does this code output?<br><code>x = 5<br>if x > 2:<br>&nbsp;&nbsp;print('A')<br>elif x > 3:<br>&nbsp;&nbsp;print('B')<br>else:<br>&nbsp;&nbsp;print('C')</code>",
+          options: ["A", "B", "C", "Error"],
+          answer: 0,
+          img: "https://i.imgur.com/IfElseExample.png"
+        },
+        {
+          question: "How many times does this loop run?<br><code>for i in range(5):</code>",
+          options: ["4", "5", "6", "Error"],
+          answer: 1,
+          explanation: "range(5) is 0-4 (5 iterations)"
+        },
+        {
+          question: "What is the output?<br><code>i = 1<br>while i < 3:<br>&nbsp;&nbsp;print(i)<br>&nbsp;&nbsp;i += 1</code>",
+          options: ["1", "1\n2", "1\n2\n3", "Infinite loop"],
+          answer: 1,
+          explanation: "Stops when i reaches 3"
+        },
+        {
+          question: "Which loop is guaranteed to run at least once?",
+          options: ["for", "while", "do-while", "None - Python doesn't have this"],
+          answer: 3,
+          explanation: "Python lacks a do-while construct"
+        },
+        {
+          question: "What does `break` do?",
+          options: ["Skips current iteration", "Exits the loop", "Restarts the loop", "Pauses execution"],
+          answer: 1,
+          explanation: "Immediately exits the nearest loop"
+        },
+        {
+          question: "Which is NOT a valid conditional?",
+          options: ["if x:", "if x == True:", "if x is True:", "if x = True:"],
+          answer: 3,
+          explanation: "= is assignment, not comparison"
+        },
+        {
+          question: "What is the output?<br><code>for i in range(3):<br>&nbsp;&nbsp;if i == 1:<br>&nbsp;&nbsp;&nbsp;&nbsp;continue<br>&nbsp;&nbsp;print(i)</code>",
+          options: ["0\n1\n2", "0\n2", "1\n2", "0"],
+          answer: 1,
+          img: "https://i.imgur.com/ContinueExample.png"
+        },
+        {
+          question: "Which is equivalent to `if not x:`?",
+          options: ["if x == False:", "if x == None:", "if x == 0:", "All of these"],
+          answer: 3,
+          explanation: "All evaluate to False in a boolean context"
+        },
+        {
+          question: "What does `pass` do?",
+          options: ["Exits the program", "Skips code block", "Placeholder for empty blocks", "Continues loop"],
+          answer: 2,
+          explanation: "Used when syntax requires a block but you want no action"
+        },
+        {
+          question: "Which is the correct ternary operator syntax?",
+          options: ["x if condition else y", "if condition then x else y", "condition ? x : y", "x when condition else y"],
+          answer: 0,
+          explanation: "Python's ternary syntax: x if condition else y"
+        }
+      ]
+    },
+
+    // SECTION 7: FUNCTIONS
+    {
+      title: "Functions",
+      questions: [
+        {
+          question: "What is the output?<br><code>def greet(name='world'):<br>&nbsp;&nbsp;print(f'Hello {name}')<br>greet()</code>",
+          options: ["Hello", "Hello world", "Error", "None"],
+          answer: 1,
+          explanation: "Uses default parameter 'world'"
+        },
+        {
+          question: "Which keyword returns a value?",
+          options: ["return", "yield", "break", "Both 1 & 2"],
+          answer: 3,
+          explanation: "return sends back a value, yield for generators"
+        },
+        {
+          question: "What is `*args` used for?",
+          options: ["Multiplication", "Pointer operations", "Variable arguments", "Unpacking lists"],
+          answer: 2,
+          explanation: "Accepts any number of positional arguments"
+        },
+        {
+          question: "What does this function do?<br><code>def func(x):<br>&nbsp;&nbsp;return x * 2</code>",
+          options: ["Squares x", "Doubles x", "Returns None", "Raises error"],
+          answer: 1,
+          img: "https://i.imgur.com/SimpleFunction.png"
+        },
+        {
+          question: "Which scope do variables inside functions have by default?",
+          options: ["Global", "Local", "Class", "Built-in"],
+          answer: 1,
+          explanation: "Function variables are local unless declared global"
+        },
+        {
+          question: "What is a lambda function?",
+          options: ["Anonymous function", "Generator function", "Recursive function", "Threaded function"],
+          answer: 0,
+          explanation: "Small anonymous functions defined with lambda"
+        },
+        {
+          question: "How do you document a function?",
+          options: ["// comments", "# comments", "Docstrings", "Function annotations"],
+          answer: 2,
+          explanation: "Triple-quoted strings immediately after def"
+        },
+        {
+          question: "What does `nonlocal` do?",
+          options: ["Accesses global variables", "Modifies enclosing scope variables", "Creates constants", "Imports modules"],
+          answer: 1,
+          explanation: "Used in nested functions to modify outer non-global vars"
+        },
+        {
+          question: "Which is NOT a function attribute?",
+          options: ["__name__", "__doc__", "__len__", "__annotations__"],
+          answer: 2,
+          explanation: "__len__ is for objects implementing len()"
+        },
+        {
+          question: "What is recursion?",
+          options: ["Function calling itself", "Fast execution", "Parallel processing", "Exception handling"],
+          answer: 0,
+          img: "https://i.imgur.com/RecursionDiagram.png"
+        }
+      ]
+    },
+
+    // SECTION 8: LISTS & DICTIONARIES
+    {
+      title: "Lists & Dictionaries",
+      questions: [
+        {
+          question: "What is the output?<br><code>nums = [1,2,3]<br>print(nums[1])</code>",
+          options: ["1", "2", "3", "Error"],
+          answer: 1,
+          explanation: "Lists are 0-indexed"
+        },
+        {
+          question: "Which method adds an item to a list?",
+          options: [".add()", ".push()", ".append()", ".insert()"],
+          answer: 2,
+          explanation: "append() adds to the end"
+        },
+        {
+          question: "What does `[x**2 for x in range(3)]` create?",
+          options: ["[0,1,4]", "[1,4,9]", "[0,1,2]", "Error"],
+          answer: 0,
+          img: "https://i.imgur.com/ListComprehension.png"
+        },
+        {
+          question: "How do you access a dictionary value?",
+          options: ["dict.0", "dict[0]", "dict.get(0)", "Both 2 & 3"],
+          answer: 3,
+          explanation: "dict[key] or dict.get(key)"
+        },
+        {
+          question: "What is the output?<br><code>d = {'a':1, 'b':2}<br>print(d.get('c', 3))</code>",
+          options: ["None", "3", "Error", "0"],
+          answer: 1,
+          explanation: "Returns default (3) when key doesn't exist"
+        },
+        {
+          question: "Which removes and returns the last list item?",
+          options: [".pop()", ".remove()", ".delete()", ".cut()"],
+          answer: 0,
+          explanation: "pop() without index removes last item"
+        },
+        {
+          question: "What is `{'a', 'b', 'a'}`?",
+          options: ["Dictionary", "List", "Set", "Tuple"],
+          answer: 2,
+          explanation: "Curly braces with values only create sets"
+        },
+        {
+          question: "How do you merge two dictionaries?",
+          options: ["dict1 + dict2", "{**dict1, **dict2}", "dict1.append(dict2)", "dict1.merge(dict2)"],
+          answer: 1,
+          explanation: "Dictionary unpacking merges keys"
+        },
+        {
+          question: "What is `[1,2,3][::-1]`?",
+          options: ["[1,2,3]", "[3,2,1]", "Error", "[1]"],
+          answer: 1,
+          explanation: "Step -1 reverses the list"
+        },
+        {
+          question: "Which is NOT a dictionary method?",
+          options: [".keys()", ".values()", ".items()", ".elements()"],
+          answer: 3,
+          img: "https://i.imgur.com/DictMethods.png"
+        }
+      ]
+    },
+
+    // SECTION 9: FILE HANDLING
+    {
+      title: "File Handling",
+      questions: [
+        {
+          question: "What mode opens a file for writing (overwrite)?",
+          options: ["'r'", "'w'", "'a'", "'x'"],
+          answer: 1,
+          explanation: "'w' creates/overwrites, 'a' appends"
+        },
+        {
+          question: "Why use `with` when opening files?",
+          options: ["Faster execution", "Automatic closing", "Better compression", "Larger file support"],
+          answer: 1,
+          img: "https://i.imgur.com/WithStatement.png"
+        },
+        {
+          question: "Which reads the entire file as a string?",
+          options: [".read()", ".readline()", ".readlines()", ".readall()"],
+          answer: 0,
+          explanation: "read() returns entire content as string"
+        },
+        {
+          question: "What does `open('file.txt', 'r+')` allow?",
+          options: ["Reading only", "Writing only", "Both reading and writing", "Appending only"],
+          answer: 2,
+          explanation: "'r+' opens for both reading and writing"
+        },
+        {
+          question: "How do you check if a file exists?",
+          options: ["os.exists()", "os.path.exists()", "file.exists()", "path.exists()"],
+          answer: 1,
+          explanation: "os.path.exists('file.txt') returns boolean"
+        },
+        {
+          question: "What is the output?<br><code>with open('test.txt', 'w') as f:<br>&nbsp;&nbsp;f.write('Hello')<br>print(open('test.txt').read())</code>",
+          options: ["Hello", "Error", "None", "H"],
+          answer: 0,
+          explanation: "Writes 'Hello' then reads it back"
+        },
+        {
+          question: "Which module handles CSV files?",
+          options: ["csv", "pandas", "numpy", "Both 1 & 2"],
+          answer: 3,
+          explanation: "Python has built-in csv module, pandas is popular for advanced usage"
+        },
+        {
+          question: "What does `'a'` mode do when opening a file?",
+          options: ["Overwrites file", "Appends to file", "Reads binary", "Creates new file"],
+          answer: 1,
+          explanation: "'a' appends, 'w' overwrites"
+        },
+        {
+          question: "Which is NOT a valid file object method?",
+          options: [".seek()", ".tell()", ".find()", ".truncate()"],
+          answer: 2,
+          explanation: ".find() is a string method"
+        },
+        {
+          question: "How do you write JSON to a file?",
+          options: ["json.dump()", "json.write()", "json.export()", "file.write_json()"],
+          answer: 0,
+          img: "https://i.imgur.com/JsonDump.png"
+        }
+      ]
+    },
+    // SECTION 10: ERROR HANDLING
+    {
+      title: "Error Handling & BONUS",
+      questions: [
+        {
+          question: "What is the correct try-except structure?",
+          options: [
+            "try: code except Error: handle",
+            "try: code catch Error: handle",
+            "try: code rescue Error: handle",
+            "try: code then except Error: handle"
+          ],
+          answer: 0,
+          img: "https://i.imgur.com/TryExcept.png"
+        },
+        {
+          question: "Which exception handles division by zero?",
+          options: ["ValueError", "TypeError", "ZeroDivisionError", "MathError"],
+          answer: 2,
+          explanation: "Specific exception for divide-by-zero cases"
+        },
+        {
+          question: "What does `finally` do?",
+          options: [
+            "Runs only if no exceptions",
+            "Runs only if exceptions occur",
+            "Always runs after try/except",
+            "Skips exception handling"
+          ],
+          answer: 2,
+          explanation: "finally always executes for cleanup"
+        },
+        {
+          question: "How do you raise a custom exception?",
+          options: [
+            "raise Exception('Error')",
+            "throw Exception('Error')",
+            "error Exception('Error')",
+            "exception Exception('Error')"
+          ],
+          answer: 0,
+          explanation: "raise creates an exception"
+        },
+        {
+          question: "What is the output?<br><code>try:<br>&nbsp;&nbsp;x = 1/0<br>except:<br>&nbsp;&nbsp;print('Error')<br>else:<br>&nbsp;&nbsp;print('OK')</code>",
+          options: ["Error", "OK", "Error\nOK", "No output"],
+          answer: 0,
+          explanation: "else only runs if no exceptions occur"
+        },
+        {
+          question: "Which catches all exceptions?",
+          options: [
+            "except Exception:",
+            "except All:",
+            "except *:",
+            "except:"
+          ],
+          answer: 3,
+          explanation: "Bare except catches everything (not recommended)"
+        },
+        {
+          question: "What is `AssertionError` for?",
+          options: [
+            "Type mismatches",
+            "Failed assertions",
+            "Network errors",
+            "Memory issues"
+          ],
+          answer: 1,
+          explanation: "Raised when assert condition fails"
+        },
+        {
+          question: "How do you create a custom exception?",
+          options: [
+            "class MyError: pass",
+            "class MyError(Exception): pass",
+            "def MyError(): pass",
+            "exception MyError: pass"
+          ],
+          answer: 1,
+          img: "https://i.imgur.com/CustomException.png"
+        },
+        {
+          question: "What does `sys.exc_info()` return?",
+          options: [
+            "Current exception details",
+            "List of all exceptions",
+            "System error codes",
+            "Exception stack trace"
+          ],
+          answer: 0,
+          explanation: "Returns (type, value, traceback) tuple"
+        },
+        {
+          question: "Which is NOT a built-in exception?",
+          options: ["FileNotFoundError", "KeyboardInterrupt", "MemoryFullError", "StopIteration"],
+          answer: 2,
+          explanation: "Python has MemoryError but not MemoryFullError"
+        },
+
+
+         {
+      question: "What does this output?<br><code>name = 'Datti'<br>print(name.lower())</code>",
+      options: ["DATTI", "datti", "Error", "None"],
+      answer: 1,
+      explanation: ".lower() returns a lowercase version of the string"
+    },
+    {
+      question: "Which method splits a string into a list?",
+      options: ["split()", "join()", "replace()", "cut()"],
+      answer: 0,
+      explanation: "split() breaks a string into parts based on a separator"
+    },
+    {
+      question: "What is the output?<br><code>'Python'.find('t')</code>",
+      options: ["1", "2", "-1", "True"],
+      answer: 1,
+      explanation: "find() returns the first index where the character appears"
+    },
+    {
+      question: "Which operator joins two strings?",
+      options: ["&", "+", "*", "%"],
+      answer: 1,
+      explanation: "'Hello' + 'World' results in 'HelloWorld'"
+    },
+    {
+      question: "What does this return?<br><code>'hello'.capitalize()</code>",
+      options: ["HELLO", "Hello", "hello", "None"],
+      answer: 1,
+      explanation: "capitalize() makes only the first letter uppercase"
+    },     {
+      question: "Which function picks a random number between 1 and 6 (inclusive)?",
+      options: ["random.choice(1,6)", "random.random()", "random.randint(1,6)", "random.pick(1,6)"],
+      answer: 2,
+      explanation: "random.randint(a, b) returns a random integer from a to b inclusive"
+    },
+    {
+      question: "What does `random.choice(['a', 'b', 'c'])` return?",
+      options: ["One random item", "All items", "An error", "A sorted list"],
+      answer: 0,
+      explanation: "random.choice picks one item randomly from a list"
+    },
+    {
+      question: "Which module must be imported to use random functions?",
+      options: ["math", "random", "os", "sys"],
+      answer: 1,
+      explanation: "Python’s random functions are in the 'random' module"
+    },
+    {
+      question: "What does `random.random()` return?",
+      options: ["Random int", "Random string", "Float between 0 and 1", "Nothing"],
+      answer: 2,
+      explanation: "random.random() returns a float between 0.0 and 1.0"
+    },
+    {
+      question: "Which function shuffles a list in-place?",
+      options: ["random.mix()", "random.shuffle()", "random.sort()", "random.scramble()"],
+      answer: 1,
+      explanation: "random.shuffle() changes the list order randomly"
+    },
+        {
+      question: "What is recursion?",
+      options: ["Looping a list", "Calling a function inside itself", "Importing modules", "Repeating strings"],
+      answer: 1,
+      explanation: "Recursion is when a function calls itself"
+    },
+    {
+      question: "Which base case ends this function?<br><code>def count(n):<br>&nbsp;&nbsp;if n == 0: return</code>",
+      options: ["if n == 0", "if n < 100", "while True", "return n"],
+      answer: 0,
+      explanation: "The base case prevents infinite recursion"
+    },
+    {
+      question: "What happens without a base case in recursion?",
+      options: ["Nothing", "Infinite loop", "Compile error", "Zero result"],
+      answer: 1,
+      explanation: "Python will crash due to a stack overflow"
+    },
+    {
+      question: "What is the output?<br><code>def fact(n):<br>&nbsp;&nbsp;if n == 1: return 1<br>&nbsp;&nbsp;return n * fact(n-1)<br>print(fact(3))</code>",
+      options: ["6", "3", "9", "1"],
+      answer: 0,
+      explanation: "3 * 2 * 1 = 6"
+    },
+    {
+      question: "What keyword is required in every recursive function?",
+      options: ["break", "return", "loop", "continue"],
+      answer: 1,
+      explanation: "return passes the result back up the call stack"
+    },
+
+     {
+      question: "Which line uses correct type annotation?",
+      options: ["def add(x int, y int):", "def add(x: int, y: int) -> int:", "def add:int(x,y)", "int add(x,y):"],
+      answer: 1,
+      explanation: "The correct format is def function(param: type) -> return_type"
+    },
+    {
+      question: "What is the benefit of type annotations?",
+      options: ["Faster execution", "Better readability & debugging", "Smaller code", "Security"],
+      answer: 1,
+      explanation: "Type hints help identify bugs and clarify data types"
+    },
+    {
+      question: "How would you annotate a function that returns nothing?",
+      options: ["-> None", "-> void", "-> null", "-> 0"],
+      answer: 0,
+      explanation: "None is used to indicate no return value in Python"
+    },
+    {
+      question: "What will this show?<br><code>def greet(name: str) -> str:<br>&nbsp;&nbsp;return f\"Hi {name}\"</code>",
+      options: ["Syntax Error", "Adds type safety", "Fails without input", "Slower execution"],
+      answer: 1,
+      explanation: "Adds type clarity and helps with auto-complete"
+    },
+    {
+      question: "Which tool benefits most from type annotations?",
+      options: ["Terminal", "Linters/IDEs", "Web Browser", "Database"],
+      answer: 1,
+      explanation: "IDEs use type hints for autocomplete and type checks"
+    },
+     {
+      question: "Which is the correct Python variable name?",
+      options: ["myVariable", "MyVariable", "my_variable", "my-variable"],
+      answer: 2,
+      explanation: "snake_case is the standard for Python variables"
+    },
+    {
+      question: "Which style is used for Python class names?",
+      options: ["camelCase", "PascalCase", "snake_case", "kebab-case"],
+      answer: 1,
+      explanation: "PascalCase (e.g., MyClass) is used for class names"
+    },
+    {
+      question: "Which is invalid in Python?",
+      options: ["_hidden", "2value", "value_2", "value$"],
+      answer: 1,
+      explanation: "Variable names cannot start with numbers"
+    },
+    {
+      question: "Why is snake_case preferred for functions?",
+      options: ["Looks cool", "Matches C++", "Pythonic and consistent", "None"],
+      answer: 2,
+      explanation: "snake_case is the Python style guide standard (PEP8)"
+    },
+    {
+      question: "Which is best for constants?",
+      options: ["PI", "pi", "PiValue", "pi_value"],
+      answer: 0,
+      explanation: "Constants are written in ALL_CAPS"
+    },
+    {
+    question: "What does `print('Hello, World!')` do?",
+    options: ["Prints Hello, World!", "Compiles code", "Declares a function", "Starts a loop"],
+    answer: 0,
+    explanation: "print() outputs text to the screen"
+  },
+  {
+    question: "Which is a correct variable assignment?",
+    options: ["int x = 5", "x = 5", "x := 5", "x == 5"],
+    answer: 1,
+    explanation: "Python uses simple assignment: x = 5"
+  },
+  {
+    question: "What keyword starts a function in Python?",
+    options: ["func", "define", "def", "function"],
+    answer: 2,
+    explanation: "Python uses 'def' to define a function"
+  },
+  {
+    question: "Which loop repeats while a condition is true?",
+    options: ["for", "foreach", "do", "while"],
+    answer: 3,
+    explanation: "Python’s while loop runs as long as the condition is true"
+  },
+  {
+    question: "What is the purpose of try/except?",
+    options: ["Define a class", "Import a module", "Handle errors", "Create a loop"],
+    answer: 2,
+    explanation: "try/except blocks are used to handle exceptions"
+  },
+  {
+    question: "Which method removes leading/trailing spaces from a string?",
+    options: ["clean()", "trim()", "strip()", "cut()"],
+    answer: 2,
+    explanation: "strip() removes whitespace from both ends"
+  },
+  {
+    question: "random.randint(1,3) can return:",
+    options: ["1, 2, 3", "Only 1 and 3", "0–3", "Any float"],
+    answer: 0,
+    explanation: "It includes both endpoints"
+  },
+  {
+    question: "What does this return?<br><code>'PYTHON'.lower()</code>",
+    options: ["PYTHON", "python", "Python", "None"],
+    answer: 1,
+    explanation: ".lower() returns all lowercase letters"
+  },
+  {
+    question: "Which is a valid type annotation?",
+    options: ["x = str:int", "x:str = 'name'", "def x:str", "x = int<str>"],
+    answer: 1,
+    explanation: "Correct syntax: variable: type = value"
+  },
+  {
+    question: "What is the output?<br><code>def rec(n): return 1 if n==0 else n*rec(n-1)<br>rec(3)</code>",
+    options: ["3", "6", "0", "1"],
+    answer: 1,
+    explanation: "3 * 2 * 1 = 6"
+  },
+  {
+    question: "What does `type(5.0)` return?",
+    options: ["float", "int", "decimal", "number"],
+    answer: 0,
+    explanation: "5.0 is a float"
+  },
+  {
+    question: "Which is used to open a file?",
+    options: ["read()", "file()", "open()", "getfile()"],
+    answer: 2,
+    explanation: "open() is the built-in function for files"
+  },
+  {
+    question: "What is the result of `'5' + '5'`?",
+    options: ["10", "'55'", "Error", "0"],
+    answer: 1,
+    explanation: "String + String = concatenation"
+  },
+  {
+    question: "What does `is` check in Python?",
+    options: ["Value equality", "Reference identity", "Data type", "List length"],
+    answer: 1,
+    explanation: "`is` checks if both variables point to the same object"
+  },
+  {
+    question: "Which statement creates a dictionary?",
+    options: ["dict = {}", "dict = []", "dict = ()", "dict = ''"],
+    answer: 0,
+    explanation: "{} creates an empty dictionary"
+  },
+  {
+    question: "How do you comment a single line in Python?",
+    options: ["// comment", "# comment", "/* comment */", "-- comment"],
+    answer: 1,
+    explanation: "Python uses '#' for single-line comments"
+  },
+  {
+    question: "What does `continue` do in a loop?",
+    options: ["Ends loop", "Skips next loop", "Skips rest of current iteration", "Starts loop again"],
+    answer: 2,
+    explanation: "continue skips to the next iteration"
+  },
+  {
+    question: "What is the index of 'a' in 'Data'?",
+    options: ["0", "1", "2", "3"],
+    answer: 2,
+    explanation: "String index starts at 0, 'D'=0, 'a'=2"
+  },
+  {
+    question: "What does `range(3)` produce?",
+    options: ["1,2,3", "0,1,2", "0 to 3", "1 to 4"],
+    answer: 1,
+    explanation: "range(n) generates numbers from 0 to n-1"
+  },
+  {
+    question: "How do you define a list?",
+    options: ["{}", "()", "[]", "<>"],
+    answer: 2,
+    explanation: "[] is the syntax for lists"
+  },
+  {
+    question: "What is a tuple?",
+    options: ["Mutable list", "Immutable list", "List of dictionaries", "Sorted list"],
+    answer: 1,
+    explanation: "Tuples are immutable sequences"
+  },
+  {
+    question: "What is printed?<br><code>print(bool(0))</code>",
+    options: ["True", "False", "0", "Error"],
+    answer: 1,
+    explanation: "0 is falsy, so bool(0) is False"
+  },
+  {
+    question: "Which Python style is correct for function names?",
+    options: ["getUserName()", "get_user_name()", "GetUserName()", "getUser_name()"],
+    answer: 1,
+    explanation: "snake_case is preferred for function names"
+  },
+  {
+    question: "Which exception handles division by zero?",
+    options: ["ZeroDivisionError", "ValueError", "SyntaxError", "MathError"],
+    answer: 0,
+    explanation: "Division by 0 raises a ZeroDivisionError"
+  },
+  {
+    question: "Which loop guarantees at least one execution?",
+    options: ["while", "for", "do-while (simulated)", "loop"],
+    answer: 2,
+    explanation: "Python lacks native do-while, but logic can simulate it"
+  }
+
+
+      ]
+    }
+ 
+                    // Add questions for remaining sections...
+                    // Sections 3-10 would follow the same pattern
+                ],
+
+                // Computed property
+                get totalQuestions() {
+                    return this.sections.reduce((total, section) => total + section.questions.length, 0);
+                },
+
+                // Initialize quiz
+                initQuiz() {
+                    // Open first section by default
+                    this.openSections[0] = true;
+                },
+
+                // Toggle section
+                toggleSection(index) {
+                    this.openSections[index] = !this.openSections[index];
+                    
+                    // Close other sections when opening a new one
+                    if (this.openSections[index]) {
+                        this.openSections.forEach((_, i) => {
+                            if (i !== index) this.openSections[i] = false;
+                        });
+                    }
+                },
+
+                // Handle answer selection
+                selectAnswer(sectionIndex, questionIndex, optionIndex) {
+                    this.userAnswers[sectionIndex][questionIndex] = optionIndex;
+                    this.calculateProgress();
+                },
+
+                // Check if question was answered
+                isAnswered(sectionIndex, questionIndex) {
+                    return this.userAnswers[sectionIndex] && 
+                           this.userAnswers[sectionIndex][questionIndex] !== undefined;
+                },
+
+                // Check if answer is correct
+                isCorrect(sectionIndex, questionIndex) {
+                    const userAnswer = this.userAnswers[sectionIndex][questionIndex];
+                    const correctAnswer = this.sections[sectionIndex].questions[questionIndex].answer;
+                    return userAnswer === correctAnswer;
+                },
+
+                // Get user's answer text
+                getUserAnswer(sectionIndex, questionIndex) {
+                    const answerIndex = this.userAnswers[sectionIndex][questionIndex];
+                    if (answerIndex === undefined) return "Not answered";
+                    return this.sections[sectionIndex].questions[questionIndex].options[answerIndex];
+                },
+
+                // Calculate progress
+                calculateProgress() {
+                    this.answeredCount = this.userAnswers.reduce((total, section) => {
+                        return total + section.filter(answer => answer !== undefined).length;
+                    }, 0);
+                },
+
+                // Submit quiz
+                submitQuiz() {
+                    this.score = this.userAnswers.reduce((total, section, sIndex) => {
+                        return total + section.reduce((sectionTotal, answer, qIndex) => {
+                            return sectionTotal + (answer === this.sections[sIndex].questions[qIndex].answer ? 1 : 0);
+                        }, 0);
+                    }, 0);
+                    
+                    this.showResults = true;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+
+                // Reset quiz
+                resetQuiz() {
+                    this.userAnswers = Array(10).fill().map(() => []);
+                    this.showResults = false;
+                    this.score = 0;
+                    this.answeredCount = 0;
+                },
+
+                // Performance comment
+                getPerformanceComment() {
+                    const percentage = this.score / this.totalQuestions;
+                    if (percentage >= 0.8) return "Outstanding! You've mastered Python fundamentals.";
+                    if (percentage >= 0.5) return "Good job! Review your incorrect answers to improve.";
+                    return "Keep practicing! Focus on the basics and try again.";
+                }
+            }));
+        });
+     const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+          AOS.init();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

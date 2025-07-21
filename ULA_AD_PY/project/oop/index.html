@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Smart Receipt Analyzer GUI – A legacy NITDA/NCAIR Project by Group 5">
+  <meta property="og:title" content="Smart Receipt Analyzer – Legacy GUI Project">
+  <meta property="og:description" content="A futuristic, inspiring dashboard built with Python OCR & GUI. Powered by NITDA/NCAIR.">
+  <meta property="og:image" content="./img/preview.jpg">
+  <meta property="og:url" content="https://yourdomain.com/receipt-gui">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Smart Receipt Analyzer - Group 5 (NITDA/NCAIR)</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+   <style>
+     .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+   </style>
+</head>
+<body class="bg-gray-100 font-sans leading-relaxed tracking-wide flex flex-col">
+
+  <!-- HEADER -->
+    <!-- <header class="bg-gradient-to-r from-blue-900 to-purple-700 text-white py-10 text-center shadow-xl">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-16">
+                </div>
+                <div class="text-center md:text-right">
+                    <h1 class="text-3xl font-bold">Unified Learning Archive</h1>
+                    <p class="text-green-200">Smart Receipt Analyzer</p>
+                    <p class="text-sm text-green-300 mt-1">"A legacy that will echo till eternity"</p>
+                    <p class="text-sm text-green-300 mt-1">Built by Group 5 • Powered by Elona • Honoring NITDA/NCAIR 🇳🇬</p>
+                </div>
+            </div>
+        </div>
+    </header> -->
+  <!-- <header class="bg-gradient-to-r from-blue-900 to-purple-700 text-white py-10 text-center shadow-xl">
+    <h1 class="text-4xl md:text-5xl font-bold uppercase tracking-wide">Smart Receipt Analyzer</h1>
+    <p class="text-lg mt-2">A Legacy Python GUI Project Built for NITDA/NCAIR – Group 5</p>
+  </header> -->
+
+
+
+<!-- <header class="bg-green-800 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-16">
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold">Unified Learning Archive</h1>
+                    <p class="text-green-200">Empowering Digital Literacy for National Development</p>
+                    <p class="text-sm text-green-300 mt-1">Built by Group 5 • Powered by Elona • Honoring NITDA/NCAIR 🇳🇬</p>
+                </div>
+            </div>
+        </div>
+    </header> -->
+
+
+
+  <!-- MAIN SECTION -->
+  <main class="max-w-5xl mx-auto px-4 py-10">
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Button 1 -->
+      <a href="./pages/receipt_analyzer2.html" class="bg-white shadow-md hover:shadow-xl p-6 rounded-2xl border border-gray-300 text-center transition duration-300">
+        <h2 class="text-2xl font-semibold text-blue-800">📄 Receipt Manager</h2>
+        <p class="text-gray-600 mt-2">OCR and Data Categorization using Python</p>
+      </a>
+      <!-- Button 2 -->
+      <a href="./pages/dashbord2.html" class="bg-white shadow-md hover:shadow-xl p-6 rounded-2xl border border-gray-300 text-center transition duration-300">
+        <h2 class="text-2xl font-semibold text-purple-700">📊 Expense Dashboard</h2>
+        <p class="text-gray-600 mt-2">View spending categories in clean bar charts</p>
+      </a>
+      <!-- Button 3 -->
+      <a href="./pages/GUI.html" class="bg-white shadow-md hover:shadow-xl p-6 rounded-2xl border border-gray-300 text-center transition duration-300">
+        <h2 class="text-2xl font-semibold text-green-700">🖥️ Receipt GUI</h2>
+        <p class="text-gray-600 mt-2">Friendly GUI to run the whole app without code</p>
+      </a>
+    </section>
+
+    <!-- VIDEO DEMO SECTION -->
+    <section class="mt-16 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">🎥 Project Demonstration Video</h2>
+      <p class="text-gray-600 mb-6">Watch how the full system works from upload to dashboard summary.</p>
+      <video controls class="mx-auto w-full max-w-3xl rounded-xl shadow-lg">
+        <source src="./img/project_record.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <!-- DOWNLOAD ZIP SECTION -->
+    <section class="mt-20 text-center">
+      <h2 class="text-2xl font-bold text-gray-700">📦 Download Complete Project ZIP</h2>
+      <p class="text-gray-500 mb-4">Includes all source code files, GUI, and CSV sample.</p>
+      <a href="./Project/OPP GROUP 5.zip" download class="inline-block mt-3 px-6 py-3 bg-blue-700 text-white rounded-full text-lg font-semibold shadow hover:bg-blue-800 transition">Download Now</a>
+    </section>
+
+    <!-- CERTIFICATE + CREDITS -->
+    <section class="mt-20 text-center border-t pt-10">
+      <h2 class="text-xl font-bold text-gray-800">🎓 Project Lead Certificate (To Be Signed)</h2>
+      <img src="./img/5IRE_Certificate (2).png" alt="Certificate" class="mx-auto mt-6 max-w-md rounded-lg border shadow">
+      <p class="text-gray-500 mt-4">Certificate of Excellence – Awaiting digital signature by Elona (Project Lead)</p>
+    </section>
+  </main>
+
+   <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+ 
+
+
+   <!-- <footer class="bg-gradient-to-r  from-blue-900 to-purple-700 text-gray-200 text-center py-6 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <img src="../img/ncair.jpeg" alt="NITDA/NCAIR Logo" class="h-12">
+                    <p class="mt-2 text-green-200">National Information Technology Development Agency</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-green-300">UnifiedLearning Archive</p>
+                    <p class="text-green-200">"A legacy that will outshine globally"</p>
+                    <p class="mt-2 text-sm text-green-400">© 2023 NITDA/NCAIR. All rights reserved.</p>
+                </div>
+            </div>
+             <div class="flex space-x-4">
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-nitdaAccent">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
+        </div>
+    </footer> -->
+
+  <!-- FOOTER
+  <footer class="bg-gray-900 text-gray-200 text-center py-6 mt-10">
+    <p class="text-sm">Built by Group 5 — NITDA/NCAIR ULA | Designed to Echo for Eternity 🌍</p>
+  </footer> -->
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

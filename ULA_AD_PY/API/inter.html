@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate API Guide | NITDA/NCAIR ULA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>hljs.highlightAll();</script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+        }
+        .security-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .security-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .method-get { background-color: #10B981; }
+        .method-post { background-color: #3B82F6; }
+        .method-put { background-color: #F59E0B; }
+        .method-delete { background-color: #EF4444; }
+        .jwt-token {
+            font-family: monospace;
+            word-break: break-all;
+        }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="../img/nitda.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <img src="../img/ncair.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <div>
+                        <h1 class="text-2xl font-bold">NITDA/NCAIR ULA</h1>
+                        <p class="text-blue-100">Intermediate API Guide</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 max-w-3xl">
+                <h2 class="text-4xl font-bold mb-4">Working with Production APIs</h2>
+                <p class="text-xl text-blue-100">Authentication, error handling and real-world API patterns</p>
+                <p class="text-sm text-blue-100 italic">
+                ⚠️ This API endpoint is part of a learning demonstration and may not be actively available. Content provided is for educational purposes only as part of the NITDA/NCAIR SIWES Cohort 26 program.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Navigation -->
+    <div class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex overflow-x-auto py-4 space-x-6">
+                <a href="#api-authentication" class="whitespace-nowrap px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600">API Authentication</a>
+                <a href="#error-handling" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Error Handling</a>
+                <a href="#working-with-json" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Working with JSON</a>
+                <a href="#best-practices" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Best Practices</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- API Authentication -->
+        <section id="api-authentication" class="mb-20 scroll-mt-24">
+                <div class="mb-8 bg-white p-4 rounded-lg border border-gray-200">
+        <h4 class="font-bold mb-2">Your Progress</h4>
+        <div class="flex items-center">
+            <div class="relative w-12 h-12 mr-4">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                      fill="none"
+                      stroke="#e6e6e6"
+                      stroke-width="3"
+                      stroke-dasharray="100, 100"
+                    />
+                    <path d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                      fill="none"
+                      stroke="#3b82f6"
+                      stroke-width="3"
+                      stroke-dasharray="50, 100"
+                      class="progress-ring__circle"
+                    />
+                </svg>
+                <span class="absolute inset-0 flex items-center justify-center text-xs font-bold">50%</span>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">2 of 4 modules you're on the best track!</p>
+                <a href="#" class="text-sm text-blue-600 hover:underline">You're almost there!</a>
+            </div>
+        </div>
+    </div>
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">1</span>
+                </div>
+                <h2 class="text-3xl font-bold">API Authentication</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div>
+                    <p class="text-lg mb-6">Most production APIs require authentication to protect sensitive data. The NITDA ULA API uses <strong>JWT (JSON Web Tokens)</strong> with military-grade encryption (AES-256) for secure authentication.</p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+                        <p class="font-medium text-blue-800">NITDA Security Standard:</p>
+                        <p>All API communications are encrypted end-to-end to protect Nigeria's digital education infrastructure.</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4 mt-8">Authentication Flow</h3>
+                    <ol class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span>Get credentials from NITDA Developer Portal</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span>Request access token from auth endpoint</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span>Include token in Authorization header</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                            <span>Refresh token when expired</span>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Python Example</span>
+                    </div>
+                    <pre><code class="language-python hljs">import requests
+
+# Step 1: Get access token
+auth_url = "https://api.ula.nitda.gov.ng/v1/auth/token"
+auth_data = {
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "grant_type": "client_credentials"
+}
+
+response = requests.post(auth_url, json=auth_data)
+access_token = response.json()["access_token"]
+
+# Step 2: Use token in requests
+api_url = "https://api.ula.nitda.gov.ng/v1/protected-data"
+headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+
+response = requests.get(api_url, headers=headers)
+print(response.json())</code></pre>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="security-card bg-white p-5 rounded-lg shadow-sm border border-blue-200">
+                    <h3 class="font-bold text-blue-700 mb-3">JWT Structure</h3>
+                    <div class="jwt-token text-sm bg-gray-100 p-3 rounded mb-3">
+                        <span class="text-red-500">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>.
+                        <span class="text-yellow-600">eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ</span>.
+                        <span class="text-green-600">SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span>
+                    </div>
+                    <ul class="text-sm space-y-2">
+                        <li class="flex items-start">
+                            <span class="text-red-500 font-mono mr-2">Header</span>
+                            <span>Algorithm & token type</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-yellow-600 font-mono mr-2">Payload</span>
+                            <span>Claims (user data)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-600 font-mono mr-2">Signature</span>
+                            <span>Verification data</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="security-card bg-white p-5 rounded-lg shadow-sm border border-green-200">
+                    <h3 class="font-bold text-green-700 mb-3">NITDA Auth Endpoints</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center bg-gray-100 p-3 rounded">
+                            <span class="method-post text-white text-xs font-bold px-2 py-1 rounded mr-3">POST</span>
+                            <span class="font-mono text-sm">/v1/auth/token</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 p-3 rounded">
+                            <span class="method-post text-white text-xs font-bold px-2 py-1 rounded mr-3">POST</span>
+                            <span class="font-mono text-sm">/v1/auth/refresh</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 p-3 rounded">
+                            <span class="method-post text-white text-xs font-bold px-2 py-1 rounded mr-3">POST</span>
+                            <span class="font-mono text-sm">/v1/auth/revoke</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="security-card bg-white p-5 rounded-lg shadow-sm border border-purple-200">
+                    <h3 class="font-bold text-purple-700 mb-3">Security Tips</h3>
+                    <ul class="text-sm space-y-2">
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Never expose client_secret</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Use HTTPS always</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Implement token refresh</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Handling -->
+        <section id="error-handling" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">2</span>
+                </div>
+                <h2 class="text-3xl font-bold">Error Handling</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">Proper error handling makes your API integrations more robust and user-friendly. Always anticipate and gracefully handle potential errors.</p>
+                    
+                    <h3 class="text-xl font-bold mb-4">Common API Errors</h3>
+                    <div class="space-y-4">
+                        <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+                            <p class="font-bold text-red-700">4xx Client Errors</p>
+                            <p class="text-sm">Your application sent invalid data or requests</p>
+                        </div>
+                        <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+                            <p class="font-bold text-orange-700">5xx Server Errors</p>
+                            <p class="text-sm">The API server encountered a problem</p>
+                        </div>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                            <p class="font-bold text-yellow-700">Network Issues</p>
+                            <p class="text-sm">Connectivity problems or timeouts</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Python Error Handling</span>
+                    </div>
+                    <pre><code class="language-python hljs">import requests
+from requests.exceptions import RequestException
+
+try:
+    response = requests.get(
+        "https://api.ula.nitda.gov.ng/v1/data",
+        headers={"Authorization": "Bearer your_token"},
+        timeout=10  # 10 second timeout
+    )
+    
+    # Check for HTTP errors
+    response.raise_for_status()
+    
+    # Process successful response
+    data = response.json()
+    
+except requests.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+    if response.status_code == 401:
+        print("Please authenticate first")
+    elif response.status_code == 404:
+        print("Resource not found")
+    else:
+        print(f"Status code: {response.status_code}")
+        
+except RequestException as req_err:
+    print(f"Request failed: {req_err}")
+    
+except ValueError as json_err:
+    print(f"Failed to parse JSON: {json_err}")
+    
+except Exception as err:
+    print(f"Unexpected error: {err}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">NITDA ULA Error Response Format</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <span class="text-sm text-gray-400">Error Response</span>
+                        </div>
+                        <pre><code class="language-json hljs">{
+    "status": "error",
+    "code": "invalid_auth",
+    "message": "Authentication failed",
+    "details": {
+        "documentation": "https://docs.ula.nitda.gov.ng/auth",
+        "request_id": "req_123456789"
+    }
+}</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">Error Response Fields</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                                <span><strong>status:</strong> Always "error" for error responses</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                                <span><strong>code:</strong> Machine-readable error code</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                                <span><strong>message:</strong> Human-readable explanation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                                <span><strong>details:</strong> Additional error context</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Working with JSON -->
+        <section id="working-with-json" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">3</span>
+                </div>
+                <h2 class="text-3xl font-bold">Working with JSON</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">JSON (JavaScript Object Notation) is the standard format for API requests and responses. It's lightweight, human-readable, and easy to parse.</p>
+                    
+                    <h3 class="text-xl font-bold mb-4">JSON Basics</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>Key-Value Pairs:</strong> {"name": "value"}</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>Arrays:</strong> ["item1", "item2"]</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Nested Objects:</strong> {"user": {"name": "Aliyu"}}</span>
+                        </li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold mb-4">Python JSON Handling</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><code class="bg-gray-100 px-1 rounded">json.loads()</code> - Parse JSON string to Python dict</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><code class="bg-gray-100 px-1 rounded">json.dumps()</code> - Convert Python object to JSON string</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><code class="bg-gray-100 px-1 rounded">response.json()</code> - Parse API response JSON</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Python JSON Examples</span>
+                    </div>
+                    <pre><code class="language-python hljs">import json
+import requests
+
+# Sample JSON data
+data = {
+    "name": "NITDA ULA",
+    "type": "education",
+    "features": ["api", "authentication", "security"],
+    "active": True
+}
+
+# Convert Python dict to JSON string
+json_string = json.dumps(data, indent=2)
+print(json_string)
+
+# Make API request and parse JSON response
+response = requests.get("https://api.ula.nitda.gov.ng/v1/data")
+if response.status_code == 200:
+    api_data = response.json()
+    print(api_data["features"])
+    
+    # Access nested data
+    print(api_data["user"]["profile"]["email"])
+    
+    # Handle missing keys safely
+    print(api_data.get("optional_field", "default_value"))</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">NITDA ULA Response Structure</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                            <div class="flex items-center">
+                                <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <span class="text-sm text-gray-400">Success Response</span>
+                        </div>
+                        <pre><code class="language-json hljs">{
+    "status": "success",
+    "data": {
+        "id": "user_123",
+        "name": "Amina Musa",
+        "email": "amina@nitda.gov.ng",
+        "courses": [
+            {
+                "id": "course_456",
+                "title": "API Development",
+                "progress": 75
+            }
+        ]
+    },
+    "meta": {
+        "page": 1,
+        "total_pages": 5
+    }
+}</code></pre>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">Response Fields</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                                <span><strong>status:</strong> "success" or "error"</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                                <span><strong>data:</strong> Main response payload</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                                <span><strong>meta:</strong> Pagination and metadata</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold mt-6 mb-3">Accessing Nested Data</h4>
+                        <div class="bg-gray-100 p-4 rounded">
+                            <p class="font-mono text-sm">email = response.json()["data"]["email"]</p>
+                            <p class="font-mono text-sm">course_title = response.json()["data"]["courses"][0]["title"]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Practices -->
+        <section id="best-practices" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">4</span>
+                </div>
+                <h2 class="text-3xl font-bold">API Best Practices</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-200">
+                    <h3 class="font-bold text-blue-700 mb-3">✅ Secure Practices</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Always use HTTPS</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Store secrets securely</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Implement proper error handling</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-green-200">
+                    <h3 class="font-bold text-green-700 mb-3">✅ Performance Tips</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Use pagination for large datasets</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Implement caching where appropriate</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Set reasonable timeouts</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-purple-200">
+                    <h3 class="font-bold text-purple-700 mb-3">✅ NITDA Standards</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Follow API documentation precisely</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Respect rate limits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Use proper authentication</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">Complete Example</h3>
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Python Implementation</span>
+                    </div>
+                    <pre><code class="language-python hljs">import requests
+from requests.exceptions import RequestException
+import json
+
+class NITDAAPIClient:
+    def __init__(self, client_id, client_secret):
+        self.base_url = "https://api.ula.nitda.gov.ng/v1"
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.access_token = None
+        
+    def authenticate(self):
+        """Get access token"""
+        try:
+            response = requests.post(
+                f"{self.base_url}/auth/token",
+                json={
+                    "client_id": self.client_id,
+                    "client_secret": self.client_secret,
+                    "grant_type": "client_credentials"
+                },
+                timeout=5
+            )
+            response.raise_for_status()
+            self.access_token = response.json()["access_token"]
+            return True
+            
+        except RequestException as e:
+            print(f"Authentication failed: {e}")
+            return False
+    
+    def get_user_data(self, user_id):
+        """Get user data from API"""
+        if not self.access_token:
+            if not self.authenticate():
+                return None
+                
+        try:
+            response = requests.get(
+                f"{self.base_url}/users/{user_id}",
+                headers={"Authorization": f"Bearer {self.access_token}"},
+                timeout=10
+            )
+            response.raise_for_status()
+            return response.json()
+            
+        except RequestException as e:
+            print(f"API request failed: {e}")
+            return None
+
+# Usage
+client = NITDAAPIClient("your_client_id", "your_client_secret")
+user_data = client.get_user_data("user_123")
+if user_data:
+    print(json.dumps(user_data, indent=2))</code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-0 rounded">
+  <p class="text-sm text-yellow-700">
+    ⚠️ <strong>Note:</strong> This is a simulated API guide built by a student intern at NITDA/NCAIR for educational purposes. No real API calls are being made.
+  </p>
+</div>
+
+    <!-- Footer -->
+  <footer class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white py-10 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
+    <!-- About -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-code mr-2"></i> About the Project</h4>
+      <p class="text-sm opacity-80">
+        A legacy initiative built during SIWES at NITDA/NCAIR — empowering the next generation through code, APIs, and innovation.
+      </p>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-user-circle mr-2"></i> Facilitator</h4>
+      <p class="text-sm opacity-80">Mr. Mubaraq<br><i class="fas fa-phone-alt mr-1"></i> +234 811 9122778</p>
+      <p class="text-sm opacity-80 mt-2">Ms. Cynthia<br><i class="fas fa-phone-alt mr-1"></i> +234 814 494 5146</p>
+    </div>
+
+    <!-- Social / Credit -->
+    <div>
+      <h4 class="text-lg font-semibold mb-2"><i class="fas fa-globe mr-2"></i> Stay Connected</h4>
+      <div class="flex justify-center md:justify-start gap-4 mt-2 text-lg">
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-github"></i></a>
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="hover:text-cyan-300"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p class="text-xs text-gray-300 mt-4">
+        <i class="fas fa-copyright"></i> 2025 NITDA | Built with 💻 by <strong>Nuhu Muhammad Datti</strong>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Update active navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sticky a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-600', 'border-blue-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-blue-600', 'border-blue-600');
+                }
+            });
+        });
+        AOS.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EduPulse – Smart Result Grader</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    @media print {
+      body *:not(#printable):not(#printable *) {
+        display: none !important;
+      }
+      #printable {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-200 font-sans min-h-screen py-10 px-6 flex flex-col items-center">
+
+  <header class="text-center mb-10 max-w-md">
+    <h1 class="text-4xl font-bold text-yellow-400 mb-2">🎓 EduPulse</h1>
+    <p class="text-gray-400 italic">Enter your score and get smart insights!</p>
+  </header>
+
+  <main class="max-w-md w-full bg-slate-800 p-6 rounded-xl shadow space-y-4">
+    <label for="scoreInput" class="block text-gray-300 mb-2 text-sm font-semibold">Your Score (%)</label>
+    <input
+      type="number"
+      id="scoreInput"
+      min="0" max="100"
+      placeholder="e.g. 85"
+      class="w-full p-3 rounded bg-slate-700 text-black text-lg font-mono placeholder:text-gray-400 focus:outline-yellow-400"
+    />
+
+    <button
+      id="gradeBtn"
+      class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-3 rounded font-semibold transition"
+      aria-label="Grade Score"
+    >Grade Me</button>
+
+    <div id="result" class="mt-6 text-2xl font-bold text-center text-green-300 min-h-[2.5rem]"></div>
+
+    <button
+      id="showWalkthroughBtn"
+      class="w-full mt-4 bg-slate-600 hover:bg-slate-700 text-yellow-400 py-2 rounded font-medium transition"
+      aria-label="Show Result Walkthrough"
+    >View Result Walkthrough / Print</button>
+  </main>
+
+  <!-- Walkthrough Modal (hidden by default) -->
+  <div
+    id="walkthroughModal"
+    class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-6 z-50 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="walkthroughTitle"
+  >
+    <div
+      class="bg-slate-800 rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+      id="printable"
+    >
+      <h2 id="walkthroughTitle" class="text-yellow-400 text-2xl font-bold mb-4">Result Walkthrough</h2>
+      <p class="mb-4 text-gray-300 leading-relaxed">
+        Did you think you have the docs/result walkthrough? <br />
+        If yes, mail us at
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=nuhumuhammaddatti@gmail.com&su=EduPulse%20Docs%20Request"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-yellow-500 underline hover:text-yellow-400"
+          >Mail:Datti</a
+        >.
+      </p>
+      <ol class="list-decimal list-inside text-gray-400 space-y-2">
+        <li>Enter your score in the input field.</li>
+        <li>Click "Grade Me" to see your grade.</li>
+        <li>If you want a printable version, click the "Print" button below.</li>
+      </ol>
+
+      <div class="mt-6 flex justify-between items-center">
+        <button
+          id="printBtn"
+          class="bg-yellow-500 hover:bg-yellow-400 text-black py-2 px-6 rounded font-semibold transition"
+        >Print</button>
+        <button
+          id="closeWalkthroughBtn"
+          class="text-yellow-400 hover:text-yellow-300 font-semibold"
+          aria-label="Close Result Walkthrough"
+        >Close</button>
+      </div>
+    </div>
+  </div>
+   <a href="../../index.html" class="mt-8 text-indigo-300 hover:underline">← Back to Practice Hub</a>
+
+<script>
+  const scoreInput = document.getElementById('scoreInput');
+  const gradeBtn = document.getElementById('gradeBtn');
+  const result = document.getElementById('result');
+  const showWalkthroughBtn = document.getElementById('showWalkthroughBtn');
+  const walkthroughModal = document.getElementById('walkthroughModal');
+  const closeWalkthroughBtn = document.getElementById('closeWalkthroughBtn');
+  const printBtn = document.getElementById('printBtn');
+
+  function gradeScore() {
+    const score = parseFloat(scoreInput.value);
+    if (isNaN(score) || score < 0 || score > 100) {
+      result.textContent = "🚫 Invalid Score";
+      result.classList.remove('text-green-300');
+      result.classList.add('text-red-500');
+      return;
+    }
+
+    let grade = "";
+    if (score >= 70) grade = "A";
+    else if (score >= 60) grade = "B";
+    else if (score >= 50) grade = "C";
+    else if (score >= 45) grade = "D";
+    else if (score >= 40) grade = "E";
+    else grade = "F";
+
+    result.textContent = `Grade: ${grade}`;
+    result.classList.remove('text-red-500');
+    result.classList.add('text-green-300');
+  }
+
+  gradeBtn.addEventListener('click', gradeScore);
+
+  // Show/hide walkthrough modal
+  showWalkthroughBtn.addEventListener('click', () => {
+    walkthroughModal.classList.remove('hidden');
+  });
+
+  closeWalkthroughBtn.addEventListener('click', () => {
+    walkthroughModal.classList.add('hidden');
+  });
+
+  // Print functionality
+  printBtn.addEventListener('click', () => {
+    window.print();
+  });
+</script>
+
+</body>
+</html>

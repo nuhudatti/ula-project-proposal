@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OOP Arena – NITDA Inspired Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: #0f2027;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    /* nav {
+      background-color: #00ffcc;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    nav a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    } */
+    .container {
+      max-width: 1000px;
+      margin: 100px auto 50px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,255,204,0.1);
+    }
+    h1, h2, h3 {
+      color: #00ffcc;
+    }
+    p {
+      line-height: 1.6;
+      color: #d0f0ff;
+    }
+    pre {
+      background-color: #0d1117;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      color: #c9d1d9;
+    }
+    .comment { color: #8b949e; }
+    .keyword { color: #ff7b72; }
+    .class { color: #d2a8ff; }
+    .func { color: #a5d6ff; }
+    .string { color: #a8ff60; }
+    .highlight {
+      color: #ffd700;
+      font-weight: bold;
+    }
+     .explanation {
+      background-color: #112;
+      padding: 15px;
+      border-left: 4px solid #00ffcc;
+      margin: 10px 0 30px;
+      border-radius: 6px;
+      display: none;
+    }
+    button.toggle {
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    button.toggle:hover {
+      background: #00e6b2;
+    }
+      .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00ffc8;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- <nav>
+    <div><a href="index.html">🏠 Home</a></div>
+    <div><a href="quiz.html">🧠 Quiz</a></div>
+  </nav> -->
+
+  <div class="container">
+    <h1>👨‍🏫 Object-Oriented Programming (OOP)</h1>
+    <p><span class="highlight">Why OOP?</span> OOP helps us build real-world systems in code by modeling objects like people, vehicles, students — anything that has data (attributes) and behavior (methods).</p>
+
+    <h2>🔹 1. Classes & Objects</h2>
+    <p>A <span class="highlight">class</span> is like a blueprint — it defines what an object should be. An <span class="highlight">object</span> is the actual thing built from that blueprint.</p>
+    <pre><code><span class="comment"># Class and Object</span>
+<span class="keyword">class</span> <span class="class">Person</span>:
+    <span class="keyword">def</span> <span class="func">__init__</span>(self, name, age):
+        self.name = name
+        self.age = age
+
+    <span class="keyword">def</span> <span class="func">welcome</span>(self):
+        print(f"Hello {self.name}, age {self.age}, welcome to Python Advance class")
+
+p1 = Person("Amina", 12)
+p1.welcome()</code></pre>
+
+     <button class="toggle" onclick="toggleExplain('ex1')">📖 Explain This</button>
+    <div class="explanation" id="ex1">
+      <p>We created a <strong>Person</strong> class with two properties: <code>name</code> and <code>age</code>. The <code>__init__</code> method is a constructor — it runs automatically when we create a new object (like Amina). The <code>welcome</code> method prints a personalized message.</p>
+    </div>
+
+    <h2>🔹 2. Methods</h2>
+    <p><span class="highlight">Methods</span> are functions defined inside a class — they describe what the object can do.</p>
+
+    <h2>🔹 3. Inheritance (Parent → Child)</h2>
+    <p><span class="highlight">Inheritance</span> allows one class (child) to use the properties and methods of another (parent).</p>
+    <pre><code><span class="comment"># Inheriting from Person</span>
+<span class="keyword">class</span> <span class="class">Student</span>(Person):
+    <span class="keyword">def</span> <span class="func">__init__</span>(self, name, age, gradyear):
+        <span class="keyword">super()</span>.__init__(name, age)
+        self.gradyear = gradyear
+
+    <span class="keyword">def</span> <span class="func">attendance</span>(self):
+        checkin = input("Enter Check-In time: ")
+        checkout = input("Enter Check-Out time: ")
+        print(f"Hello {self.name}, class of {self.gradyear}, checked in at {checkin} and out at {checkout}.")
+
+stu = Student("John", 21, 2027)
+stu.attendance()</code></pre>
+ <button class="toggle" onclick="toggleExplain('ex2')">📖 Explain This</button>
+    <div class="explanation" id="ex2">
+      <p>The <strong>Student</strong> class inherits from the <strong>Person</strong> class, gaining access to its properties and methods. <code>super()</code> allows us to call the constructor of the parent class. <code>attendance()</code> is a new method just for <strong>Student</strong>.</p>
+    </div>
+
+    <h2>🔹 4. Polymorphism</h2>
+    <p><span class="highlight">Polymorphism</span> means different classes can define their own version of a method with the same name. The function runs based on the object’s class.</p>
+    <pre><code><span class="keyword">class</span> <span class="class">Car</span>:
+    <span class="keyword">def</span> <span class="func">move</span>(self):
+        print("DRIVE!!")
+
+<span class="keyword">class</span> <span class="class">Boat</span>:
+    <span class="keyword">def</span> <span class="func">move</span>(self):
+        print("SAIL!!")
+
+<span class="keyword">class</span> <span class="class">Plane</span>:
+    <span class="keyword">def</span> <span class="func">move</span>(self):
+        print("FLY!!")
+
+<span class="comment"># Demonstrating polymorphism</span>
+for x in (Car(), Boat(), Plane()):
+    x.move()</code></pre>
+     <button class="toggle" onclick="toggleExplain('ex3')">📖 Explain This</button>
+    <div class="explanation" id="ex3">
+      <p>Each class has a method called <code>move()</code>, but each one behaves differently. This is called <strong>polymorphism</strong> — one method name, different implementations based on object type.</p>
+    </div>
+
+    <h2>🔹 5. Overriding Methods</h2>
+    <p>You can override a parent class’s method in the child class.</p>
+    <pre><code><span class="keyword">class</span> <span class="class">Vehicle</span>:
+    <span class="keyword">def</span> <span class="func">move</span>(self):
+        print("MOVE!!")
+
+<span class="keyword">class</span> <span class="class">Boat</span>(Vehicle):
+    <span class="keyword">def</span> <span class="func">move</span>(self):
+        print("SAIL!!")</code></pre>
+         <button class="toggle" onclick="toggleExplain('ex4')">📖 Explain This</button>
+    <div class="explanation" id="ex4">
+      <p><strong>Boat</strong> inherits from <strong>Vehicle</strong>, but it overrides the <code>move()</code> method. This means it replaces the parent behavior with its own version — this is very useful when child objects need unique actions.</p>
+    </div>
+
+    <h2>🌟 Summary</h2>
+    <ul>
+      <li>✅ <strong>Classes</strong> group related data and actions</li>
+      <li>✅ <strong>Methods</strong> are object-specific functions</li>
+      <li>✅ <strong>Inheritance</strong> lets you reuse and extend code</li>
+      <li>✅ <strong>Polymorphism</strong> makes your code dynamic and adaptable</li>
+      <li>✅ <strong>Override</strong> lets you customize behavior in child classes</li>
+    </ul>
+
+    <p>🚀 You’ve just learned the **heart of Python development**. Every big software — from Facebook to self-driving cars — is built on these ideas.</p>
+    <p><strong>Inspired by NITDA. Designed for the future.</strong></p>
+  </div>
+   <a href="./index.html">
+      <div class="nav-floating" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+  <script>
+    AOS.init();
+     function toggleExplain(id) {
+      const section = document.getElementById(id);
+      section.style.display = section.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

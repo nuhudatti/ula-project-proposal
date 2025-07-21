@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert API Development | NITDA/NCAIR ULA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>hljs.highlightAll();</script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+        }
+        .security-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .security-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .threat-card {
+            border-top: 4px solid;
+        }
+        .threat-critical { border-top-color: #EF4444; }
+        .threat-high { border-top-color: #F59E0B; }
+        .threat-medium { border-top-color: #3B82F6; }
+        .method-get { background-color: #10B981; }
+        .method-post { background-color: #3B82F6; }
+        .method-put { background-color: #F59E0B; }
+        .method-delete { background-color: #EF4444; }
+        .roadmap-step {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        .roadmap-step:before {
+            content: "";
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #E5E7EB;
+        }
+        .roadmap-step:first-child:before {
+            top: 1.5rem;
+        }
+        .roadmap-step:last-child:before {
+            bottom: calc(100% - 1.5rem);
+        }
+        .roadmap-step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 9999px;
+            background-color: #3B82F6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="../img/nitda.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <img src="../img/ncair.jpeg" alt="NITDA Logo" class="h-12 w-12">
+                    <div>
+                        <h1 class="text-2xl font-bold">NITDA/NCAIR ULA</h1>
+                        <p class="text-blue-100">Expert API Development</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 max-w-3xl">
+                <h2 class="text-4xl font-bold mb-4">Build Production-Ready APIs</h2>
+                <p class="text-xl text-blue-100">From design to deployment - master professional API development</p>
+                               
+                <p class="text-sm text-blue-100 italic">
+⚠️ This API endpoint is part of a learning demonstration and may not be actively available. Content provided is for educational purposes only as part of the NITDA/NCAIR SIWES Cohort 26 program.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Navigation -->
+    <div class="bg-white shadow-sm sticky top-0 z-10">
+         <div class="mb-8 bg-white p-4 rounded-lg border border-gray-200">
+        <h4 class="font-bold mb-2">Your Progress</h4>
+        <div class="flex items-center">
+            <div class="relative w-12 h-12 mr-4">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                    <path d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                      fill="none"
+                      stroke="#e6e6e6"
+                      stroke-width="3"
+                      stroke-dasharray="100, 100"
+                    />
+                    <path d="M18 2.0845
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                      fill="none"
+                      stroke="#3b82f6"
+                      stroke-width="3"
+                      stroke-dasharray="100, 100"
+                      class="progress-ring__circle"
+                    />
+                </svg>
+                <span class="absolute inset-0 flex items-center justify-center text-xs font-bold">100%</span>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">4 of 4 modules you're on the best track!</p>
+                <p>Contratulations!</p>
+            </div>
+        </div>
+    </div>
+
+        <div class="container mx-auto px-6">
+            <div class="flex overflow-x-auto py-4 space-x-6">
+                <a href="#api-design" class="whitespace-nowrap px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600">API Design</a>
+                <a href="#building-apis" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Building APIs</a>
+                <a href="#deployment" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Deployment</a>
+                <a href="#best-practices" class="whitespace-nowrap px-4 py-2 font-medium text-gray-500 hover:text-blue-600">Best Practices</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- API Design -->
+        <section id="api-design" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">1</span>
+                </div>
+                <h2 class="text-3xl font-bold">API Design Principles</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div>
+                    <p class="text-lg mb-6">Well-designed APIs are consistent, intuitive, and scalable. Follow these NITDA-approved design patterns for professional API development.</p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+                        <p class="font-medium text-blue-800">Design Philosophy:</p>
+                        <p>Your API is a product - design it for your consumers (developers) with the same care you'd design a user interface.</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4">RESTful Design Guidelines</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>Resource-Based:</strong> Nouns (not verbs) in endpoint paths</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>HTTP Methods:</strong> GET, POST, PUT, DELETE for CRUD operations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Plural Nouns:</strong> Use <code>/students</code> not <code>/student</code></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                            <span><strong>Versioning:</strong> Include version in path (<code>/v1/</code>) or header</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Well-Designed API Example</span>
+                    </div>
+                    <pre><code class="language-http hljs"># Student Management API
+
+## Get all students
+GET /v1/students
+
+## Get specific student
+GET /v1/students/{id}
+
+## Create new student
+POST /v1/students
+{
+    "name": "Nuhu Muhammad",
+    "email": "nuhu@nitda.gov.ng",
+    "course": "API Development"
+}
+
+## Update student
+PUT /v1/students/{id}
+{
+    "email": "new-email@nitda.gov.ng"
+}
+
+## Delete student
+DELETE /v1/students/{id}
+
+## Get student's courses
+GET /v1/students/{id}/courses</code></pre>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-6">API Design Roadmap</h3>
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="space-y-8">
+                    <div class="roadmap-step">
+                        <div class="roadmap-step-number">1</div>
+                        <h4 class="text-xl font-bold mb-2">Define Resources</h4>
+                        <p class="text-gray-700">Identify the core entities (resources) your API will expose (students, courses, etc.) and their relationships.</p>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <div class="roadmap-step-number">2</div>
+                        <h4 class="text-xl font-bold mb-2">Design Endpoints</h4>
+                        <p class="text-gray-700">Create RESTful endpoints for each resource following naming conventions and HTTP method standards.</p>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <div class="roadmap-step-number">3</div>
+                        <h4 class="text-xl font-bold mb-2">Request/Response Format</h4>
+                        <p class="text-gray-700">Define consistent JSON structures for requests and responses, including error formats.</p>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <div class="roadmap-step-number">4</div>
+                        <h4 class="text-xl font-bold mb-2">Documentation</h4>
+                        <p class="text-gray-700">Create comprehensive documentation with examples for all endpoints using tools like Swagger/OpenAPI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Building APIs -->
+        <section id="building-apis" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">2</span>
+                </div>
+                <h2 class="text-3xl font-bold">Building APIs with FastAPI</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">FastAPI is a modern Python framework for building APIs with automatic documentation, data validation, and high performance.</p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-lg">
+                        <p class="font-medium text-blue-800">Why FastAPI?</p>
+                        <p>FastAPI combines Python's simplicity with performance near NodeJS/Go, making it ideal for NITDA's digital education initiatives.</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4">Core Features</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+                            <span><strong>Automatic Docs:</strong> Interactive Swagger and ReDoc UIs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+                            <span><strong>Data Validation:</strong> Powered by Python type hints</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+                            <span><strong>Async Ready:</strong> Supports async/await for performance</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">4</span>
+                            <span><strong>Standards-Based:</strong> OpenAPI, JSON Schema, OAuth2</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Complete FastAPI Example</span>
+                    </div>
+                    <pre><code class="language-python hljs">from fastapi import FastAPI, HTTPException, Depends
+from pydantic import BaseModel
+from typing import List
+import databases
+import sqlalchemy
+
+# Database setup
+DATABASE_URL = "sqlite:///./nitda.db"
+database = databases.Database(DATABASE_URL)
+metadata = sqlalchemy.MetaData()
+
+# Define models
+students = sqlalchemy.Table(
+    "students",
+    metadata,
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column("name", sqlalchemy.String),
+    sqlalchemy.Column("email", sqlalchemy.String, unique=True),
+)
+
+# Pydantic models
+class StudentCreate(BaseModel):
+    name: str
+    email: str
+
+class Student(StudentCreate):
+    id: int
+
+# FastAPI app
+app = FastAPI(title="NITDA Student API")
+
+@app.on_event("startup")
+async def startup():
+    await database.connect()
+    # Create tables if they don't exist
+    engine = sqlalchemy.create_engine(DATABASE_URL)
+    metadata.create_all(engine)
+
+@app.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()
+
+@app.post("/students/", response_model=Student)
+async def create_student(student: StudentCreate):
+    query = students.insert().values(**student.dict())
+    student_id = await database.execute(query)
+    return {**student.dict(), "id": student_id}
+
+@app.get("/students/", response_model=List[Student])
+async def read_students():
+    query = students.select()
+    return await database.fetch_all(query)
+
+@app.get("/students/{student_id}", response_model=Student)
+async def read_student(student_id: int):
+    query = students.select().where(students.c.id == student_id)
+    student = await database.fetch_one(query)
+    if student is None:
+        raise HTTPException(status_code=404, detail="Student not found")
+    return student</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">Database Integration</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-3">SQL Databases</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span><strong>SQLAlchemy Core:</strong> Lightweight ORM alternative</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span><strong>Databases:</strong> Async database support</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span><strong>Alembic:</strong> Database migrations</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">NoSQL Options</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span><strong>MongoDB:</strong> Beanie ODM for async MongoDB</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span><strong>Redis:</strong> For caching and real-time features</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span><strong>Firestore:</strong> Google's flexible NoSQL</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deployment -->
+        <section id="deployment" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">3</span>
+                </div>
+                <h2 class="text-3xl font-bold">API Deployment</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <p class="text-lg mb-6">Deploy your API to make it accessible worldwide. NITDA recommends these proven deployment strategies.</p>
+                    
+                    <h3 class="text-xl font-bold mb-4">Deployment Options</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 border rounded-lg hover:shadow-md transition">
+                            <h4 class="font-bold text-lg mb-2">🚀 Render.com</h4>
+                            <p class="text-sm">Simple deployment with free tier, perfect for student projects and prototypes.</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-600">
+                                <span class="bg-gray-100 px-2 py-1 rounded mr-2">Free</span>
+                                <span>Easy PostgreSQL setup</span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 border rounded-lg hover:shadow-md transition">
+                            <h4 class="font-bold text-lg mb-2">☁️ AWS/GCP/Azure</h4>
+                            <p class="text-sm">Enterprise-grade deployment with auto-scaling for production workloads.</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-600">
+                                <span class="bg-gray-100 px-2 py-1 rounded mr-2">Paid</span>
+                                <span>High availability</span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 border rounded-lg hover:shadow-md transition">
+                            <h4 class="font-bold text-lg mb-2">🐳 Docker Containers</h4>
+                            <p class="text-sm">Package your API for consistent deployment across any environment.</p>
+                            <div class="mt-2 flex items-center text-sm text-gray-600">
+                                <span class="bg-gray-100 px-2 py-1 rounded mr-2">Flexible</span>
+                                <span>Kubernetes ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">Dockerfile Example</span>
+                    </div>
+                    <pre><code class="language-dockerfile hljs"># Use official Python image
+FROM python:3.9-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Poetry
+RUN pip install poetry
+
+# Copy only requirements to cache them in docker layer
+WORKDIR /code
+COPY poetry.lock pyproject.toml /code/
+
+# Install project dependencies
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-interaction --no-ansi
+
+# Copy project
+COPY . /code
+
+# Run the API
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]</code></pre>
+                </div>
+            </div>
+            
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                <p class="font-medium text-yellow-800">Before Deployment Checklist:</p>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li>✅ Set proper CORS policies</li>
+                    <li>✅ Configure production-grade ASGI server (Uvicorn + Gunicorn)</li>
+                    <li>✅ Implement proper logging</li>
+                    <li>✅ Set up monitoring/health checks</li>
+                    <li>✅ Secure all secrets (use environment variables)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Best Practices -->
+        <section id="best-practices" class="mb-20 scroll-mt-24">
+            <div class="flex items-center mb-8">
+                <div class="bg-blue-100 text-blue-800 rounded-full w-10 h-10 flex items-center justify-center mr-4">
+                    <span class="text-xl font-bold">4</span>
+                </div>
+                <h2 class="text-3xl font-bold">Professional API Practices</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-lg mb-6">Follow these NITDA-endorsed best practices to build APIs that are secure, maintainable, and production-ready.</p>
+                    
+                    <h3 class="text-xl font-bold mb-4">Essential Practices</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">🔐 Authentication</h4>
+                            <p class="text-sm">Implement OAuth2 with JWT tokens. Use FastAPI's built-in OAuth2PasswordBearer for secure token handling.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">📝 Documentation</h4>
+                            <p class="text-sm">Auto-generate OpenAPI docs with FastAPI. Add descriptions to all endpoints and models.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">🧪 Testing</h4>
+                            <p class="text-sm">Write unit and integration tests with pytest. Test all status codes and error scenarios.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Advanced Techniques</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">⚡ Background Tasks</h4>
+                            <p class="text-sm">Offload long-running processes with FastAPI's BackgroundTasks to keep responses fast.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">🔗 Dependency Injection</h4>
+                            <p class="text-sm">Use FastAPI's dependency system for clean, reusable components (auth, DB sessions, etc.).</p>
+                        </div>
+                        
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h4 class="font-bold text-blue-700 mb-2">📊 Monitoring</h4>
+                            <p class="text-sm">Add Prometheus metrics or health checks to monitor API performance in production.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-xl font-bold mb-4">Complete Production API Example</h3>
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+                        <div class="flex items-center">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        </div>
+                        <span class="text-sm text-gray-400">production_api.py</span>
+                    </div>
+                    <pre><code class="language-python hljs">from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel
+from typing import Optional
+import databases
+import sqlalchemy
+import jwt
+from passlib.context import CryptContext
+import datetime
+
+# Security setup
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+SECRET_KEY = "your-secret-key"  # In prod, use env variables
+ALGORITHM = "HS256"
+
+# Database setup
+DATABASE_URL = "sqlite:///./prod.db"
+database = databases.Database(DATABASE_URL)
+metadata = sqlalchemy.MetaData()
+
+# Models
+users = sqlalchemy.Table(
+    "users",
+    metadata,
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column("username", sqlalchemy.String, unique=True),
+    sqlalchemy.Column("hashed_password", sqlalchemy.String),
+)
+
+# Pydantic models
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+class UserInDB(UserCreate):
+    id: int
+    hashed_password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+# FastAPI app
+app = FastAPI(
+    title="NITDA Production API",
+    description="Secure API with authentication",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
+
+# Helper functions
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
+def create_access_token(data: dict, expires_delta: Optional[datetime.timedelta] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.datetime.utcnow() + datetime.timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+    except jwt.PyJWTError:
+        raise credentials_exception
+    
+    query = users.select().where(users.c.username == username)
+    user = await database.fetch_one(query)
+    if user is None:
+        raise credentials_exception
+    return user
+
+# Routes
+@app.post("/token", response_model=Token)
+async def login_for_access_token(form_data: UserCreate):
+    query = users.select().where(users.c.username == form_data.username)
+    user = await database.fetch_one(query)
+    if not user or not verify_password(form_data.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token = create_access_token(
+        data={"sub": user.username},
+        expires_delta=datetime.timedelta(minutes=30)
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/users/", response_model=UserInDB)
+async def create_user(user: UserCreate):
+    hashed_password = get_password_hash(user.password)
+    query = users.insert().values(
+        username=user.username,
+        hashed_password=hashed_password
+    )
+    user_id = await database.execute(query)
+    return {**user.dict(), "id": user_id, "hashed_password": hashed_password}
+
+@app.get("/users/me/", response_model=UserInDB)
+async def read_users_me(current_user: UserInDB = Depends(get_current_user)):
+    return current_user</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-20 px-6 md:px-16 border-t border-gray-200">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-blue-900 mb-2">Next Steps</h2>
+                <p class="text-xl text-gray-700 mb-6">Continue your API development journey with these resources</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mt-10">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">📚 FastAPI Documentation</h3>
+                        <p class="text-gray-700">Official docs with advanced topics like middleware, WebSockets, and GraphQL.</p>
+                        <a href="https://fastapi.tiangolo.com" class="text-blue-600 text-sm mt-2 inline-block">fastapi.tiangolo.com →</a>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">🔒 Security Deep Dive</h3>
+                        <p class="text-gray-700">OWASP API Security Top 10 - critical security risks to avoid.</p>
+                        <a href="https://owasp.org/www-project-api-security" class="text-blue-600 text-sm mt-2 inline-block">owasp.org/api-security →</a>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">🏗️ Project Ideas</h3>
+                        <p class="text-gray-700">Build a complete student portal API with courses, enrollment, and progress tracking.</p>
+                        <a href="#" class="text-blue-600 text-sm mt-2 inline-block">View project spec →</a>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <a href="#" class="inline-block bg-blue-800 hover:bg-blue-900 text-white text-lg font-semibold px-6 py-3 rounded-full transition">
+                        Back to Main Guide
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="./index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back 
+    </div>
+    </a>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-0 rounded">
+        <p class="text-sm text-yellow-700">
+            ⚠️ <strong>Note:</strong> This is a simulated API guide built by a student intern at NITDA/NCAIR for educational purposes. No real API calls are being made.
+        </p>
+    </div>
+    
+    <footer class="bg-gradient-to-r from-green-800 via-emerald-600 to-amber-500 text-white py-10 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
+            <!-- About -->
+            <div>
+                <h4 class="text-lg font-semibold mb-2"><i class="fas fa-code mr-2"></i> About the Project</h4>
+                <p class="text-sm opacity-80">
+                    A legacy initiative built during SIWES at NITDA/NCAIR — empowering the next generation through code, APIs, and innovation.
+                </p>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h4 class="text-lg font-semibold mb-2"><i class="fas fa-user-circle mr-2"></i> Facilitator</h4>
+                <p class="text-sm opacity-80">Mr. Mubaraq<br><i class="fas fa-phone-alt mr-1"></i> +234 811 9122778</p>
+                <p class="text-sm opacity-80 mt-2">Ms. Cynthia<br><i class="fas fa-phone-alt mr-1"></i> +234 814 494 5146</p>
+            </div>
+
+            <!-- Social / Credit -->
+            <div>
+                <h4 class="text-lg font-semibold mb-2"><i class="fas fa-globe mr-2"></i> Stay Connected</h4>
+                <div class="flex justify-center md:justify-start gap-4 mt-2 text-lg">
+                    <a href="#" class="hover:text-cyan-300"><i class="fab fa-github"></i></a>
+                    <a href="#" class="hover:text-cyan-300"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-cyan-300"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p class="text-xs text-gray-300 mt-4">
+                    <i class="fas fa-copyright"></i> 2025 NITDA | Built with 💻 by <strong>Nuhu Muhammad Datti</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Update active navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sticky a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-600', 'border-blue-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-blue-600', 'border-blue-600');
+                }
+            });
+        });
+        AOS.init();
+    </script>
+</body>
+</html>

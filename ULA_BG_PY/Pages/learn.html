@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITDA Python Beginner Learning Trail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        .nitda-blue { background-color: #003366; }
+        .nitda-green { background-color: #00A651; }
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+         .floating-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      /* background: #00ffc8; */
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(14, 6, 170, 0.7);
+      cursor: pointer;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="nitda-blue text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">Python Programming for Absolute Beginners</h1>
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                A complete step-by-step learning trail from zero to Python proficiency
+            </p>
+            <div class="text-sm text-white/70 italic font-medium">
+  <p><span id="typed2"></span></p>
+</div>
+        </div>
+    </header>
+
+    <!-- TOC: Table of Contents -->
+<div class="my-8 bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
+  <div class="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
+    <h2 class="text-lg font-semibold">📚 Table of Contents</h2>
+    <button onclick="document.getElementById('toc-body').classList.toggle('hidden')" class="text-sm bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100 transition">Toggle</button>
+  </div>
+  <div id="toc-body" class="p-4 space-y-2">
+    <ul class="list-decimal list-inside text-gray-800 space-y-1">
+      <li><a href="#section1" class="text-blue-600 hover:underline">1. Introduction</a></li>
+      <li><a href="#section2" class="text-blue-600 hover:underline">2. Setting Up Python</a></li>
+      <li><a href="#section3" class="text-blue-600 hover:underline">3. First Python Program</a></li>
+      <li><a href="#section4" class="text-blue-600 hover:underline">4. Variables & Data Types</a></li>
+      <li><a href="#section5" class="text-blue-600 hover:underline">5. Operators</a></li>
+      <li><a href="#section6" class="text-blue-600 hover:underline">6. Control Flow</a></li>
+      <li><a href="#section7" class="text-blue-600 hover:underline">7. Functions</a></li>
+      <li><a href="#section8" class="text-blue-600 hover:underline">8. Lists & Dictionaries</a></li>
+      <li><a href="#section9" class="text-blue-600 hover:underline">9. File Handling</a></li>
+      <li><a href="#section10" class="text-blue-600 hover:underline">10. Error Handling</a></li>
+      <li><a href="#section11" class="text-blue-600 hover:underline">11. String Processing</a></li>
+      <li><a href="#section12" class="text-blue-600 hover:underline">12. Random Module</a></li>
+      <li><a href="#section13" class="text-blue-600 hover:underline">13. Recursion</a></li>
+      <li><a href="#section14" class="text-blue-600 hover:underline">14. Type Annotations</a></li>
+      <li><a href="#section15" class="text-blue-600 hover:underline">15. Naming Conventions</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <!-- Add this ABOVE the first section -->
+<div class="sticky top-0 z-50 bg-white shadow-md py-3 px-6">
+  <div class="flex overflow-x-auto space-x-4">
+    <a href="#section1" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"> Intro</a>
+    <a href="#section2" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Setup</a>
+    <a href="#section3" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">First Program</a>
+    <a href="#section4" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Variables</a>
+    <a href="#section5" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Operators</a>
+    <a href="#section6" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Control Flow</a>
+    <a href="#section7" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Functions</a>
+    <a href="#section8" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Lists/Dicts</a>
+    <a href="#section9" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Files</a>
+    <a href="#section10" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Errors</a>
+    <a href="#section11" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">String Processing</a>
+    <a href="#section12" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Random Module</a>
+    <a href="#section13" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Recursion</a>
+    <a href="#section14" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">Type Annotations</a>
+    <a href="#section15" class="whitespace-nowrap px-3 py-1 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"> Naming Conventions</a>
+
+
+  </div>
+</div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- 1. Introduction to Python -->
+        <section id="section1" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="nitda-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">1. Introduction to Python</h2>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">What is Python?</h3>
+                    <p class="text-gray-700 mb-4">
+                        Python is like giving clear instructions to a computer in a language that's easy for humans to understand. 
+                        It's used to create websites, analyze data, build artificial intelligence, and automate boring tasks.
+                    </p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-blue-800">Real World Example</h3>
+                                <div class="mt-2 text-sm text-blue-700">
+                                    <p>Companies like Google, NASA, and Instagram use Python because it's powerful yet easy to read.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Why Learn Python?</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h4 class="font-semibold text-green-800">Easy to Learn</h4>
+                            </div>
+                            <p class="text-gray-700 text-sm">Python reads like English, making it perfect for beginners.</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h4 class="font-semibold text-green-800">High Demand</h4>
+                            </div>
+                            <p class="text-gray-700 text-sm">Top companies need Python developers with good salaries.</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h4 class="font-semibold text-green-800">Versatile</h4>
+                            </div>
+                            <p class="text-gray-700 text-sm">Build websites, analyze data, create games, and more.</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="flex items-center mb-2">
+                                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <h4 class="font-semibold text-green-800">Large Community</h4>
+                            </div>
+                            <p class="text-gray-700 text-sm">Get help from millions of Python developers worldwide.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Python vs Other Languages</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Feature</th>
+                                    <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Python</th>
+                                    <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Java</th>
+                                    <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">C++</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200">Syntax</td>
+                                    <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">Simple</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Complex</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Very Complex</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200">Speed</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Slower</td>
+                                    <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">Faster</td>
+                                    <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">Fastest</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200">Best For</td>
+                                    <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">Beginners, Data Science</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">Enterprise Apps</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">System Programming</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Remember</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>Python is the best starting point for beginners because it's easy to learn but powerful enough for real-world applications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Setting Up Python -->
+        <section id="section2" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="nitda-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">2. Setting Up Python</h2>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Installation Guide</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                Windows Installation
+                            </h4>
+                            <ol class="list-decimal pl-5 text-gray-700 space-y-2">
+                                <li>Download Python from <a href="https://python.org" class="text-blue-600 hover:underline">python.org</a></li>
+                                <li>Run the installer</li>
+                                <li>Check "Add Python to PATH"</li>
+                                <li>Click "Install Now"</li>
+                            </ol>
+                            <div class="mt-4 bg-gray-800 rounded-lg overflow-hidden">
+                                <div class="flex items-center bg-gray-700 px-4 py-2">
+                                    <span class="text-gray-300 text-sm">Command Prompt</span>
+                                </div>
+                                <pre><code class="language-bash">python --version
+# Should show: Python 3.x.x</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                Mac/Linux Installation
+                            </h4>
+                            <p class="text-gray-700 mb-3">Mac already has Python 2.7, but we need Python 3:</p>
+                            <div class="bg-gray-800 rounded-lg overflow-hidden">
+                                <div class="flex items-center bg-gray-700 px-4 py-2">
+                                    <span class="text-gray-300 text-sm">Terminal</span>
+                                </div>
+                                <pre><code class="language-bash"># For Mac:
+brew install python
+
+# For Linux:
+sudo apt update
+sudo apt install python3
+
+# Verify:
+python3 --version</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Choosing an IDE</h3>
+                    <p class="text-gray-700 mb-4">An IDE (Integrated Development Environment) is like a special text editor for writing code.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                Thonny (Beginner)
+                            </h4>
+                            <p class="text-gray-600 text-sm">Simple IDE perfect for learning</p>
+                            <a href="https://thonny.org" class="text-blue-600 text-sm hover:underline block mt-2">Download Thonny</a>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                VS Code (Recommended)
+                            </h4>
+                            <p class="text-gray-600 text-sm">Powerful but still beginner-friendly</p>
+                            <a href="https://code.visualstudio.com" class="text-blue-600 text-sm hover:underline block mt-2">Download VS Code</a>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                PyCharm (Advanced)
+                            </h4>
+                            <p class="text-gray-600 text-sm">Professional Python development</p>
+                            <a href="https://www.jetbrains.com/pycharm" class="text-blue-600 text-sm hover:underline block mt-2">Download PyCharm</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-green-800">Pro Tip</h3>
+                            <div class="mt-2 text-sm text-green-700">
+                                <p>Start with Thonny if you're completely new to programming. It's designed specifically for beginners with helpful features like variable visualization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Basic Syntax & Structure -->
+        <section id="section3" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="nitda-blue px-6 py-4">
+                <h2 class="text-2xl font-bold text-white">3. Basic Syntax & Structure</h2>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Your First Python Program</h3>
+                    
+                    <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                        <div class="flex items-center bg-gray-700 px-4 py-2">
+                            <span class="text-gray-300 text-sm">hello.py</span>
+                        </div>
+                        <pre><code class="language-python">print("Hello, World!")</code></pre>
+                    </div>
+                    
+                    <button onclick="toggleExplanation('exp1')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                        </svg>
+                        Show Explanation
+                    </button>
+                    
+                    <div id="exp1" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-blue-800 mb-2">Line-by-Line Breakdown</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200">
+                                <thead class="bg-blue-100">
+                                    <tr>
+                                        <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Code</th>
+                                        <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Explanation</th>
+                                        <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Layman's Terms</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-blue-50">
+                                        <td class="py-2 px-4 border-b border-gray-200 font-mono">print()</td>
+                                        <td class="py-2 px-4 border-b border-gray-200">A function that displays output</td>
+                                        <td class="py-2 px-4 border-b border-gray-200">Like telling the computer to "say" something</td>
+                                    </tr>
+                                    <tr class="hover:bg-blue-50">
+                                        <td class="py-2 px-4 border-b border-gray-200 font-mono">"Hello, World!"</td>
+                                        <td class="py-2 px-4 border-b border-gray-200">A string (text in quotes)</td>
+                                        <td class="py-2 px-4 border-b border-gray-200">The words you want the computer to display</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 bg-white p-4 rounded border border-gray-200">
+                            <h4 class="font-semibold text-gray-800 mb-2">How to Run This Program</h4>
+                            <ol class="list-decimal pl-5 text-gray-700 space-y-1">
+                                <li>Open your IDE (Thonny, VS Code, etc.)</li>
+                                <li>Type the code above</li>
+                                <li>Save the file as <code class="bg-gray-100 px-1 rounded">hello.py</code></li>
+                                <li>Click "Run" or press F5</li>
+                                <li>See "Hello, World!" appear in the output</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Python Indentation</h3>
+                    <p class="text-gray-700 mb-4">
+                        Python uses spaces/tabs to organize code (unlike other languages that use braces {}).
+                        This makes Python code very readable but requires careful formatting.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-4">
+                        <div>
+                            <h4 class="font-semibold text-green-600 mb-2">Correct Indentation</h4>
+                            <div class="bg-gray-800 rounded-lg overflow-hidden">
+                                <pre><code class="language-python">if 5 > 2:
+    print("Five is greater than two!")</code></pre>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-red-600 mb-2">Wrong Indentation</h4>
+                            <div class="bg-gray-800 rounded-lg overflow-hidden">
+                                <pre><code class="language-python">if 5 > 2:
+print("Five is greater than two!")  # Error!</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="toggleExplanation('exp2')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                        </svg>
+                        Why Indentation Matters
+                    </button>
+                    
+                    <div id="exp2" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-blue-800 mb-2">Understanding Indentation</h4>
+                        <p class="text-gray-700 mb-3">Think of indentation like paragraphs in a book:</p>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1 mb-4">
+                            <li><strong>No indentation</strong> = New thought (new block of code)</li>
+                            <li><strong>Indented</strong> = Part of the previous thought (code block)</li>
+                        </ul>
+                        <div class="bg-white p-4 rounded border border-gray-200">
+                            <h4 class="font-semibold text-gray-800 mb-2">Real World Example</h4>
+                            <p class="text-gray-700">Imagine giving instructions:</p>
+                            <div class="bg-gray-100 p-3 rounded mt-2">
+                                <p class="font-semibold">1. Go to the kitchen</p>
+                                <p class="ml-4">- Open the fridge</p>
+                                <p class="ml-4">- Take the milk</p>
+                                <p class="font-semibold">2. Come back to the living room</p>
+                            </div>
+                            <p class="text-gray-700 mt-2">The indented steps belong to "Go to the kitchen" just like indented code belongs to an <code class="bg-gray-200 px-1 rounded">if</code> statement.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Common Mistake</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>Mixing tabs and spaces causes errors. Configure your editor to use 4 spaces per tab.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Variables & Data Types -->
+<section id="section4" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">4. Variables & Data Types</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Understanding Variables</h3>
+            <p class="text-gray-700 mb-4">
+                Variables are like labeled boxes where you store information. You give each box a name and put data inside it.
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">variables.py</span>
+                </div>
+                <pre><code class="language-python"># Storing different types of data
+name = "Alice"          # Text (string)
+age = 25                # Whole number (integer)
+height = 5.9            # Decimal number (float)
+is_student = True       # True/False value (boolean)</code></pre>
+            </div>
+            
+            <button onclick="toggleExplanation('exp3')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show Variable Explanation
+            </button>
+            
+            <div id="exp3" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">Variable Concepts</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Code</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Explanation</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Real-life Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">name = "Alice"</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Creates a variable called 'name' storing text</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Like writing a name tag</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">age = 25</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Creates a variable storing a whole number</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Like writing your age on a form</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">is_student = True</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Stores a True/False value</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Like checking a yes/no box</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 bg-white p-4 rounded border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">Variable Naming Rules</h4>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>Must start with a letter or underscore</li>
+                        <li>Can contain letters, numbers, and underscores</li>
+                        <li>Case sensitive (<code class="bg-gray-100 px-1 rounded">age</code> ≠ <code class="bg-gray-100 px-1 rounded">Age</code>)</li>
+                        <li>Cannot use Python keywords (<code class="bg-gray-100 px-1 rounded">if</code>, <code class="bg-gray-100 px-1 rounded">for</code>, etc.)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Data Types in Python</h3>
+            <p class="text-gray-700 mb-4">
+                Python has different types of data, just like we have different types of containers in real life.
+            </p>
+            
+            <div class="overflow-x-auto mb-4">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Type</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Example</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Description</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Real-life Equivalent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">int</td>
+                            <td class="py-2 px-4 border-b border-gray-200">5</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Whole numbers</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Counting apples</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">float</td>
+                            <td class="py-2 px-4 border-b border-gray-200">3.14</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Decimal numbers</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Measuring weight</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">str</td>
+                            <td class="py-2 px-4 border-b border-gray-200">"Hello"</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Text (in quotes)</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Writing a note</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">bool</td>
+                            <td class="py-2 px-4 border-b border-gray-200">True</td>
+                            <td class="py-2 px-4 border-b border-gray-200">True/False values</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Yes/No questions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <button onclick="toggleExplanation('exp4')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show Data Types Explanation
+            </button>
+            
+            <div id="exp4" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">Understanding Data Types</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold text-gray-800 mb-2">Numbers</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li><code class="bg-gray-100 px-1 rounded">int</code> - Whole numbers (no decimals)</li>
+                            <li><code class="bg-gray-100 px-1 rounded">float</code> - Numbers with decimals</li>
+                        </ul>
+                        <div class="bg-gray-100 p-3 rounded mt-2">
+                            <pre class="text-sm"><code class="language-python"># Integer examples
+students = 30
+days = 7
+
+# Float examples
+price = 9.99
+temperature = 36.6</code></pre>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold text-gray-800 mb-2">Text & Booleans</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li><code class="bg-gray-100 px-1 rounded">str</code> - Text in quotes (single or double)</li>
+                            <li><code class="bg-gray-100 px-1 rounded">bool</code> - Only <code class="bg-gray-100 px-1 rounded">True</code> or <code class="bg-gray-100 px-1 rounded">False</code></li>
+                        </ul>
+                        <div class="bg-gray-100 p-3 rounded mt-2">
+                            <pre class="text-sm"><code class="language-python"># String examples
+name = "Alice"
+message = 'Hello there'
+
+# Boolean examples
+is_raining = True
+has_passed = False</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Common Mistake</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>Forgetting quotes around strings will cause an error. <code class="bg-yellow-100 px-1 rounded">name = Alice</code> (wrong) vs <code class="bg-yellow-100 px-1 rounded">name = "Alice"</code> (correct).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Pro Tip</h3>
+                    <div class="mt-2 text-sm text-green-700">
+                        <p>You can check any variable's type using <code class="bg-green-100 px-1 rounded">type()</code> function: <code class="bg-green-100 px-1 rounded">print(type(age))</code> will show <code class="bg-green-100 px-1 rounded">&lt;class 'int'&gt;</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. Operators & Expressions -->
+<section id="section5"class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">5. Operators & Expressions</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Basic Math Operators</h3>
+            <p class="text-gray-700 mb-4">
+                Python can perform calculations just like a calculator. Here are the basic math operators:
+            </p>
+            
+            <div class="overflow-x-auto mb-4">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Operator</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Example</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Result</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Real-life Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">+</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 + 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200">8</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Adding apples</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">-</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 - 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200">2</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Subtracting expenses</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">*</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 * 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200">15</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Multiplying items</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">/</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 / 2</td>
+                            <td class="py-2 px-4 border-b border-gray-200">2.5</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Dividing pizza slices</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">%</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 % 2</td>
+                            <td class="py-2 px-4 border-b border-gray-200">1</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Remainder after division</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">**</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">2 ** 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200">8</td>
+                            <td class="py-2 px-4 border-b border-gray-200">2 to the power of 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <button onclick="toggleExplanation('exp5')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show Operator Examples
+            </button>
+            
+            <div id="exp5" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">Practical Examples</h4>
+                <div class="bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="flex items-center bg-gray-700 px-4 py-2">
+                        <span class="text-gray-300 text-sm">operators.py</span>
+                    </div>
+                    <pre><code class="language-python"># Calculate total price
+price = 15
+quantity = 3
+total = price * quantity
+print("Total:", total)  # Output: Total: 45
+
+# Calculate area of a circle
+radius = 5
+area = 3.14 * (radius ** 2)
+print("Area:", area)  # Output: Area: 78.5
+
+# Check if number is even
+number = 10
+remainder = number % 2
+print("Remainder:", remainder)  # Output: Remainder: 0</code></pre>
+                </div>
+                <div class="mt-4 bg-white p-4 rounded border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">Operator Precedence</h4>
+                    <p class="text-gray-700 mb-2">Python follows math rules for operation order:</p>
+                    <ol class="list-decimal pl-5 text-gray-700 space-y-1">
+                        <li><strong>Parentheses</strong> <code class="bg-gray-100 px-1 rounded">()</code></li>
+                        <li><strong>Exponents</strong> <code class="bg-gray-100 px-1 rounded">**</code></li>
+                        <li><strong>Multiplication/Division</strong> <code class="bg-gray-100 px-1 rounded">* / // %</code></li>
+                        <li><strong>Addition/Subtraction</strong> <code class="bg-gray-100 px-1 rounded">+ -</code></li>
+                    </ol>
+                    <div class="bg-gray-100 p-3 rounded mt-2">
+                        <pre class="text-sm"><code class="language-python">result = 5 + 3 * 2   # = 11 (not 16)
+result = (5 + 3) * 2 # = 16</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Comparison Operators</h3>
+            <p class="text-gray-700 mb-4">
+                These operators compare values and return <code class="bg-gray-100 px-1 rounded">True</code> or <code class="bg-gray-100 px-1 rounded">False</code>:
+            </p>
+            
+            <div class="overflow-x-auto mb-4">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Operator</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Meaning</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Example</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">==</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Equal to</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 == 5</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">True</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">!=</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Not equal</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 != 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">True</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">></td>
+                            <td class="py-2 px-4 border-b border-gray-200">Greater than</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 > 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-semibold text-green-600">True</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono"><</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Less than</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">5 < 3</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-semibold text-red-600">False</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">comparisons.py</span>
+                </div>
+                <pre><code class="language-python">age = 18
+is_adult = age >= 18  # Check if age is 18 or more
+print("Is adult?", is_adult)  # Output: Is adult? True
+
+temperature = 22.5
+is_hot = temperature > 30
+print("Is hot?", is_hot)  # Output: Is hot? False</code></pre>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Practical Tip</h3>
+                    <div class="mt-2 text-sm text-green-700">
+                        <p>Use comparison operators to make decisions in your code. For example: <code class="bg-green-100 px-1 rounded">if temperature > 30: print("It's hot!")</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. Control Flow (Conditionals & Loops) -->
+<section id="section6" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">6. Control Flow (Conditionals & Loops)</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">If-Else Statements</h3>
+            <p class="text-gray-700 mb-4">
+                If-else statements let your program make decisions based on conditions.
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">conditions.py</span>
+                </div>
+                <pre><code class="language-python">age = 18
+
+if age >= 18:
+    print("You are an adult.")
+else:
+    print("You are a minor.")</code></pre>
+            </div>
+            
+            <button onclick="toggleExplanation('exp6')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show Condition Explanation
+            </button>
+            
+            <div id="exp6" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">How If-Else Works</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Code</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Explanation</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Real-life Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">if age >= 18:</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Checks if age is 18 or more</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Like checking ID for voting</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">print("Adult")</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Runs if condition is True</td>
+                                <td class="py-2 px-4 border-b border-gray-200">"You can vote"</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">else:</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Runs if condition is False</td>
+                                <td class="py-2 px-4 border-b border-gray-200">"You can't vote yet"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 bg-white p-4 rounded border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">Elif for Multiple Conditions</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python">score = 85
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+else:
+    grade = "F"
+    
+print("Your grade:", grade)  # Output: Your grade: B</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Loops</h3>
+            <p class="text-gray-700 mb-4">
+                Loops repeat code until a condition is met. Python has two main loop types:
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">For Loop</h4>
+                    <p class="text-gray-700 mb-3">Runs code for each item in a sequence:</p>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Print numbers 0 to 4
+for i in range(5):
+    print(i)
+
+# Loop through a list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print("I like", fruit)</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">While Loop</h4>
+                    <p class="text-gray-700 mb-3">Runs code while condition is True:</p>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Countdown from 5
+count = 5
+while count > 0:
+    print(count)
+    count -= 1  # Same as count = count - 1
+print("Blastoff!")</code></pre>
+                    </div>
+                </div>
+            </div>
+                        <button onclick="toggleExplanation('exp7')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show Loop Explanation
+            </button>
+            
+            <div id="exp7" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">Understanding Loops</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold text-gray-800 mb-2">For Loop</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>Used when you know how many times to repeat</li>
+                            <li>Works with sequences (lists, strings, ranges)</li>
+                            <li><code class="bg-gray-100 px-1 rounded">range()</code> generates numbers</li>
+                        </ul>
+                        <div class="bg-gray-100 p-3 rounded mt-2">
+                            <pre class="text-sm"><code class="language-python"># range(5) produces 0, 1, 2, 3, 4
+for x in range(5):
+    print(x * 2)  # Prints 0, 2, 4, 6, 8</code></pre>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold text-gray-800 mb-2">While Loop</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>Used when you don't know how many times to repeat</li>
+                            <li>Continues until condition becomes False</li>
+                            <li>Must update condition variable in loop</li>
+                        </ul>
+                        <div class="bg-gray-100 p-3 rounded mt-2">
+                            <pre class="text-sm"><code class="language-python"># User input example
+password = ""
+while password != "secret":
+    password = input("Enter password: ")
+print("Access granted!")</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Important Warning</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>Avoid infinite loops! Always ensure your while loop condition will eventually become False.</p>
+                                <pre class="mt-1 bg-yellow-100 p-2 rounded"><code class="text-sm"># Infinite loop - don't do this!
+while True:
+    print("This will run forever!")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Loop Control</h3>
+                    <div class="mt-2 text-sm text-green-700">
+                        <p>Use <code class="bg-green-100 px-1 rounded">break</code> to exit a loop early, or <code class="bg-green-100 px-1 rounded">continue</code> to skip to the next iteration.</p>
+                        <pre class="mt-1 bg-green-100 p-2 rounded"><code class="text-sm">for num in range(10):
+    if num == 3:
+        continue  # Skip 3
+    if num == 7:
+        break     # Stop at 7
+    print(num)     # Prints 0,1,2,4,5,6</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. Functions -->
+<section id="section7" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">7. Functions</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Creating Functions</h3>
+            <p class="text-gray-700 mb-4">
+                Functions are reusable blocks of code that perform specific tasks. They help organize your code and avoid repetition.
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">functions.py</span>
+                </div>
+                <pre><code class="language-python"># Define a simple function
+def greet():
+    print("Hello there!")
+    
+# Call the function
+greet()  # Output: Hello there!
+
+# Function with parameters
+def greet_person(name):
+    print("Hello", name)
+    
+greet_person("Alice")  # Output: Hello Alice</code></pre>
+            </div>
+            
+            <button onclick="toggleExplanation('exp8')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show Function Explanation
+            </button>
+            
+            <div id="exp8" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">Function Components</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Part</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Purpose</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">def</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Starts function definition</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">def my_function():</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Function name</td>
+                                <td class="py-2 px-4 border-b border-gray-200">How you call the function</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">calculate_total()</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Parameters</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Variables passed to the function</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">(price, quantity)</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Return value</td>
+                                <td class="py-2 px-4 border-b border-gray-200">Result sent back from function</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">return total</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 bg-white p-4 rounded border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">Returning Values</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Function that returns a value
+def calculate_area(length, width):
+    area = length * width
+    return area
+
+# Store the returned value
+room_area = calculate_area(10, 12)
+print("Room area:", room_area, "sq ft")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Function Parameters</h3>
+            <p class="text-gray-700 mb-4">
+                Parameters make functions more flexible by allowing you to pass different values each time you call the function.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Positional Arguments</h4>
+                    <p class="text-gray-700 mb-3">Values are matched by position:</p>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python">def describe_pet(animal, name):
+    print(f"I have a {animal} named {name}")
+
+describe_pet("dog", "Rex")  # Correct order
+describe_pet("Rex", "dog")  # Wrong order!</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Keyword Arguments</h4>
+                    <p class="text-gray-700 mb-3">Explicitly name each argument:</p>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python">describe_pet(animal="cat", name="Whiskers")
+describe_pet(name="Buddy", animal="parrot")  # Order doesn't matter</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">default_args.py</span>
+                </div>
+                <pre><code class="language-python"># Default parameter values
+def describe_pet(name, animal="dog"):
+    print(f"I have a {animal} named {name}")
+
+describe_pet("Rex")          # Uses default animal
+describe_pet("Fluffy", "cat")  # Overrides default</code></pre>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Function Best Practices</h3>
+                    <div class="mt-2 text-sm text-green-700">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Keep functions small and focused on one task</li>
+                            <li>Use descriptive names (verbs for actions)</li>
+                            <li>Include docstrings to explain what the function does</li>
+                            <li>Limit parameters to 3-4 when possible</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. Lists & Dictionaries -->
+<section id="section8" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">8. Lists & Dictionaries</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Working with Lists</h3>
+            <p class="text-gray-700 mb-4">
+                Lists are ordered collections of items that can hold different data types. They are mutable (can be changed).
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">lists.py</span>
+                </div>
+                <pre><code class="language-python"># Creating lists
+fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# Accessing elements
+print(fruits[0])   # Output: apple (first item)
+print(numbers[-1])  # Output: 5 (last item)
+
+# Modifying lists
+fruits[1] = "blueberry"  # Change second item
+fruits.append("orange")  # Add to end
+fruits.remove("apple")   # Remove item</code></pre>
+            </div>
+            
+            <button onclick="toggleExplanation('exp9')" class="flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+                Show List Operations
+            </button>
+            
+            <div id="exp9" class="explanation bg-blue-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-blue-800 mb-2">Common List Operations</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Operation</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Example</th>
+                                <th class="py-2 px-4 border-b border-gray-200 text-left text-blue-800">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Length</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">len(fruits)</td>
+                                <td class="py-2 px-4 border-b border-gray-200">3</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Slicing</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">numbers[1:3]</td>
+                                <td class="py-2 px-4 border-b border-gray-200">[2, 3]</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Concatenation</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">[1,2] + [3,4]</td>
+                                <td class="py-2 px-4 border-b border-gray-200">[1,2,3,4]</td>
+                            </tr>
+                            <tr class="hover:bg-blue-50">
+                                <td class="py-2 px-4 border-b border-gray-200">Membership</td>
+                                <td class="py-2 px-4 border-b border-gray-200 font-mono">"banana" in fruits</td>
+                                <td class="py-2 px-4 border-b border-gray-200">True</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 bg-white p-4 rounded border border-gray-200">
+                    <h4 class="font-semibold text-gray-800 mb-2">List Methods</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python">nums = [5, 2, 8, 1]
+
+nums.sort()          # [1, 2, 5, 8]
+nums.reverse()       # [8, 5, 2, 1]
+nums.pop()           # Removes and returns last item (1)
+nums.insert(1, 10)   # Insert 10 at position 1
+nums.clear()         # Empty the list</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Understanding Dictionaries</h3>
+            <p class="text-gray-700 mb-4">
+                Dictionaries store key-value pairs and allow fast lookups by key (like a real dictionary).
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">dictionaries.py</span>
+                </div>
+                <pre><code class="language-python"># Creating dictionaries
+student = {
+    "name": "Alice",
+    "age": 20,
+    "courses": ["Math", "Physics"]
+}
+
+# Accessing values
+print(student["name"])  # Output: Alice
+print(student.get("age"))  # Safer access
+
+# Modifying dictionaries
+student["age"] = 21          # Update value
+student["grade"] = "A"       # Add new key
+del student["courses"]       # Remove key</code></pre>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Dictionary Methods</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Get all keys
+keys = student.keys()
+
+# Get all values
+values = student.values()
+
+# Get key-value pairs
+items = student.items()
+
+# Remove and return item
+age = student.pop("age")</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Dictionary Iteration</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Loop through keys
+for key in student:
+    print(key, student[key])
+
+# Loop through items
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Data Structure Tips</h3>
+                    <div class="mt-2 text-sm text-green-700">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Use lists when order matters and you need duplicates</li>
+                            <li>Use dictionaries for fast lookups by key</li>
+                            <li>Lists use square brackets <code class="bg-green-100 px-1 rounded">[]</code>, dictionaries use curly braces <code class="bg-green-100 px-1 rounded">{}</code></li>
+                            <li>Both can be nested (lists in dictionaries, etc.)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9.  File Handling -->
+<section id="section9" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">9. File Handling</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Reading and Writing Files</h3>
+            <p class="text-gray-700 mb-4">
+                Python makes it easy to work with files on your computer. The basic modes are:
+            </p>
+            
+            <div class="overflow-x-auto mb-4">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Mode</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Description</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-left text-gray-700">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">'r'</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Read (default)</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">open('file.txt', 'r')</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">'w'</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Write (overwrites)</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">open('file.txt', 'w')</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">'a'</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Append</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">open('file.txt', 'a')</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">'r+'</td>
+                            <td class="py-2 px-4 border-b border-gray-200">Read and write</td>
+                            <td class="py-2 px-4 border-b border-gray-200 font-mono">open('file.txt', 'r+')</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Reading Files</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Read entire file
+with open('data.txt') as file:
+    content = file.read()
+    print(content)
+
+# Read line by line
+with open('data.txt') as file:
+    for line in file:
+        print(line.strip())</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Writing Files</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python"># Write to file (overwrites)
+with open('output.txt', 'w') as file:
+    file.write("Hello World!\n")
+    file.write("Second line\n")
+
+# Append to file
+with open('output.txt', 'a') as file:
+    file.write("Appended line\n")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Working with CSV Files</h3>
+            <p class="text-gray-700 mb-4">
+                CSV (Comma Separated Values) is a common format for spreadsheet data.
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">csv_example.py</span>
+                </div>
+                <pre><code class="language-python">import csv
+
+# Reading CSV
+with open('data.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+        print(row)  # Each row is a list
+
+# Writing CSV
+with open('output.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["Name", "Age", "City"])
+    writer.writerow(["Alice", 25, "New York"])
+    writer.writerow(["Bob", 30, "Chicago"])</code></pre>
+            </div>
+            
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-yellow-800">File Handling Best Practices</h3>
+                        <div class="mt-2 text-sm text-yellow-700">
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Always use <code class="bg-yellow-100 px-1 rounded">with</code> statement for automatic file closing</li>
+                                <li>Handle potential exceptions (FileNotFoundError, etc.)</li>
+                                <li>For large files, read line by line instead of all at once</li>
+                                <li>Be careful with write mode (<code class="bg-yellow-100 px-1 rounded">'w'</code>) as it overwrites</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 10. Error Handling -->
+<section id="section10" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="nitda-blue px-6 py-4">
+        <h2 class="text-2xl font-bold text-white">10. Error Handling</h2>
+    </div>
+    <div class="p-6">
+        <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Try-Except Blocks</h3>
+            <p class="text-gray-700 mb-4">
+                Handle errors gracefully to prevent your program from crashing unexpectedly.
+            </p>
+            
+            <div class="bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-700 px-4 py-2">
+                    <span class="text-gray-300 text-sm">error_handling.py</span>
+                </div>
+                <pre><code class="language-python"># Basic error handling
+try:
+    age = int(input("Enter your age: "))
+    print(f"You are {age} years old")
+except ValueError:
+    print("Please enter a valid number!")
+
+# Handling multiple exceptions
+try:
+    num = 10 / 0
+    open("nonexistent.txt")
+except ZeroDivisionError:
+    print("Can't divide by zero!")
+except FileNotFoundError:
+    print("File not found!")</code></pre>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Else and Finally</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python">try:
+    result = 10 / 2
+except ZeroDivisionError:
+    print("Division failed")
+else:
+    print("Result is", result)  # Runs if no error
+finally:
+    print("This always runs")  # Cleanup code</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Raising Exceptions</h4>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden">
+                        <pre><code class="language-python">def validate_age(age):
+    if age < 0:
+        raise ValueError("Age can't be negative!")
+    elif age < 18:
+        raise ValueError("Must be 18 or older")
+    else:
+        print("Age is valid")
+
+try:
+    validate_age(-5)
+except ValueError as e:
+    print(e)  # Output: Age can't be negative!</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800">Error Handling Tips</h3>
+                    <div class="mt-2 text-sm text-green-700">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Be specific about which exceptions you catch</li>
+                            <li>Use <code class="bg-green-100 px-1 rounded">finally</code> for cleanup code (closing files, etc.)</li>
+                            <li>Create custom exceptions for your application</li>
+                            <li>Log errors for debugging while showing user-friendly messages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="section11" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  
+</section>
+
+<!-- STRING PROCESSING -->
+<section id="section11" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Bonus. String Processing</h2>
+  </div>
+  <div class="p-6">
+    <p class="text-gray-700 mb-4">Strings are sequences of characters. Python provides powerful tools to work with them.</p>
+    
+    <ul class="list-disc list-inside text-gray-800 mb-4">
+      <li>String slicing and indexing</li>
+      <li>Common methods: <code>.lower()</code>, <code>.upper()</code>, <code>.split()</code>, <code>.replace()</code></li>
+      <li>Formatted strings: <code>f"Hello, {name}!"</code></li>
+    </ul>
+
+    <div class="bg-gray-100 p-4 rounded-lg">
+      <h4 class="font-semibold mb-2">Example</h4>
+      <pre><code class="language-python">name = "Datti"
+print(f"Hello, {name.upper()}!")  # Hello, DATTI!</code></pre>
+    </div>
+  </div>
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">String Processing</h2>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Topics Covered</h3>
+    <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-6">
+      <li>Creating and manipulating strings</li>
+      <li>Common methods: <code>.upper()</code>, <code>.lower()</code>, <code>.strip()</code>, <code>.replace()</code></li>
+      <li>String slicing and indexing</li>
+      <li>Multi-line strings with triple quotes</li>
+      <li>Formatted strings using f-strings</li>
+    </ul>
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+    <pre class="bg-gray-800 text-white rounded-md p-4 overflow-auto mb-6"><code>
+name = "  ULA Python  "
+clean = name.strip().upper()
+print(f"Welcome to {clean}!")
+    </code></pre>
+
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+      <h3 class="font-medium text-blue-800">Mini Project</h3>
+      <p class="text-blue-700 mt-1">Create a username generator that takes a full name and returns a lowercase username (e.g., <code>"Nuhu Muhammad" → nuhu_m</code>).</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- RANDOM MODULE -->
+<section id="section12" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Bonus. The Random Module</h2>
+  </div>
+  <div class="p-6">
+    <p class="text-gray-700 mb-4">The <code>random</code> module lets you build dynamic, unpredictable programs — great for games and simulations!</p>
+    
+    <ul class="list-disc list-inside text-gray-800 mb-4">
+      <li><code>random.randint(a, b)</code> - random number between a and b</li>
+      <li><code>random.choice(list)</code> - picks one item at random</li>
+    </ul>
+
+    <div class="bg-gray-100 p-4 rounded-lg">
+      <h4 class="font-semibold mb-2">Example</h4>
+      <pre><code class="language-python">import random
+options = ["rock", "paper", "scissors"]
+choice = random.choice(options)
+print("You got:", choice)</code></pre>
+    </div>
+  </div>
+
+   <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Using the Random Module</h2>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Topics Covered</h3>
+    <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-6">
+      <li>Generating random numbers with <code>random.randint()</code></li>
+      <li>Selecting random items with <code>random.choice()</code></li>
+      <li>Shuffling lists with <code>random.shuffle()</code></li>
+      <li>Floating-point values with <code>random.random()</code> and <code>uniform()</code></li>
+    </ul>
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+    <pre class="bg-gray-800 text-white rounded-md p-4 overflow-auto mb-6"><code>
+import random
+items = ["apple", "banana", "cherry"]
+print(random.choice(items))
+    </code></pre>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+      <h3 class="font-medium text-yellow-800">Mini Project</h3>
+      <p class="text-yellow-700 mt-1">Build a random password generator or dice roller app.</p>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- RECURSION -->
+<section id="section13" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Bonus. Recursion</h2>
+  </div>
+  <div class="p-6">
+    <p class="text-gray-700 mb-4">Recursion is when a function calls itself to solve smaller versions of a problem.</p>
+
+    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+      <h4 class="font-semibold mb-2">Example: Factorial</h4>
+      <pre><code class="language-python">def factorial(n):
+    if n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))  # Output: 120</code></pre>
+    </div>
+    
+    <p class="text-gray-700">Use recursion carefully to avoid infinite loops.</p>
+  </div>
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Recursion</h2>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Topics Covered</h3>
+    <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-6">
+      <li>Understanding base and recursive cases</li>
+      <li>Recursion vs iteration (loops)</li>
+      <li>Common recursive problems (e.g., factorial, Fibonacci)</li>
+      <li>Python recursion limit</li>
+    </ul>
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+    <pre class="bg-gray-800 text-white rounded-md p-4 overflow-auto mb-6"><code>
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+print(factorial(5))  # Output: 120
+    </code></pre>
+
+    <div class="bg-red-50 border-l-4 border-red-400 p-4">
+      <h3 class="font-medium text-red-800">Mini Project</h3>
+      <p class="text-red-700 mt-1">Build a recursive factorial calculator or Fibonacci number generator.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- TYPE ANNOTATION -->
+<section id="section14" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Bonus. Type Annotations</h2>
+  </div>
+  <div class="p-6">
+    <p class="text-gray-700 mb-4">Type annotations help document the expected data types of function inputs and outputs.</p>
+
+    <div class="bg-gray-100 p-4 rounded-lg">
+      <h4 class="font-semibold mb-2">Example</h4>
+      <pre><code class="language-python">def greet(name: str) -> str:
+    return f"Hello, {name}"
+
+print(greet("Nuhu"))</code></pre>
+    </div>
+  </div>
+   <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white"> Type Annotations</h2>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Topics Covered</h3>
+    <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-6">
+      <li>Adding types to variables and functions</li>
+      <li>Why type hints matter (for readability and tooling)</li>
+      <li>Typing with <code>List</code>, <code>Dict</code>, <code>Optional</code> using <code>typing</code> module</li>
+      <li>Checking types using <code>mypy</code></li>
+    </ul>
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+    <pre class="bg-gray-800 text-white rounded-md p-4 overflow-auto mb-6"><code>
+def greet(name: str) -> str:
+    return f"Hello, {name}"
+
+age: int = 22
+    </code></pre>
+
+    <div class="bg-purple-50 border-l-4 border-purple-400 p-4">
+      <h3 class="font-medium text-purple-800">Mini Project</h3>
+      <p class="text-purple-700 mt-1">Write a typed math module with <code>add(a: int, b: int) -> int</code> etc.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NAMING CONVENTION -->
+<section id="section15" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Bonus. Naming Conventions</h2>
+  </div>
+  <div class="p-6">
+    <p class="text-gray-700 mb-4">Consistent naming makes code readable and professional.</p>
+
+    <ul class="list-disc list-inside text-gray-800 mb-4">
+      <li><strong>snake_case</strong> — used for variables and functions in Python (recommended)</li>
+      <li><strong>camelCase</strong> — common in JavaScript, not standard in Python</li>
+      <li><strong>PascalCase</strong> — used for class names</li>
+    </ul>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+      <p class="text-yellow-800">✅ Always follow <code>snake_case</code> in Python variables and functions!</p>
+    </div>
+  </div>
+    <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Naming Conventions</h2>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Topics Covered</h3>
+    <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-6">
+      <li>Valid variable names in Python</li>
+      <li><code>snake_case</code> for variables and functions</li>
+      <li><code>PascalCase</code> for classes</li>
+      <li><code>ALL_CAPS</code> for constants</li>
+      <li>Private variables with <code>_underscore</code></li>
+      <li>PEP8 naming standards</li>
+    </ul>
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+    <pre class="bg-gray-800 text-white rounded-md p-4 overflow-auto mb-6"><code>
+user_name = "nuhu"
+PI = 3.14159
+
+class StudentData:
+    pass
+    </code></pre>
+
+    <div class="bg-green-50 border-l-4 border-green-400 p-4">
+      <h3 class="font-medium text-green-800">Mini Project</h3>
+      <p class="text-green-700 mt-1">Review messy variable names and rewrite using proper conventions.</p>
+    </div>
+  </div>
+
+</section>
+
+
+            
+            
+
+        <!-- Continue with other sections... -->
+
+        
+        <!-- MASTER BEROFE ADVANCE CLASS -->
+
+        <section id="section11-19" class="mb-12 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="nitda-blue px-6 py-4">
+    <h2 class="text-2xl font-bold text-white">Remaining Sections to Master Before Advanced Python</h2>
+  </div>
+  <div class="p-6 space-y-10">
+    <!-- Section 11 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Object-Oriented Programming (OOP)</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Classes and Objects</li>
+        <li>Inheritance and Polymorphism</li>
+        <li>Encapsulation and Abstraction</li>
+        <li>Magic Methods (<code>__init__</code>, <code>__str__</code>, etc.)</li>
+      </ul>
+      <p class="mt-2 text-sm text-blue-600">Master OOP to build structured, scalable applications.</p>
+    </div>
+
+    <!-- Section 12 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Modules & Packages</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Creating and Importing Modules</li>
+        <li>Standard Library Modules (<code>math</code>, <code>datetime</code>, <code>random</code>)</li>
+        <li>Installing External Packages with <code>pip</code></li>
+        <li>Creating Your Own Packages</li>
+      </ul>
+    </div>
+
+    <!-- Section 13 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Working with APIs</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>HTTP Requests (<code>requests</code> library)</li>
+        <li>REST API Concepts</li>
+        <li>Parsing JSON Data</li>
+        <li>Authentication (API Keys, OAuth)</li>
+      </ul>
+      <p class="mt-2 text-sm text-yellow-600">Build real-world projects like a Weather App.</p>
+    </div>
+
+    <!-- Section 14 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Virtual Environments</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Creating and Activating Virtual Environments (<code>venv</code>)</li>
+        <li><code>requirements.txt</code> for Dependency Management</li>
+        <li>Why Use Virtual Environments?</li>
+      </ul>
+    </div>
+
+    <!-- Section 15 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Popular Python Libraries</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li><strong>Data Science</strong>: <code>pandas</code>, <code>numpy</code></li>
+        <li><strong>Visualization</strong>: <code>matplotlib</code>, <code>seaborn</code></li>
+        <li><strong>Web Scraping</strong>: <code>beautifulsoup</code>, <code>scrapy</code></li>
+        <li><strong>Web Frameworks</strong>: <code>flask</code>, <code>django</code> (intro)</li>
+      </ul>
+    </div>
+
+    <!-- Section 16 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Debugging & Testing</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Using <code>pdb</code> (Python Debugger)</li>
+        <li>Logging (<code>logging</code> module)</li>
+        <li>Unit Testing (<code>unittest</code> framework)</li>
+        <li>Writing Test Cases</li>
+      </ul>
+    </div>
+
+    <!-- Section 17 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">7. Python Best Practices</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>PEP 8 Style Guide</li>
+        <li>Writing Readable Code</li>
+        <li>Code Comments & Docstrings</li>
+        <li>Performance Tips</li>
+      </ul>
+    </div>
+
+    <!-- Section 18 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">8. Mini Projects</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Simple Calculator</li>
+        <li>To-Do List Application</li>
+        <li>Weather App (API-based)</li>
+        <li>Basic Web Scraper</li>
+      </ul>
+      <p class="mt-2 text-sm text-green-600">Apply what you've learned through real projects.</p>
+    </div>
+
+    <!-- Section 19 -->
+    <div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">9. Next Steps & Resources</h3>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Recommended Learning Path</li>
+        <li>Python Certifications (PCAP, Google, IBM, etc.)</li>
+        <li>Open-Source Contribution</li>
+        <li>Community Resources (Forums, Meetups, Discord)</li>
+      </ul>
+      <p class="mt-2 text-sm text-purple-600">Keep building, contributing, and growing.</p>
+    </div>
+  </div>
+</section>
+
+    </main>
+     <a href="../index.html">
+      <div class="nav-floating bg-gradient-to-r hover:bg-gradient-to-r" onclick="window.scrollTo({behavior: 'smooth' })">
+    Back
+    </div>
+    </a>
+
+
+    <!-- Footer -->
+    <footer class="nitda-blue text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">NITDA Learning Trail</h3>
+                    <p class="text-blue-100">Empowering Nigerians with digital skills for the 21st century economy.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-blue-200 hover:text-white">Python Beginner Course</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">Web Development</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">Data Science</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <p class="text-blue-200">learning@nitda.gov.ng</p>
+                    <p class="text-blue-200">+234 123 456 7890</p>
+                </div>
+            </div>
+            <div class="border-t border-blue-400 mt-8 pt-8 text-center text-blue-200">
+                <p>© 2023 NITDA Python Learning Trail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        // Toggle explanations
+        function toggleExplanation(id) {
+            const explanation = document.getElementById(id);
+            if (explanation.style.maxHeight) {
+                explanation.style.maxHeight = null;
+            } else {
+                explanation.style.maxHeight = explanation.scrollHeight + "px";
+            }
+        }
+
+        // Show solutions
+        function showSolution(id) {
+            const solution = document.getElementById(id);
+            solution.style.maxHeight = solution.scrollHeight + "px";
+        }
+
+        // Add copy functionality to all code blocks
+        document.querySelectorAll('pre').forEach(pre => {
+            const button = document.createElement('button');
+            button.className = 'copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs';
+            button.textContent = 'Copy';
+            
+            const div = document.createElement('div');
+            div.className = 'relative';
+            pre.parentNode.insertBefore(div, pre);
+            div.appendChild(pre);
+            div.appendChild(button);
+            
+            button.addEventListener('click', () => {
+                const code = pre.querySelector('code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+     const typed2 = new Typed('#typed2', {
+      strings: [
+        "Developed by ",
+        "Nuhu Muhammad Datti"
+        
+      ],
+      typeSpeed: 100,
+      backSpeed: 200,
+      loop: true
+    });
+          AOS.init();
+
+    </script>
+</body>
+</html>

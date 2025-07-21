@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Previous head content remains the same --><meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join 5IRE Movement | Africa's Digital Renaissance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00C896;
+      --secondary: #5E2BFF;
+      --accent: #D4AF37;
+      --dark: #0F172A;
+      --light: #F8FAFC;     
+      --ntida-blue: #1e3a8a;
+        --ntida-light: #10b981;
+        --ntida-gold: #d4af37;
+    }
+    
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    .dark body {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(0,200,150,0.1) 0%, rgba(94,43,255,0.1) 100%);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #D4AF37 0%, #F9D423 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .form-focus:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.2);
+    }
+    
+    .islamic-pattern-bg {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 0 L100 0 L100 100 L0 100 Z" fill="none" stroke="%23D4AF37" stroke-width="0.5" stroke-opacity="0.2"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23D4AF37" stroke-width="0.5" stroke-opacity="0.2"/></svg>');
+      background-size: 100px 100px;
+    }
+    
+    .role-card {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .role-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.2);
+    }
+    
+    .role-card.selected {
+      border-color: var(--accent);
+      background: rgba(212, 175, 55, 0.05);
+    }
+    
+    .progress-tracker {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2rem 0 4rem;
+    }
+    
+    .progress-tracker::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 1;
+    }
+    
+    .progress-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .progress-step.active .step-number {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    .progress-step.completed .step-number {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    
+    .step-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #64748b;
+    }
+    
+    .progress-step.active .step-label {
+      color: var(--dark);
+      font-weight: 600;
+    }
+    
+    .dark .progress-step .step-number {
+      background: #334155;
+    }
+    
+    .dark .progress-step .step-label {
+      color: #94a3b8;
+    }
+    
+    .dark .progress-step.active .step-label {
+      color: white;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .delay-1 { animation-delay: 0.5s; }
+    .delay-2 { animation-delay: 1s; }
+    .delay-3 { animation-delay: 1.5s; }
+    
+    .avatar-upload {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto;
+    }
+    
+    .avatar-upload .avatar-preview {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    .avatar-upload .upload-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .skill-meter {
+      height: 8px;
+      border-radius: 4px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+    
+    .skill-level {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+    }
+    
+    .dark .skill-meter {
+      background: #334155;
+    }
+    
+    .quote-card {
+      border-left: 4px solid var(--accent);
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+        /* NAV */
+        /* Add these styles to your existing CSS */
+        #mobile-menu {
+            position: fixed;
+            top: 68px; /* Height of your navbar */
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        #mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .backdrop {
+            position: fixed;
+            top: 68px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 30;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+  </style>
+
+  <!-- ... -->
+</head>
+<body class="dark:bg-gray-900 dark:text-white transition-colors duration-300">
+  <!-- Updated Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-200 py-3 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+  <!-- 5IRE Logo Mark -->
+    <div class="relative">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1e3a8a] to-[#10b981] flex items-center justify-center shadow-md">
+        <div class="absolute inset-0 border-2 border-white/20 rounded-lg"></div>
+        <span class="text-white font-bold text-xl tracking-tighter">5</span>
+        </div>
+        <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#d4af37] border-2 border-white"></div>
+    </div>
+    
+    <!-- 5IRE Logo Text -->
+    <div class="flex flex-col">
+        <span class="text-2xl font-bold bg-gradient-to-r from-[#1e3a8a] to-[#10b981] bg-clip-text text-transparent">
+        5IRE
+        </span>
+        <span class="text-xs font-medium text-gray-500 tracking-widest">BLOCKCHAIN ECOSYSTEM</span>
+    </div>
+    </div>
+        <div class="flex items-center">
+            <span class="hidden md:inline-block text-sm font-bold bg-blue-600 text-white px-3 py-1 rounded-full">ULA v1.0</span>
+        </div>
+        
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-8">
+            <a href="./index.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Home</a>
+            <a href="./course.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Courses</a>
+            <a href="./story.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Success Stories</a>
+            <a href="./impact.html" class="font-medium text-gray-700 hover:text-blue-600 transition">Global Impact</a>
+        <div class="flex items-center space-x-4">
+            <a href="#" class="hidden md:inline-block px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Apply Now</a>
+            <button id="menu-toggle" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="backdrop" class="backdrop"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden">
+        <div class="flex flex-col space-y-4 p-6">
+            <a href="./index.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link active">Home</a>
+            <a href="./course.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link">Courses</a>
+            <a href="./story.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link">Success Stories</a>
+            <a href="./impact.html" class="font-medium text-gray-700 hover:text-blue-600 py-2 border-b border-gray-100 mobile-link">Global Impact</a>
+            <a href="#" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition text-center mt-2 mobile-link">Apply Now</a>
+        </div>
+    </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <!-- Modal content remains the same -->
+     <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl max-w-md w-full mx-4 text-center shadow-xl">
+      <div class="w-20 h-20 mx-auto rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center text-green-500 mb-6">
+        <i class="fas fa-check text-3xl"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4 gold-gradient-text">Welcome to 5IRE!</h3>
+      <p class="mb-6">Your application has been received. Our team will review your profile and contact you within 48 hours.</p>
+      <div class="quote-card bg-gray-50 dark:bg-gray-700 p-4 mb-6 rounded-r-lg">
+        <p class="italic text-gray-700 dark:text-gray-300">"We're not waiting for permission to build the future. The revolution starts here."</p>
+      </div>
+      <button onclick="closeModal()" class="px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold hover:shadow-lg transition">
+        Continue to 5IRE Portal
+      </button>
+    </div>
+  </div>
+    <!-- ... -->
+  </div>
+
+  <!-- Error Modal -->
+  <div id="errorModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl max-w-md w-full mx-4 text-center shadow-xl">
+      <div class="w-20 h-20 mx-auto rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center text-red-500 mb-6">
+        <i class="fas fa-exclamation-triangle text-3xl"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">Submission Error</h3>
+      <p class="mb-6" id="errorMessage">There was an error submitting your form. Please try again later.</p>
+      <button onclick="closeErrorModal()" class="px-6 py-3 rounded-full bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold hover:shadow-lg transition">
+        Try Again
+      </button>
+    </div>
+  </div>
+
+  <!-- Multi-Step Form Container -->
+  <div class="min-h-screen flex flex-col">
+    <!-- Previous content remains the same until the form -->
+      <!-- Header -->
+    <!-- <header class="py-6 px-6 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center text-white mr-3">
+            <i class="fas fa-fire"></i>
+          </div>
+          <h1 class="text-xl font-bold gold-gradient-text">5IRE Movement</h1>
+        </div>
+        <div class="hidden md:block">
+          <a href="./index.html" class="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            <i class="fas fa-home mr-2"></i> Back to Home
+          </a>
+        </div>
+      </div>
+    </header -->
+    <!-- ... -->
+     <!-- Progress Tracker -->
+     <div class="bg-white dark:bg-gray-900 py-4 px-6 border-b border-gray-200 dark:border-gray-800">
+      <div class="max-w-3xl mx-auto">
+        <div class="progress-tracker">
+          <div class="progress-step completed" id="step1">
+            <div class="step-number">1</div>
+            <div class="step-label">Profile</div>
+          </div>
+          <div class="progress-step" id="step2">
+            <div class="step-number">2</div>
+            <div class="step-label">Skills</div>
+          </div>
+          <div class="progress-step" id="step3">
+            <div class="step-number">3</div>
+            <div class="step-label">Commitment</div>
+          </div>
+          <div class="progress-step" id="step4">
+            <div class="step-number">4</div>
+            <div class="step-label">Review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Form Sections -->
+    <main class="flex-grow py-12 px-6 islamic-pattern-bg">
+      <div class="max-w-4xl mx-auto">
+        <!-- Form that will submit to Formspree -->
+        <form id="partnerForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="hidden">
+          <!-- All hidden inputs remain the same -->
+           <input type="hidden" id="formFullName" name="Full Name">
+          <input type="hidden" id="formEmail" name="Email">
+          <input type="hidden" id="formPhone" name="Phone">
+          <input type="hidden" id="formInstitution" name="Institution">
+          <input type="hidden" id="formBio" name="Bio">
+          <input type="hidden" id="formRole" name="Role">
+          <input type="hidden" id="formExperience" name="Experience">
+          <input type="hidden" id="formSkills" name="Skills">
+          <input type="hidden" id="formGoals" name="Goals">
+          <input type="hidden" id="formTimeCommitment" name="Time Commitment">
+          <input type="hidden" id="formAvailability" name="Availability">
+          <input type="hidden" id="formLearningStyle" name="Learning Style">
+          <input type="hidden" id="formLinkedin" name="LinkedIn">
+          <input type="hidden" id="formGithub" name="GitHub">
+          <input type="hidden" id="formPortfolio" name="Portfolio">
+          <input type="hidden" id="formAdditionalInfo" name="Additional Info">
+          <input type="hidden" id="formReferral" name="Referral Source">
+          <input type="hidden" id="formAvatar" name="Avatar" value="Base64 encoded image will go here">
+          <!-- ... -->
+        </form>
+
+        <!-- All form steps remain the same -->
+         <!-- Step 1: Basic Information -->
+        <section id="form-step-1" class="form-step">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-8">
+              <h2 class="text-3xl font-bold mb-2 text-center gold-gradient-text">Build Your Legacy</h2>
+              <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Tell us who you are and how you want to contribute</p>
+              
+              <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left Column -->
+                <div>
+                  <div class="mb-6">
+                    <label for="fullName" class="block text-sm font-medium mb-2">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" required 
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium mb-2">Email Address *</label>
+                    <input type="email" id="email" name="email" required 
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label for="phone" class="block text-sm font-medium mb-2">Phone Number *</label>
+                    <div class="flex">
+                      <select name="countryCode" id="countryCode" required 
+                              class="rounded-l-lg px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm form-focus">
+                        <option value="+234">🇳🇬 +234</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+254">🇰🇪 +254</option>
+                        <option value="+27">🇿🇦 +27</option>
+                        <option value="+237">🇨🇲 +237</option>
+                      </select>
+                      <input type="tel" id="phone" name="phone" required 
+                             placeholder="8012345678"
+                             class="w-full rounded-r-lg px-4 py-3 border-t border-r border-b border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div>
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Profile Photo *</label>
+                    <div class="avatar-upload">
+                      <div class="avatar-preview" id="avatarPreview" style="background-image: url('https://via.placeholder.com/150');"></div>
+                      <div class="upload-btn">
+                        <i class="fas fa-camera text-white"></i>
+                        <input type="file" id="avatarUpload" name="avatar" accept="image/*" class="hidden">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label for="institution" class="block text-sm font-medium mb-2">Institution/Organization</label>
+                    <input type="text" id="institution" name="institution" 
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-8">
+                <label for="bio" class="block text-sm font-medium mb-2">Short Bio (50 words max) *</label>
+                <textarea id="bio" name="bio" rows="3" maxlength="300" required
+                          placeholder="Tell us about yourself and your passion for technology..."
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition"></textarea>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-700 px-8 py-6 flex justify-end">
+              <button type="button" onclick="nextStep(2)" class="px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold hover:shadow-lg transition flex items-center justify-center gap-2">
+                Next: Your Skills <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2: Skills & Role -->
+        <section id="form-step-2" class="form-step hidden">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-8">
+              <h2 class="text-3xl font-bold mb-2 text-center gold-gradient-text">Define Your Role</h2>
+              <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Select how you want to contribute to the movement</p>
+              
+              <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Role Cards -->
+                <div class="role-card p-6 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer" onclick="selectRole('developer')">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center text-blue-500 mr-4">
+                      <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Developer</h3>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-400">Build technical solutions and contribute code to our projects</p>
+                  <div class="mt-4">
+                    <span class="inline-block bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">HTML/CSS</span>
+                    <span class="inline-block bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">JavaScript</span>
+                    <span class="inline-block bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Python</span>
+                  </div>
+                </div>
+                
+                <div class="role-card p-6 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer" onclick="selectRole('designer')">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center text-purple-500 mr-4">
+                      <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Designer</h3>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-400">Create beautiful interfaces and user experiences</p>
+                  <div class="mt-4">
+                    <span class="inline-block bg-purple-100 dark:bg-purple-900/20 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded">UI/UX</span>
+                    <span class="inline-block bg-purple-100 dark:bg-purple-900/20 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded">Figma</span>
+                    <span class="inline-block bg-purple-100 dark:bg-purple-900/20 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded">Graphics</span>
+                  </div>
+                </div>
+                
+                <div class="role-card p-6 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer" onclick="selectRole('educator')">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center text-green-500 mr-4">
+                      <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Educator</h3>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-400">Teach and mentor the next generation of builders</p>
+                  <div class="mt-4">
+                    <span class="inline-block bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200 text-xs px-2 py-1 rounded">Teaching</span>
+                    <span class="inline-block bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200 text-xs px-2 py-1 rounded">Curriculum</span>
+                    <span class="inline-block bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200 text-xs px-2 py-1 rounded">Mentorship</span>
+                  </div>
+                </div>
+                
+                <div class="role-card p-6 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer" onclick="selectRole('visionary')">
+                  <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-500 mr-4">
+                      <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Visionary</h3>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-400">Shape the strategic direction of our movement</p>
+                  <div class="mt-4">
+                    <span class="inline-block bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 text-xs px-2 py-1 rounded">Strategy</span>
+                    <span class="inline-block bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 text-xs px-2 py-1 rounded">Leadership</span>
+                    <span class="inline-block bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 text-xs px-2 py-1 rounded">Innovation</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Selected Role Details -->
+              <div id="roleDetails" class="hidden mb-8">
+                <h3 class="text-xl font-bold mb-4">Your Selected Role: <span id="selectedRoleName" class="gold-gradient-text"></span></h3>
+                
+                <div class="mb-6">
+                  <label for="roleExperience" class="block text-sm font-medium mb-2">Years of Experience</label>
+                  <select id="roleExperience" name="roleExperience" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                    <option value="0">Just starting</option>
+                    <option value="1">1 year</option>
+                    <option value="2">2 years</option>
+                    <option value="3">3 years</option>
+                    <option value="5">5+ years</option>
+                  </select>
+                </div>
+                
+                <div class="mb-6">
+                  <label class="block text-sm font-medium mb-2">Skill Level</label>
+                  <div class="space-y-4">
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span id="skill1Label">HTML/CSS</span>
+                        <span id="skill1Value">50%</span>
+                      </div>
+                      <div class="skill-meter">
+                        <div class="skill-level" id="skill1Level" style="width: 50%"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span id="skill2Label">JavaScript</span>
+                        <span id="skill2Value">30%</span>
+                      </div>
+                      <div class="skill-meter">
+                        <div class="skill-level" id="skill2Level" style="width: 30%"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span id="skill3Label">Python</span>
+                        <span id="skill3Value">20%</span>
+                      </div>
+                      <div class="skill-meter">
+                        <div class="skill-level" id="skill3Level" style="width: 20%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label for="roleGoals" class="block text-sm font-medium mb-2">What do you hope to achieve with 5IRE? *</label>
+                  <textarea id="roleGoals" name="roleGoals" rows="3" required
+                            placeholder="Describe your goals and how you want to grow..."
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition"></textarea>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-700 px-8 py-6 flex justify-between">
+              <button type="button" onclick="prevStep(1)" class="px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Back
+              </button>
+              <button type="button" id="nextStep2" onclick="nextStep(3)" class="px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold hover:shadow-lg transition flex items-center justify-center gap-2" disabled>
+                Next: Commitment <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 3: Commitment & Availability -->
+        <section id="form-step-3" class="form-step hidden">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-8">
+              <h2 class="text-3xl font-bold mb-2 text-center gold-gradient-text">Your Commitment</h2>
+              <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Help us understand your availability and preferences</p>
+              
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium mb-4">Weekly Time Commitment *</label>
+                    <div class="space-y-3">
+                      <div class="flex items-center">
+                        <input type="radio" id="time5" name="timeCommitment" value="5-10 hours (Casual Contributor)" class="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600" required>
+                        <label for="time5" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">5-10 hours (Casual Contributor)</label>
+                      </div>
+                      <div class="flex items-center">
+                        <input type="radio" id="time10" name="timeCommitment" value="10-20 hours (Active Member)" class="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600">
+                        <label for="time10" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">10-20 hours (Active Member)</label>
+                      </div>
+                      <div class="flex items-center">
+                        <input type="radio" id="time20" name="timeCommitment" value="20+ hours (Core Team)" class="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600">
+                        <label for="time20" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">20+ hours (Core Team)</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label for="availability" class="block text-sm font-medium mb-2">Best Time to Reach You *</label>
+                    <select id="availability" name="availability" required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                      <option value="" disabled selected>Select preferred time</option>
+                      <option value="Mornings (8AM - 12PM)">Mornings (8AM - 12PM)</option>
+                      <option value="Afternoons (12PM - 5PM)">Afternoons (12PM - 5PM)</option>
+                      <option value="Evenings (5PM - 9PM)">Evenings (5PM - 9PM)</option>
+                      <option value="Weekends">Weekends</option>
+                      <option value="Flexible - Any time">Flexible - Any time</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium mb-4">Preferred Learning Style *</label>
+                    <div class="space-y-3">
+                      <div class="flex items-center">
+                        <input type="radio" id="learnSelf" name="learningStyle" value="Self-paced learning" class="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600" required>
+                        <label for="learnSelf" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">Self-paced learning</label>
+                      </div>
+                      <div class="flex items-center">
+                        <input type="radio" id="learnGroup" name="learningStyle" value="Group/cohort learning" class="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600">
+                        <label for="learnGroup" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">Group/cohort learning</label>
+                      </div>
+                      <div class="flex items-center">
+                        <input type="radio" id="learnMentor" name="learningStyle" value="1:1 mentorship" class="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600">
+                        <label for="learnMentor" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">1:1 mentorship</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <label for="referral" class="block text-sm font-medium mb-2">How did you hear about us?</label>
+                    <select id="referral" name="referral" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                      <option value="" selected>Select an option</option>
+                      <option value="Friend/Colleague">Friend/Colleague</option>
+                      <option value="Social Media">Social Media</option>
+                      <option value="Event/Conference">Event/Conference</option>
+                      <option value="Online Search">Online Search</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-6">
+                <label for="socialLinks" class="block text-sm font-medium mb-2">Social Media/Portfolio Links</label>
+                <div class="space-y-3">
+                  <div class="flex">
+                    <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+                      <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                    </span>
+                    <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourname"
+                           class="flex-1 min-w-0 block w-full px-3 py-2 rounded-r-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                  </div>
+                  <div class="flex">
+                    <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+                      <i class="fab fa-github mr-2"></i> GitHub
+                    </span>
+                    <input type="url" id="github" name="github" placeholder="https://github.com/yourusername"
+                           class="flex-1 min-w-0 block w-full px-3 py-2 rounded-r-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                  </div>
+                  <div class="flex">
+                    <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+                      <i class="fas fa-globe mr-2"></i> Portfolio
+                    </span>
+                    <input type="url" id="portfolio" name="portfolio" placeholder="https://yourwebsite.com"
+                           class="flex-1 min-w-0 block w-full px-3 py-2 rounded-r-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition">
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <label for="additionalInfo" class="block text-sm font-medium mb-2">Anything else we should know?</label>
+                <textarea id="additionalInfo" name="additionalInfo" rows="3"
+                          placeholder="Special skills, past projects, or specific requests..."
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 form-focus transition"></textarea>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-700 px-8 py-6 flex justify-between">
+              <button type="button" onclick="prevStep(2)" class="px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Back
+              </button>
+              <button type="button" onclick="nextStep(4)" class="px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold hover:shadow-lg transition flex items-center justify-center gap-2">
+                Next: Review <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 4: Review & Submit -->
+        <section id="form-step-4" class="form-step hidden">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-8">
+              <h2 class="text-3xl font-bold mb-2 text-center gold-gradient-text">Review Your Application</h2>
+              <p class="text-center text-gray-600 dark:text-gray-300 mb-8">Confirm your details before submitting</p>
+              
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- Personal Info Review -->
+                <div>
+                  <h3 class="text-xl font-bold mb-4 border-b pb-2">Personal Information</h3>
+                  <div class="space-y-4">
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Full Name</p>
+                      <p id="reviewName" class="font-medium"></p>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                      <p id="reviewEmail" class="font-medium"></p>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                      <p id="reviewPhone" class="font-medium"></p>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Institution</p>
+                      <p id="reviewInstitution" class="font-medium"></p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Role & Skills Review -->
+                <div>
+                  <h3 class="text-xl font-bold mb-4 border-b pb-2">Role & Skills</h3>
+                  <div class="space-y-4">
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Selected Role</p>
+                      <p id="reviewRole" class="font-medium"></p>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Experience</p>
+                      <p id="reviewExperience" class="font-medium"></p>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Top Skills</p>
+                      <div id="reviewSkills" class="flex flex-wrap gap-2"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Commitment Review -->
+              <div class="mb-8">
+                <h3 class="text-xl font-bold mb-4 border-b pb-2">Commitment</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                  <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Time Commitment</p>
+                    <p id="reviewTime" class="font-medium"></p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Availability</p>
+                    <p id="reviewAvailability" class="font-medium"></p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Learning Style</p>
+                    <p id="reviewLearning" class="font-medium"></p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Final Agreement -->
+              <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div class="flex items-start">
+                  <input type="checkbox" id="agreement" name="agreement" required 
+                         class="h-4 w-4 mt-1 text-green-500 focus:ring-green-500 border-gray-300 dark:border-gray-600 rounded">
+                  <label for="agreement" class="ml-3 block text-sm">
+                    I confirm that all information provided is accurate and I agree to the 
+                    <a href="#" class="text-green-600 dark:text-green-400 hover:underline">5IRE Community Guidelines</a>. 
+                    I understand this is a volunteer position and commit to contributing my best efforts to the movement.
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-700 px-8 py-6 flex justify-between">
+              <button type="button" onclick="prevStep(3)" class="px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Back
+              </button>
+              <button type="button" id="submitBtn" onclick="submitForm()" class="px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold hover:shadow-lg transition flex items-center justify-center gap-2">
+                <span id="submitText">Submit Application</span>
+                <span id="submitSpinner" class="loading-spinner hidden"></span>
+              </button>
+            </div>
+          </div>
+        </section>
+        <!-- ... -->
+      </div>
+    </main>
+
+    <!-- Home Button - Add to your education page template -->
+<a href="../index.html" class="fixed bottom-6 left-6 z-40">
+  <button class="flex items-center space-x-2 bg-white border-2 border-[#1e3a8a] text-[#1e3a8a] font-bold py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 hover:bg-[#1e3a8a]/10">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+    <span>Home Portal</span>
+  </button>
+</a>
+
+    <!-- Footer remains the same -->
+     <footer class="py-8 px-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center mb-4 md:mb-0">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center text-white mr-3">
+              <i class="fas fa-fire"></i>
+            </div>
+            <span class="font-bold">5IRE Movement</span>
+          </div>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+        <div class="mt-6 text-center md:text-left text-sm text-gray-500 dark:text-gray-400">
+          © 2025 5IRE Movement. All rights reserved. "From Students, For Civilization"
+        </div>
+      </div>
+    </footer>
+    <!-- ... -->
+  </div>
+
+  <script>
+    // Previous JavaScript functions remain the same until submitForm()
+        // Form Navigation
+    function nextStep(step) {
+      document.querySelector(`#form-step-${step-1}`).classList.add('hidden');
+      document.querySelector(`#form-step-${step}`).classList.remove('hidden');
+      document.querySelector(`#step${step-1}`).classList.remove('active');
+      document.querySelector(`#step${step-1}`).classList.add('completed');
+      document.querySelector(`#step${step}`).classList.add('active');
+      
+      if (step === 4) {
+        updateReview();
+      }
+    }
+    
+    function prevStep(step) {
+      document.querySelector(`#form-step-${step+1}`).classList.add('hidden');
+      document.querySelector(`#form-step-${step}`).classList.remove('hidden');
+      document.querySelector(`#step${step+1}`).classList.remove('active');
+      document.querySelector(`#step${step}`).classList.add('active');
+    }
+    
+    // Avatar Upload
+    document.getElementById('avatarUpload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('avatarPreview').style.backgroundImage = `url('${event.target.result}')`;
+          // Store the base64 image for submission
+          document.getElementById('formAvatar').value = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Role Selection
+    let selectedRole = null;
+    
+    function selectRole(role) {
+      selectedRole = role;
+      document.querySelectorAll('.role-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      event.currentTarget.classList.add('selected');
+      
+      document.getElementById('roleDetails').classList.remove('hidden');
+      document.getElementById('nextStep2').disabled = false;
+      
+      // Update role-specific fields
+      const roleNameMap = {
+        'developer': 'Developer',
+        'designer': 'Designer',
+        'educator': 'Educator',
+        'visionary': 'Visionary'
+      };
+      
+      const skillMap = {
+        'developer': ['HTML/CSS', 'JavaScript', 'Python'],
+        'designer': ['UI Design', 'UX Research', 'Prototyping'],
+        'educator': ['Teaching', 'Curriculum', 'Mentorship'],
+        'visionary': ['Strategy', 'Leadership', 'Innovation']
+      };
+      
+      document.getElementById('selectedRoleName').textContent = roleNameMap[role];
+      
+      // Update skill labels
+      const skills = skillMap[role];
+      document.getElementById('skill1Label').textContent = skills[0];
+      document.getElementById('skill2Label').textContent = skills[1];
+      document.getElementById('skill3Label').textContent = skills[2];
+    }
+    
+    // Skill Level Adjustment
+    document.querySelectorAll('.skill-level').forEach(skill => {
+      skill.addEventListener('click', function(e) {
+        const rect = this.parentElement.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        const percent = Math.round(pos * 100);
+        this.style.width = `${percent}%`;
+        
+        // Update the displayed percentage
+        const valueId = this.id.replace('Level', 'Value');
+        document.getElementById(valueId).textContent = `${percent}%`;
+      });
+    });
+    
+    // Update Review Section
+    function updateReview() {
+      // Personal Info
+      document.getElementById('reviewName').textContent = document.getElementById('fullName').value;
+      document.getElementById('reviewEmail').textContent = document.getElementById('email').value;
+      document.getElementById('reviewPhone').textContent = 
+        `${document.getElementById('countryCode').value} ${document.getElementById('phone').value}`;
+      document.getElementById('reviewInstitution').textContent = 
+        document.getElementById('institution').value || 'Not specified';
+      
+      // Role & Skills
+      if (selectedRole) {
+        const roleNameMap = {
+          'developer': 'Developer',
+          'designer': 'Designer',
+          'educator': 'Educator',
+          'visionary': 'Visionary'
+        };
+        
+        document.getElementById('reviewRole').textContent = roleNameMap[selectedRole];
+        document.getElementById('reviewExperience').textContent = 
+          `${document.getElementById('roleExperience').value} years`;
+        
+        const skillsContainer = document.getElementById('reviewSkills');
+        skillsContainer.innerHTML = '';
+        
+        const skill1 = document.getElementById('skill1Label').textContent;
+        const skill1Value = document.getElementById('skill1Value').textContent;
+        const skill2 = document.getElementById('skill2Label').textContent;
+        const skill2Value = document.getElementById('skill2Value').textContent;
+        const skill3 = document.getElementById('skill3Label').textContent;
+        const skill3Value = document.getElementById('skill3Value').textContent;
+        
+        [skill1, skill2, skill3].forEach((skill, index) => {
+          const value = [skill1Value, skill2Value, skill3Value][index];
+          const span = document.createElement('span');
+          span.className = 'inline-block bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded';
+          span.textContent = `${skill} (${value})`;
+          skillsContainer.appendChild(span);
+        });
+      }
+      
+      // Commitment
+      const timeCommitment = document.querySelector('input[name="timeCommitment"]:checked');
+      document.getElementById('reviewTime').textContent = 
+        timeCommitment ? 
+        timeCommitment.value : 'Not specified';
+      
+      document.getElementById('reviewAvailability').textContent = 
+        document.getElementById('availability').value ?
+        document.getElementById('availability').options[document.getElementById('availability').selectedIndex].text : 'Not specified';
+      
+      const learningStyle = document.querySelector('input[name="learningStyle"]:checked');
+      document.getElementById('reviewLearning').textContent = 
+        learningStyle ? 
+        learningStyle.value : 'Not specified';
+    }
+    
+    // Close modal function
+    function closeModal() {
+      document.getElementById('successModal').classList.add('hidden');
+      // Redirect to home page after successful submission
+      window.location.href = './index.html';
+    }
+    
+    function closeErrorModal() {
+      document.getElementById('errorModal').classList.add('hidden');
+    }
+    // ...
+
+    async function submitForm() {
+      // Validate agreement checkbox
+      if (!document.getElementById('agreement').checked) {
+        showError('You must agree to the terms before submitting.');
+        return;
+      }
+
+      // Show loading state
+      const submitBtn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+      const submitSpinner = document.getElementById('submitSpinner');
+      
+      submitText.classList.add('hidden');
+      submitSpinner.classList.remove('hidden');
+      submitBtn.disabled = true;
+
+      try {
+        // Populate hidden form fields
+        populateFormData();
+
+        // Submit the form to Formspree
+        const form = document.getElementById('partnerForm');
+        const formData = new FormData(form);
+
+        // Convert FormData to URL-encoded string
+        const urlEncodedData = new URLSearchParams(formData).toString();
+
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: urlEncodedData,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // Show success modal
+          document.getElementById('successModal').classList.remove('hidden');
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Form submission failed');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        showError(error.message || 'There was an error submitting your form. Please try again later.');
+      } finally {
+        // Reset loading state
+        submitText.classList.remove('hidden');
+        submitSpinner.classList.add('hidden');
+        submitBtn.disabled = false;
+      }
+    }
+
+    function populateFormData() {
+      // Personal Info
+      document.getElementById('formFullName').value = document.getElementById('fullName').value;
+      document.getElementById('formEmail').value = document.getElementById('email').value;
+      document.getElementById('formPhone').value = `${document.getElementById('countryCode').value} ${document.getElementById('phone').value}`;
+      document.getElementById('formInstitution').value = document.getElementById('institution').value;
+      document.getElementById('formBio').value = document.getElementById('bio').value;
+
+      // Role & Skills
+      if (selectedRole) {
+        const roleNameMap = {
+          'developer': 'Developer',
+          'designer': 'Designer',
+          'educator': 'Educator',
+          'visionary': 'Visionary'
+        };
+        document.getElementById('formRole').value = roleNameMap[selectedRole];
+      }
+      
+      document.getElementById('formExperience').value = document.getElementById('roleExperience').value;
+      
+      // Skills data
+      const skill1 = document.getElementById('skill1Label').textContent;
+      const skill1Value = document.getElementById('skill1Value').textContent;
+      const skill2 = document.getElementById('skill2Label').textContent;
+      const skill2Value = document.getElementById('skill2Value').textContent;
+      const skill3 = document.getElementById('skill3Label').textContent;
+      const skill3Value = document.getElementById('skill3Value').textContent;
+      
+      document.getElementById('formSkills').value = `${skill1} (${skill1Value}), ${skill2} (${skill2Value}), ${skill3} (${skill3Value})`;
+      document.getElementById('formGoals').value = document.getElementById('roleGoals').value;
+      
+      // Commitment
+      const timeCommitment = document.querySelector('input[name="timeCommitment"]:checked');
+      document.getElementById('formTimeCommitment').value = timeCommitment ? timeCommitment.value : '';
+      
+      document.getElementById('formAvailability').value = document.getElementById('availability').value ?
+        document.getElementById('availability').options[document.getElementById('availability').selectedIndex].text : '';
+      
+      const learningStyle = document.querySelector('input[name="learningStyle"]:checked');
+      document.getElementById('formLearningStyle').value = learningStyle ? learningStyle.value : '';
+      
+      // Social & Additional Info
+      document.getElementById('formLinkedin').value = document.getElementById('linkedin').value;
+      document.getElementById('formGithub').value = document.getElementById('github').value;
+      document.getElementById('formPortfolio').value = document.getElementById('portfolio').value;
+      document.getElementById('formAdditionalInfo').value = document.getElementById('additionalInfo').value;
+      document.getElementById('formReferral').value = document.getElementById('referral').value;
+    }
+
+    function showError(message) {
+      document.getElementById('errorMessage').textContent = message;
+      document.getElementById('errorModal').classList.remove('hidden');
+    }
+
+    function closeErrorModal() {
+      document.getElementById('errorModal').classList.add('hidden');
+    }
+
+    // Initialize form
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('step1').classList.add('active');
+      
+      // Replace with your actual Formspree form ID
+      const form = document.getElementById('partnerForm');
+      form.action = `https://formspree.io/f/mgvzwyjj`;
+      
+      // Test Formspree endpoint (remove in production)
+      console.log('Form will submit to:', form.action);
+    });
+     // NAV
+         // Mobile menu functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const backdrop = document.getElementById('backdrop');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const body = document.body;
+
+        // Toggle menu function
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            backdrop.classList.toggle('open');
+            body.classList.toggle('menu-open');
+            
+            // Change icon
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', toggleMenu);
+        backdrop.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking on links
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+
+        // Your existing particle effect code
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroSection = document.querySelector('.hero-gradient');
+            if (heroSection) {
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random properties
+                    const size = Math.random() * 5 + 2;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const opacity = Math.random() * 0.5 + 0.1;
+                    const animationDuration = Math.random() * 20 + 10;
+                    const animationDelay = Math.random() * 5;
+                    
+                    // Apply styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.opacity = opacity;
+                    particle.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
+                    
+                    // Add to hero section
+                    heroSection.appendChild(particle);
+                }
+            }
+        });
+        // Floating particles effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroSection = document.querySelector('.hero-gradient');
+            if (heroSection) {
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Random properties
+                    const size = Math.random() * 5 + 2;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const opacity = Math.random() * 0.5 + 0.1;
+                    const animationDuration = Math.random() * 20 + 10;
+                    const animationDelay = Math.random() * 5;
+                    
+                    // Apply styles
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.opacity = opacity;
+                    particle.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
+                    
+                    // Add to hero section
+                    heroSection.appendChild(particle);
+                }
+            }
+        });
+  
+  </script>
+</body>
+</html>
